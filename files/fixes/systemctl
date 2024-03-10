@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$1" == "reboot" ]; then
+  /sbin/reboot
+elif [ "$1" == "poweroff" ]; then
+  /sbin/poweroff
+fi
