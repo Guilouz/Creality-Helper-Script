@@ -53,9 +53,15 @@ function install_guppy_screen(){
         if [ ! -d "$HS_BACKUP_FOLDER"/guppyscreen ]; then
           echo -e "Info: Backing up original file..."
           mkdir -p "$HS_BACKUP_FOLDER"/guppyscreen
-          mv "$INITD_FOLDER"/S12boot_display "$HS_BACKUP_FOLDER"/guppyscreen
-          cp "$INITD_FOLDER"/S50dropbear "$HS_BACKUP_FOLDER"/guppyscreen
-          cp "$INITD_FOLDER"/S99start_app "$HS_BACKUP_FOLDER"/guppyscreen
+          if [ -f "$INITD_FOLDER"/S12boot_display ]; then
+            mv "$INITD_FOLDER"/S12boot_display "$HS_BACKUP_FOLDER"/guppyscreen
+          fi
+          if [ -f "$INITD_FOLDER"/S50dropbear ]; then
+            cp "$INITD_FOLDER"/S50dropbear "$HS_BACKUP_FOLDER"/guppyscreen
+          fi
+          if [ -f "$INITD_FOLDER"/S99start_app ]; then
+            cp "$INITD_FOLDER"/S99start_app "$HS_BACKUP_FOLDER"/guppyscreen
+          fi
         fi
         if [ ! -f "$HS_BACKUP_FOLDER"/guppyscreen/ft2font.cpython-38-mipsel-linux-gnu.so ]; then
           mv /usr/lib/python3.8/site-packages/matplotlib/ft2font.cpython-38-mipsel-linux-gnu.so "$HS_BACKUP_FOLDER"/guppyscreen
@@ -72,7 +78,9 @@ function install_guppy_screen(){
               Y|y)
                 echo -e "${white}"
                 echo -e "Info: Disabling Creality services..."
-                rm -f "$INITD_FOLDER"/S99start_app
+                if [ -f "$INITD_FOLDER"/S99start_app ]; then
+                  rm -f "$INITD_FOLDER"/S99start_app
+                fi
                 set +e
                 killall -q master-server
                 killall -q audio-server
@@ -168,9 +176,15 @@ function remove_guppy_screen(){
         echo -e "${white}"
         echo -e "Info: Restoring backup files..."
         if [ -d "$HS_BACKUP_FOLDER"/guppyscreen ]; then
-          cp "$HS_BACKUP_FOLDER"/guppyscreen/S12boot_display "$INITD_FOLDER"/S12boot_display
-          cp "$HS_BACKUP_FOLDER"/guppyscreen/S50dropbear "$INITD_FOLDER"/S50dropbear
-          cp "$HS_BACKUP_FOLDER"/guppyscreen/S99start_app "$INITD_FOLDER"/S99start_app
+          if [ -f "$HS_BACKUP_FOLDER"/guppyscreen/S12boot_display ]; then
+            cp "$HS_BACKUP_FOLDER"/guppyscreen/S12boot_display "$INITD_FOLDER"/S12boot_display
+          fi
+          if [ -f "$HS_BACKUP_FOLDER"/guppyscreen/S50dropbear ]; then
+            cp "$HS_BACKUP_FOLDER"/guppyscreen/S50dropbear "$INITD_FOLDER"/S50dropbear
+          fi
+          if [ -f "$HS_BACKUP_FOLDER"/guppyscreen/S99start_app ]; then
+            cp "$HS_BACKUP_FOLDER"/guppyscreen/S99start_app "$INITD_FOLDER"/S99start_app
+          fi
           rm -rf "$HS_BACKUP_FOLDER"/guppyscreen
         fi
         if [ ! -n "$(ls -A "$HS_BACKUP_FOLDER")" ]; then
