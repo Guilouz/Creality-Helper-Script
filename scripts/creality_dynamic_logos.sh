@@ -28,6 +28,7 @@ function install_creality_dynamic_logos(){
         cp "$FLUIDD_LOGO_URL3" "$FLUIDD_FOLDER"/config.json
         ok_msg "Creality Dynamic Logos for Fluidd have been installed successfully!"
         echo -e "   You can now select ${yellow}Creality V1 ${white}or ${yellow}Creality V2 ${white}theme in Fluidd settings."
+        echo -e "   Note: In some cases, it's necessary to clear your web browser's cache to see themes appear."
         return;;
       N|n)
         error_msg "Installation canceled!"
