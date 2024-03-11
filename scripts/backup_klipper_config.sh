@@ -58,7 +58,9 @@ function restore_klipper_config_files(){
       Y|y)
         echo -e "${white}"
         cd "$PRINTER_DATA_FOLDER"
-        mv config/backup_config.tar.gz backup_config.tar.gz
+        if [ -f config/backup_config.tar.gz ]; then
+          mv config/backup_config.tar.gz backup_config.tar.gz
+        fi
         if [ -d config ]; then
           rm -rf config
         fi

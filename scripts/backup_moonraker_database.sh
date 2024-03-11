@@ -58,7 +58,9 @@ function restore_moonraker_database(){
       Y|y)
         echo -e "${white}"
         cd "$PRINTER_DATA_FOLDER"
-        mv config/backup_database.tar.gz backup_database.tar.gz
+        if [ -f config/backup_database.tar.gz ]; then
+          mv config/backup_database.tar.gz backup_database.tar.gz
+        fi
         if [ -d database ]; then
           rm -rf database
         fi
