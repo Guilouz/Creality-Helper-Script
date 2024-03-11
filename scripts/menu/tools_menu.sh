@@ -11,18 +11,21 @@ function tools_menu_ui() {
   menu_option ' 2' 'Allow updating' 'Klipper configuration files'
   menu_option ' 3' 'Fix' 'printing Gcode files from folder'
   hr
-  menu_option ' 4' 'Restart' 'Nginx service'
-  menu_option ' 5' 'Restart' 'Moonraker service'
-  menu_option ' 6' 'Restart' 'Klipper service'
+  menu_option ' 4' 'Enable' 'camera settings in Moonraker'
+  menu_option ' 5' 'Disable' 'camera settings in Moonraker'
   hr
-  menu_option ' 7' 'Update' 'Entware packages'
+  menu_option ' 6' 'Restart' 'Nginx service'
+  menu_option ' 7' 'Restart' 'Moonraker service'
+  menu_option ' 8' 'Restart' 'Klipper service'
   hr
-  menu_option ' 8' 'Clear' 'cache'
-  menu_option ' 9' 'Clear' 'logs files'
+  menu_option ' 9' 'Update' 'Entware packages'
   hr
-  menu_option '10' 'Restore' 'a previous firmware'
+  menu_option '10' 'Clear' 'cache'
+  menu_option '11' 'Clear' 'logs files'
   hr
-  menu_option '11' 'Reset' 'factory settings'
+  menu_option '12' 'Restore' 'a previous firmware'
+  hr
+  menu_option '13' 'Reset' 'factory settings'
   hr
   inner_line
   hr
@@ -57,36 +60,48 @@ function tools_menu() {
           run "printing_gcode_from_folder" "tools_menu_ui"
         fi;;
       4)
+        if grep -q "^\[webcam Camera\]$" "$MOONRAKER_CFG"; then
+          error_msg "Camera settings are alredy enabled in Moonraker!"
+        else
+          run "enable_camera_settings" "tools_menu_ui"
+        fi;;
+      5)
+        if grep -q "^#\[webcam Camera\]" "$MOONRAKER_CFG"; then
+          error_msg "Camera settings are alredy disabled in Moonraker!"
+        else
+          run "disable_camera_settings" "tools_menu_ui"
+        fi;;
+      6)
         if [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Nginx is not installed!"
         else
           run "restart_nginx_action" "tools_menu_ui"
         fi;;
-      5)
+      7)
         if [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker is not installed!"
         else
           run "restart_moonraker_action" "tools_menu_ui"
         fi;;
-      6)
+      8)
         if [ ! -f "$INITD_FOLDER"/S55klipper_service ]; then
           error_msg "Klipper service is not present!"
         else
           run "restart_klipper_action" "tools_menu_ui"
         fi;;
-      7)
+      9)
         if [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is not installed!"
         else
           run "update_entware_packages" "tools_menu_ui"
         fi;;
-      8)
-        run "clear_cache" "tools_menu_ui";;
-      9)
-        run "clear_logs" "tools_menu_ui";;
       10)
-        run "restore_previous_firmware" "tools_menu_ui";;
+        run "clear_cache" "tools_menu_ui";;
       11)
+        run "clear_logs" "tools_menu_ui";;
+      12)
+        run "restore_previous_firmware" "tools_menu_ui";;
+      13)
         run "reset_factory_settings" "tools_menu_ui";;
       B|b)
         clear; main_menu; break;;

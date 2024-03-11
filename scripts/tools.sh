@@ -36,6 +36,28 @@ function printing_gcode_from_folder_message(){
   bottom_line
 }
 
+function enable_camera_settings_message(){
+  top_line
+  title 'Enable camera settings in Moonraker' "${yellow}"
+  inner_line
+  hr
+  echo -e " │ ${cyan}This allows to enable camera settings in Moonraker for       ${white}│"
+  echo -e " │ ${cyan}Fluidd and Mainsail Web interfaces.                          ${white}│"
+  hr
+  bottom_line
+}
+
+function disable_camera_settings_message(){
+  top_line
+  title 'Disable camera settings in Moonraker' "${yellow}"
+  inner_line
+  hr
+  echo -e " │ ${cyan}This allows to disable camera settings in Moonraker for      ${white}│"
+  echo -e " │ ${cyan}Fluidd and Mainsail Web interfaces.                          ${white}│"
+  hr
+  bottom_line
+}
+
 function restore_previous_firmware_message(){
   top_line
   title 'Restore a previous firmware' "${yellow}"
@@ -142,6 +164,71 @@ function printing_gcode_from_folder(){
         return;;
       N|n)
         error_msg "Installation canceled!"
+        return;;
+      *)
+        error_msg "Please select a correct choice!";;
+    esac
+  done
+}
+
+function enable_camera_settings(){
+  enable_camera_settings_message
+  local yn
+  while true; do
+    read -p "${white} Do you want to enable ${green}camera settings in Moonraker ${white}? (${yellow}y${white}/${yellow}n${white}): ${yellow}" yn
+    case "${yn}" in
+      Y|y)
+        echo -e "${white}"
+        if grep -q "#\[webcam Camera\]" "$MOONRAKER_CFG" ; then
+          echo -e "Info: Enabling camera settings in moonraker.conf file..."
+          sed -i -e 's/^\s*#[[:space:]]*\[webcam Camera\]/[webcam Camera]/' -e '/^\[webcam Camera\]/,/^\s*$/ s/^\(\s*\)#/\1/' "$MOONRAKER_CFG"
+        else
+          echo -e "Info: Camera settings are already enabled in moonraker.conf file..."        
+        fi
+        local ip_address=$(check_ipaddress)
+        if grep -q "stream_url: http://xxx.xxx.xxx.xxx:8080/?action=stream" "$MOONRAKER_CFG"; then
+          echo -e "Info: Replacing stream_url IP address..."
+          sed -i "s|http://xxx.xxx.xxx.xxx:|http://$ip_address:|g" "$MOONRAKER_CFG"
+        fi
+        if grep -q "snapshot_url: http://xxx.xxx.xxx.xxx:8080/?action=snapshot" "$MOONRAKER_CFG"; then
+          echo -e "Info: Replacing snapshot_url IP address..."
+          sed -i "s|http://xxx.xxx.xxx.xxx:|http://$ip_address:|g" "$MOONRAKER_CFG"
+        fi
+        echo -e "Info: Restarting Moonraker service..."
+        stop_moonraker
+        start_moonraker
+        ok_msg "Camera settings have been enabled in Moonraker successfully!"
+        return;;
+      N|n)
+        error_msg "Activation canceled!"
+        return;;
+      *)
+        error_msg "Please select a correct choice!";;
+    esac
+  done
+}
+
+function disable_camera_settings(){
+  disable_camera_settings_message
+  local yn
+  while true; do
+    read -p "${white} Do you want to disable ${green}camera settings in Moonraker ${white}? (${yellow}y${white}/${yellow}n${white}): ${yellow}" yn
+    case "${yn}" in
+      Y|y)
+        echo -e "${white}"
+        if grep -q "\[webcam Camera\]" "$MOONRAKER_CFG" ; then
+          echo -e "Info: Disabling camera settings in moonraker.conf file..."
+          sed -i '/^\[webcam Camera\]/,/^\s*$/ s/^\(\s*\)\([^#]\)/#\1\2/' "$MOONRAKER_CFG"
+        else
+          echo -e "Info: Camera settings are already disabled in moonraker.conf file..."
+        fi
+        echo -e "Info: Restarting Moonraker service..."
+        stop_moonraker
+        start_moonraker
+        ok_msg "Camera settings have been disabled in Moonraker successfully!"
+        return;;
+      N|n)
+        error_msg "Deactivation canceled!"
         return;;
       *)
         error_msg "Please select a correct choice!";;
