@@ -63,6 +63,8 @@ function customize_menu() {
       4)
         if [ -f "$CREALITY_WEB_FILE" ]; then
           error_msg "Creality Web Interface is already present!"
+        elif [ ! "$INITD_FOLDER"/S99start_app ]: then
+          error_msg "Guppy Screen need to be removed first to restore Creality Web Interface!"
         else
           run "restore_creality_web_interface" "customize_menu_ui"
         fi;;
