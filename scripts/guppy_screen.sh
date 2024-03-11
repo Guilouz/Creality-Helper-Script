@@ -134,10 +134,10 @@ function install_guppy_screen(){
         restart_klipper
         echo -e "Info: Disabling services..."
         if [ -f /usr/bin/Monitor ]; then
-          mv /usr/bin/Monitor /usr/bin/Monitor.disable
+          mv /usr/bin/Monitor /usr/bin/Monitor.disabled
         fi
         if [ -f /usr/bin/display-server ]; then
-          mv /usr/bin/display-server /usr/bin/display-server.disable
+          mv /usr/bin/display-server /usr/bin/display-server.disabled
         fi
         set +e
         killall -q Monitor
@@ -219,11 +219,11 @@ function remove_guppy_screen(){
         echo -e "Info: Restarting Klipper service..."
         restart_klipper
         echo -e "Info: Restoring services..."
-        if [ -f /usr/bin/Monitor.disable ]; then
-          mv /usr/bin/Monitor.disable /usr/bin/Monitor
+        if [ -f /usr/bin/Monitor.disabled ]; then
+          mv /usr/bin/Monitor.disabled /usr/bin/Monitor
         fi
-        if [ -f /usr/bin/display-server.disable ]; then
-          mv /usr/bin/display-server.disable /usr/bin/display-server
+        if [ -f /usr/bin/display-server.disabled ]; then
+          mv /usr/bin/display-server.disabled /usr/bin/display-server
         fi
         echo -e "Info: Restarting Creality services..."
         set +e
