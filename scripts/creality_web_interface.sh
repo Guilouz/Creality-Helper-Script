@@ -43,7 +43,6 @@ function remove_creality_web_interface(){
         killall -q Monitor
         killall -q web-server
         set -e
-        echo
         if [ -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
           sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
@@ -51,7 +50,7 @@ function remove_creality_web_interface(){
           restart_nginx
           ok_msg "Creality Web Interface has been removed successfully!"
           echo -e " ${white}You can now connect to Fluidd Web Interface with ${yellow}http://$(check_ipaddress)${white}"
-        elif [ ! -d "$FLUIDD_FOLDER" ] && [ -d "$FLUIDD_FOLDER" ]; then
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
           sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
           echo -e "Info: Restarting Nginx service..."
@@ -61,6 +60,7 @@ function remove_creality_web_interface(){
         elif [ -d "$FLUIDD_FOLDER" ] && [ -d "$FLUIDD_FOLDER" ]; then
           local interface_choice
           while true; do
+            echo
             read -p " ${white}Which Web Interface do you want to set as default (on port 80)? (${yellow}fluidd${white}/${yellow}mainsail${white}): ${yellow}" interface_choice
             case "${interface_choice}" in
               FLUIDD|fluidd)
