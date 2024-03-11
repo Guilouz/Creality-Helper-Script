@@ -119,10 +119,10 @@ function restore_creality_web_interface(){
         killall -q Monitor
         killall -q web-server
         set -e
-        if [ -f /usr/bin/web-server.disabled ] && [ -f "$INITD_FOLDER"/S99start_app ]; then
+        if [ -f /usr/bin/web-server ] && [ -f "$INITD_FOLDER"/S99start_app ]; then
           /usr/bin/web-server > /dev/null 2>&1 &
         fi
-        if [ -f /usr/bin/Monitor.disabled ] && [ ! -d "$GUPPY_SCREEN_FOLDER" ]; then
+        if [ -f /usr/bin/Monitor ] && [ ! -d "$GUPPY_SCREEN_FOLDER" ]; then
           /usr/bin/Monitor > /dev/null 2>&1 &
         fi
         ok_msg "Creality Web Interface has been restored successfully!"
