@@ -57,7 +57,7 @@ function remove_creality_web_interface(){
           restart_nginx
           ok_msg "Creality Web Interface has been removed successfully!"
           echo -e " ${white}You can now connect to Mainsail Web Interface with ${yellow}http://$(check_ipaddress)${white}"
-        elif [ -d "$FLUIDD_FOLDER" ] && [ -d "$FLUIDD_FOLDER" ]; then
+        elif [ -d "$FLUIDD_FOLDER" ] && [ -d "$MAINSAIL_FOLDER" ]; then
           local interface_choice
           while true; do
             echo
