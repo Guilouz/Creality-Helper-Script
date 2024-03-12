@@ -32,7 +32,7 @@ function install_git_backup(){
         chmod 755 "$GIT_BACKUP_INSTALLER"
         sh "$GIT_BACKUP_INSTALLER" -i
         echo -e "Info: Linking file..."
-        ln -sf "$GIT_BACKUP_URL"/git-backup.cfg "$HS_CONFIG_FOLDER"/git-backup.cfg
+        ln -sf "$GIT_BACKUP_URL" "$HS_CONFIG_FOLDER"/git-backup.cfg
         if grep -q "include Helper-Script/git-backup" "$PRINTER_CFG" ; then
           echo -e "Info: Git Backup configurations are already enabled in printer.cfg file..."
         else
