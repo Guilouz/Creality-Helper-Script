@@ -57,7 +57,7 @@ function remove_camera_settings_control(){
       Y|y)
         echo -e "${white}"
         echo -e "Info: Removing file..."
-        "$HS_CONFIG_FOLDER"/camera-settings.cfg
+        rm -f "$HS_CONFIG_FOLDER"/camera-settings.cfg
         if grep -q "include Helper-Script/camera-settings" "$PRINTER_CFG" ; then
           echo -e "Info: Removing Camera Settings configurations in printer.cfg file..."
           sed -i '/include Helper-Script\/camera-settings\.cfg/d' "$PRINTER_CFG"
