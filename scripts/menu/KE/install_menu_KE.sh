@@ -29,6 +29,7 @@ function install_menu_ui_ke() {
   menu_option '11' 'Install' 'OctoEverywhere'
   menu_option '12' 'Install' 'Moonraker Obico'
   menu_option '13' 'Install' 'Mobileraker Companion'
+  menu_option '14' 'Install' 'GuppyFLO'
   hr
   inner_line
   hr
@@ -149,6 +150,12 @@ function install_menu_ke() {
           error_msg "Mobileraker Companion is already installed!"
         else
           run "install_mobileraker_companion" "install_menu_ui_ke"
+        fi;;
+      14)
+        if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        else
+          run "install_guppyflo" "install_menu_ui_ke"
         fi;;
       B|b)
         clear; main_menu; break;;

@@ -143,6 +143,10 @@ function set_paths() {
   MOBILERAKER_COMPANION_FOLDER="${USR_DATA}/mobileraker_companion"
   MOBILERAKER_COMPANION_URL="https://github.com/Clon1998/mobileraker_companion.git"
 
+  # GuppyFLO #
+  GUPPYFLO_FOLDER="${USR_DATA}/guppyflo"
+  GUPPYFLO_URL="https://github.com/ballaswag/guppyflo/releases/latest/download/guppyflo_mipsle.zip"
+
   # Custom Boot Display #
   BOOT_DISPLAY_FOLDER="/etc/boot-display"
   BOOT_DISPLAY_FILE="${BOOT_DISPLAY_FOLDER}/part0/pic_100.jpg"

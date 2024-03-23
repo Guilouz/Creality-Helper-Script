@@ -358,6 +358,9 @@ function clear_logs(){
         rm -f "$USR_DATA"/creality/userdata/log/*.gz
         rm -f "$USR_DATA"/creality/userdata/fault_code/*
         rm -f "$PRINTER_DATA_FOLDER"/logs/*
+        if [ -d "$GUPPYFLO_FOLDER" ]; then
+          rm -f "$GUPPYFLO_FOLDER"/guppyflo.log
+        fi
         ok_msg "Logs files have been cleared!"
         return;;
       N|n)
