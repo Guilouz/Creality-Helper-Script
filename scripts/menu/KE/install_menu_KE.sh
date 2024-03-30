@@ -30,6 +30,7 @@ function install_menu_ui_ke() {
   menu_option '12' 'Install' 'Moonraker Obico'
   menu_option '13' 'Install' 'Mobileraker Companion'
   menu_option '14' 'Install' 'GuppyFLO'
+  menu_option '15' 'Install' 'OctoApp Companion'
   hr
   inner_line
   hr
@@ -156,6 +157,18 @@ function install_menu_ke() {
           error_msg "Moonraker and Nginx are needed, please install them first!"
         else
           run "install_guppyflo" "install_menu_ui_ke"
+        fi;;
+      15)
+        if [ -d "$OCTOAPP_FOLDER" ]; then
+          error_msg "OctoApp Companion is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install it first!"
+        elif [ ! -f "$ENTWARE_FILE" ]; then
+          error_msg "Entware is needed, please install it first!"
+        else
+          run "install_octoapp" "install_menu_ui_ke"
         fi;;
       B|b)
         clear; main_menu; break;;

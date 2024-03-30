@@ -30,6 +30,7 @@ function remove_menu_ui_ke() {
   menu_option '12' 'Remove' 'Moonraker Obico'
   menu_option '13' 'Remove' 'Mobileraker Companion'
   menu_option '14' 'Remove' 'GuppyFLO'
+  menu_option '15' 'Remove' 'OctoApp Companion'
   hr
   inner_line
   hr
@@ -152,6 +153,12 @@ function remove_menu_ke() {
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_ke"
+        fi;;
+      15)
+        if [ ! -d "$OCTOAPP_FOLDER" ]; then
+          error_msg "OctoApp Companion is not installed!"
+        else
+          run "remove_octoapp" "remove_menu_ui_ke"
         fi;;
       B|b)
         clear; main_menu; break;;

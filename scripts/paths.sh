@@ -161,6 +161,10 @@ function set_paths() {
   GUPPY_SCREEN_FOLDER="${USR_DATA}/guppyscreen"
   GUPPY_SCREEN_URL1="${HS_FILES}/guppy-screen/guppy_update.cfg"
   GUPPY_SCREEN_URL2="${HS_FILES}/guppy-screen/guppy-update.sh"
+
+  # OctoApp Companion #
+  OCTOAPP_FOLDER="${USR_DATA}/octoapp"
+  OCTOAPP_URL="https://github.com/crysxd/OctoApp-Plugin.git"
   
   # Creality Dynamic Logos for Fluidd #
   FLUIDD_LOGO_FILE="${USR_DATA}/fluidd/logo_creality_v2.svg"
