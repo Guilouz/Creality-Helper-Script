@@ -139,13 +139,17 @@ function set_paths() {
   MOONRAKER_OBICO_FOLDER="${USR_DATA}/moonraker-obico"
   MOONRAKER_OBICO_URL="https://github.com/TheSpaghettiDetective/moonraker-obico.git"
   
-  # Mobileraker Companion #
-  MOBILERAKER_COMPANION_FOLDER="${USR_DATA}/mobileraker_companion"
-  MOBILERAKER_COMPANION_URL="https://github.com/Clon1998/mobileraker_companion.git"
-
   # GuppyFLO #
   GUPPYFLO_FOLDER="${USR_DATA}/guppyflo"
   GUPPYFLO_URL="https://github.com/ballaswag/guppyflo/releases/latest/download/guppyflo_mipsle.zip"
+  
+  # Mobileraker Companion #
+  MOBILERAKER_COMPANION_FOLDER="${USR_DATA}/mobileraker_companion"
+  MOBILERAKER_COMPANION_URL="https://github.com/Clon1998/mobileraker_companion.git"
+  
+  # OctoApp Companion #
+  OCTOAPP_COMPANION_FOLDER="${USR_DATA}/octoapp"
+  OCTOAPP_COMPANION_URL="https://github.com/crysxd/OctoApp-Plugin.git"
 
   # Custom Boot Display #
   BOOT_DISPLAY_FOLDER="/etc/boot-display"
@@ -161,10 +165,6 @@ function set_paths() {
   GUPPY_SCREEN_FOLDER="${USR_DATA}/guppyscreen"
   GUPPY_SCREEN_URL1="${HS_FILES}/guppy-screen/guppy_update.cfg"
   GUPPY_SCREEN_URL2="${HS_FILES}/guppy-screen/guppy-update.sh"
-
-  # OctoApp Companion #
-  OCTOAPP_FOLDER="${USR_DATA}/octoapp"
-  OCTOAPP_URL="https://github.com/crysxd/OctoApp-Plugin.git"
   
   # Creality Dynamic Logos for Fluidd #
   FLUIDD_LOGO_FILE="${USR_DATA}/fluidd/logo_creality_v2.svg"

@@ -36,8 +36,8 @@ function remove_menu_ui() {
   subtitle '•REMOTE ACCESS AND AI DETECTION:'
   menu_option '19' 'Remove' 'OctoEverywhere'
   menu_option '20' 'Remove' 'Moonraker Obico'
-  menu_option '21' 'Remove' 'Mobileraker Companion'
-  menu_option '22' 'Remove' 'GuppyFLO'
+  menu_option '21' 'Remove' 'GuppyFLO'
+  menu_option '22' 'Remove' 'Mobileraker Companion'
   menu_option '23' 'Remove' 'OctoApp Companion'
   hr
   inner_line
@@ -205,22 +205,22 @@ function remove_menu() {
           run "remove_moonraker_obico" "remove_menu_ui"
         fi;;
       21)
-        if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
-          error_msg "Mobileraker Companion is not installed!"
-        else
-          run "remove_mobileraker_companion" "remove_menu_ui"
-        fi;;
-      22)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui"
         fi;;
-      19)
-        if [ ! -d "$OCTOAPP_FOLDER" ]; then
+      22)
+        if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
+          error_msg "Mobileraker Companion is not installed!"
+        else
+          run "remove_mobileraker_companion" "remove_menu_ui"
+        fi;;
+      23)
+        if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
-          run "remove_octoapp" "remove_menu_ui"
+          run "remove_octoapp_companion" "remove_menu_ui"
         fi;;
       B|b)
         clear; main_menu; break;;

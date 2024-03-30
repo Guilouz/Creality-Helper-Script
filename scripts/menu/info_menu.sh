@@ -54,9 +54,9 @@ function info_menu_ui() {
   subtitle '•REMOTE ACCESS AND AI DETECTION:'
   info_line "$(check_folder "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'
   info_line "$(check_folder "$MOONRAKER_OBICO_FOLDER")" 'Obico'
-  info_line "$(check_folder "$MOBILERAKER_COMPANION_FOLDER")" 'Mobileraker Companion'
   info_line "$(check_folder "$GUPPYFLO_FOLDER")" 'GuppyFLO'
-  info_line "$(check_folder "$OCTOAPP_FOLDER")" 'OctoApp Companion'
+  info_line "$(check_folder "$MOBILERAKER_COMPANION_FOLDER")" 'Mobileraker Companion'
+  info_line "$(check_folder "$OCTOAPP_COMPANION_FOLDER")" 'OctoApp Companion'
   hr
   subtitle '•CUSTOMIZATION:'
   info_line "$(check_file "$BOOT_DISPLAY_FILE")" 'Custom Boot Display'
