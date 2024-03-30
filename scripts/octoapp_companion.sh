@@ -26,7 +26,7 @@ function install_octoapp_companion(){
 		else
           echo -e "Info: Downloading OctoApp Companion..."
           git config --global http.sslVerify false
-          git clone "$OCTOAPP_URL" "$OCTOAPP_COMPANION_FOLDER"
+          git clone "$OCTOAPP_COMPANION_URL" "$OCTOAPP_COMPANION_FOLDER"
 		fi
 		echo -e "Info: Running OctoApp Companion installer..."
 		cd "$OCTOAPP_COMPANION_FOLDER"
