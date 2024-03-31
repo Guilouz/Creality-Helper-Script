@@ -51,7 +51,7 @@ function info_menu_ui() {
   info_line "$(check_file "$TIMELAPSE_FILE")" 'Moonraker Timelapse'
   info_line "$(check_file "$CAMERA_SETTINGS_FILE")" 'Camera Settings Control'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   info_line "$(check_folder "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'
   info_line "$(check_folder "$MOONRAKER_OBICO_FOLDER")" 'Obico'
   info_line "$(check_folder "$GUPPYFLO_FOLDER")" 'GuppyFLO'

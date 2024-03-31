@@ -33,7 +33,7 @@ function install_menu_ui() {
   menu_option '17' 'Install' 'Moonraker Timelapse'
   menu_option '18' 'Install' 'Camera Settings Control'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   menu_option '19' 'Install' 'OctoEverywhere'
   menu_option '20' 'Install' 'Moonraker Obico'
   menu_option '21' 'Install' 'GuppyFLO'

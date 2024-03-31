@@ -33,7 +33,7 @@ function remove_menu_ui() {
   menu_option '17' 'Remove' 'Moonraker Timelapse'
   menu_option '18' 'Remove' 'Camera Settings Control'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   menu_option '19' 'Remove' 'OctoEverywhere'
   menu_option '20' 'Remove' 'Moonraker Obico'
   menu_option '21' 'Remove' 'GuppyFLO'

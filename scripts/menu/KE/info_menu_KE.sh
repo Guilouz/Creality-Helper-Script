@@ -43,7 +43,7 @@ function info_menu_ui_ke() {
   subtitle '•CAMERA:'
   info_line "$(check_file_ke "$TIMELAPSE_FILE")" 'Moonraker Timelapse'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   info_line "$(check_folder_ke "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'
   info_line "$(check_folder_ke "$MOONRAKER_OBICO_FOLDER")" 'Obico'
   info_line "$(check_folder_ke "$GUPPYFLO_FOLDER")" 'GuppyFLO'
