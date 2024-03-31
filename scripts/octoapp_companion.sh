@@ -53,6 +53,7 @@ function remove_octoapp_companion(){
         echo -e "Info: Running OctoApp Companion uninstaller..."
         cd "$OCTOAPP_COMPANION_FOLDER"
 		sh ./uninstall.sh
+		rm -f /root/update-OctoApp.sh
         ok_msg "OctoApp Companion has been removed successfully!"
         return;;
       N|n)

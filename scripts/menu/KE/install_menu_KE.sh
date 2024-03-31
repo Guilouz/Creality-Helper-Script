@@ -31,6 +31,7 @@ function install_menu_ui_ke() {
   menu_option '13' 'Install' 'GuppyFLO'
   menu_option '14' 'Install' 'Mobileraker Companion'
   menu_option '15' 'Install' 'OctoApp Companion'
+  menu_option '16' 'Install' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -173,6 +174,16 @@ function install_menu_ke() {
           error_msg "Entware is needed, please install it first!"
         else
           run "install_octoapp_companion" "install_menu_ui_ke"
+        fi;;
+      16)
+        if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+          error_msg "SimplyPrint is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install it first!"
+        else
+          run "install_simplyprint" "install_menu_ui_ke"
         fi;;
       B|b)
         clear; main_menu; break;;

@@ -39,6 +39,7 @@ function remove_menu_ui() {
   menu_option '21' 'Remove' 'GuppyFLO'
   menu_option '22' 'Remove' 'Mobileraker Companion'
   menu_option '23' 'Remove' 'OctoApp Companion'
+  menu_option '24' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -221,6 +222,12 @@ function remove_menu() {
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui"
+        fi;;
+      24)
+        if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+          error_msg "SimplyPrint is not installed!"
+        else
+          run "remove_simplyprint" "remove_menu_ui"
         fi;;
       B|b)
         clear; main_menu; break;;

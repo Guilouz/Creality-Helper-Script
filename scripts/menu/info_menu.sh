@@ -20,6 +20,14 @@ function check_file() {
   fi
 }
 
+function check_simplyprint() {
+  if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+    echo -e "${green}✓"
+  else
+    echo -e "${red}✗"
+  fi
+}
+
 function info_menu_ui() {
   top_line
   title '[ INFORMATIONS MENU ]' "${yellow}"
@@ -57,6 +65,7 @@ function info_menu_ui() {
   info_line "$(check_folder "$GUPPYFLO_FOLDER")" 'GuppyFLO'
   info_line "$(check_folder "$MOBILERAKER_COMPANION_FOLDER")" 'Mobileraker Companion'
   info_line "$(check_folder "$OCTOAPP_COMPANION_FOLDER")" 'OctoApp Companion'
+  info_line "$(check_simplyprint)" 'SimplyPrint'
   hr
   subtitle '•CUSTOMIZATION:'
   info_line "$(check_file "$BOOT_DISPLAY_FILE")" 'Custom Boot Display'
