@@ -20,6 +20,14 @@ function check_file_ke() {
   fi
 }
 
+function check_simplyprint_ke() {
+  if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+    echo -e "${green}✓"
+  else
+    echo -e "${red}✗"
+  fi
+}
+
 function info_menu_ui_ke() {
   top_line
   title '[ INFORMATIONS MENU ]' "${yellow}"
@@ -43,11 +51,13 @@ function info_menu_ui_ke() {
   subtitle '•CAMERA:'
   info_line "$(check_file_ke "$TIMELAPSE_FILE")" 'Moonraker Timelapse'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   info_line "$(check_folder_ke "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'
   info_line "$(check_folder_ke "$MOONRAKER_OBICO_FOLDER")" 'Obico'
-  info_line "$(check_folder_ke "$MOBILERAKER_COMPANION_FOLDER")" 'Mobileraker Companion'
   info_line "$(check_folder_ke "$GUPPYFLO_FOLDER")" 'GuppyFLO'
+  info_line "$(check_folder_ke "$MOBILERAKER_COMPANION_FOLDER")" 'Mobileraker Companion'
+  info_line "$(check_folder_ke "$OCTOAPP_COMPANION_FOLDER")" 'OctoApp Companion'
+  info_line "$(check_simplyprint_ke)" 'SimplyPrint'
   hr
   subtitle '•CUSTOMIZATION:'
   info_line "$(check_file_ke "$CREALITY_WEB_FILE")" 'Creality Web Interface'

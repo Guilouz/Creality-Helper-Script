@@ -25,11 +25,13 @@ function remove_menu_ui_ke() {
   subtitle '•CAMERA:'
   menu_option '10' 'Remove' 'Moonraker Timelapse'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   menu_option '11' 'Remove' 'OctoEverywhere'
   menu_option '12' 'Remove' 'Moonraker Obico'
-  menu_option '13' 'Remove' 'Mobileraker Companion'
-  menu_option '14' 'Remove' 'GuppyFLO'
+  menu_option '13' 'Remove' 'GuppyFLO'
+  menu_option '14' 'Remove' 'Mobileraker Companion'
+  menu_option '15' 'Remove' 'OctoApp Companion'
+  menu_option '16' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -142,16 +144,28 @@ function remove_menu_ke() {
           run "remove_moonraker_obico" "remove_menu_ui_ke"
         fi;;
       13)
+        if [ ! -d "$GUPPYFLO_FOLDER" ]; then
+          error_msg "GuppyFLO is not installed!"
+        else
+          run "remove_guppyflo" "remove_menu_ui_ke"
+        fi;;
+      14)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_ke"
         fi;;
-      14)
-        if [ ! -d "$GUPPYFLO_FOLDER" ]; then
-          error_msg "GuppyFLO is not installed!"
+      15)
+        if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
+          error_msg "OctoApp Companion is not installed!"
         else
-          run "remove_guppyflo" "remove_menu_ui_ke"
+          run "remove_octoapp_companion" "remove_menu_ui_ke"
+        fi;;
+      16)
+        if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+          error_msg "SimplyPrint is not installed!"
+        else
+          run "remove_simplyprint" "remove_menu_ui"
         fi;;
       B|b)
         clear; main_menu; break;;

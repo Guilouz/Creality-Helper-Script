@@ -33,11 +33,13 @@ function install_menu_ui() {
   menu_option '17' 'Install' 'Moonraker Timelapse'
   menu_option '18' 'Install' 'Camera Settings Control'
   hr
-  subtitle '•REMOTE ACCESS AND AI DETECTION:'
+  subtitle '•REMOTE ACCESS:'
   menu_option '19' 'Install' 'OctoEverywhere'
   menu_option '20' 'Install' 'Moonraker Obico'
-  menu_option '21' 'Install' 'Mobileraker Companion'
-  menu_option '22' 'Install' 'GuppyFLO'
+  menu_option '21' 'Install' 'GuppyFLO'
+  menu_option '22' 'Install' 'Mobileraker Companion'
+  menu_option '23' 'Install' 'OctoApp Companion'
+  menu_option '24' 'Install' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -212,16 +214,42 @@ function install_menu() {
           run "install_moonraker_obico" "install_menu_ui"
         fi;;
       21)
-        if [ -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
-          error_msg "Mobileraker Companion is already installed!"
-        else
-          run "install_mobileraker_companion" "install_menu_ui"
-        fi;;
-      22)
         if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         else
           run "install_guppyflo" "install_menu_ui"
+        fi;;
+      22)
+        if [ -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
+          error_msg "Mobileraker Companion is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install it first!"
+        else
+          run "install_mobileraker_companion" "install_menu_ui"
+        fi;;
+      23)
+        if [ -d "$OCTOAPP_COMPANION_FOLDER" ]; then
+          error_msg "OctoApp Companion is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install it first!"
+        elif [ ! -f "$ENTWARE_FILE" ]; then
+          error_msg "Entware is needed, please install it first!"
+        else
+          run "install_octoapp_companion" "install_menu_ui"
+        fi;;
+      24)
+        if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+          error_msg "SimplyPrint is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install it first!"
+        else
+          run "install_simplyprint" "install_menu_ui"
         fi;;
       B|b)
         clear; main_menu; break;;

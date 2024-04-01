@@ -51,7 +51,7 @@ function remove_octoeverywhere(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
-        echo -e "Info: Running OctoEverywhere installer..."
+        echo -e "Info: Running OctoEverywhere uninstaller..."
         cd "$OCTOEVERYWHERE_FOLDER"
 		sh ./uninstall.sh
         ok_msg "OctoEverywhere has been removed successfully!"
