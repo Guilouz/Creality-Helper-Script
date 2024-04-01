@@ -24,7 +24,8 @@ done
 
 echo -e "Info: Downloading opkg package manager..."
 chmod 755 /usr/data/helper-script/files/fixes/curl
-URL="http://www.openk1.org/static/entware/mipselsf-k3.4/installer"
+URL="https://bin.entware.net/mipselsf-k3.4/installer"
+#URL="http://www.openk1.org/static/entware/mipselsf-k3.4/installer"
 /usr/data/helper-script/files/fixes/curl -L "$URL/opkg" -o "/opt/bin/opkg"
 /usr/data/helper-script/files/fixes/curl -L "$URL/opkg.conf" -o "/opt/etc/opkg.conf"
 
