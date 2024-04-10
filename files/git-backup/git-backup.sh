@@ -132,6 +132,8 @@ elif [ "$INSTALL" = 1 ]; then
     echo "${white}"
     read -p " Please enter your ${green}GitHub repository name${white} and press Enter: ${yellow}" REPO_NAME
     echo "${white}"
+    read -p " Please enter your ${green}GitHub branch name${white} and press Enter: ${yellow}" REPO_BRANCH
+    echo "${white}"
     read -p " Please enter your ${green}GitHub personal access token${white} and press Enter: ${yellow}" GITHUB_TOKEN
     echo "${white}"
     
@@ -142,7 +144,7 @@ elif [ "$INSTALL" = 1 ]; then
     cd "$IFS" || exit
     git init
     git remote add origin "https://$USER_NAME:$GITHUB_TOKEN@github.com/$USER_NAME/$REPO_NAME.git"
-    git checkout -b "$BRANCH"
+    git checkout -b "$REPO_BRANCH"
     git add .
     git commit -m "Initial Backup"
     git push -u origin "$BRANCH"
@@ -151,7 +153,7 @@ elif [ "$INSTALL" = 1 ]; then
     echo "IFS=$IFS" > "$IFS/.env"
     echo "GITHUB_TOKEN=$GITHUB_TOKEN" >> "$IFS/.env"
     echo "REMOTE=$REPO_NAME" >> "$IFS/.env"
-    echo "BRANCH=$BRANCH" >> "$IFS/.env"
+    echo "BRANCH=$REPO_BRANCH" >> "$IFS/.env"
     echo "USER=$USER_NAME" >> "$IFS/.env"
 
     # Create .gitignore file to protect .env variables
