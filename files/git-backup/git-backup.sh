@@ -147,7 +147,7 @@ elif [ "$INSTALL" = 1 ]; then
     git checkout -b "$REPO_BRANCH"
     git add .
     git commit -m "Initial Backup"
-    git push -u origin "$BRANCH"
+    git push -u origin "$REPO_BRANCH"
     
     # Write configuration to .env file
     echo "IFS=$IFS" > "$IFS/.env"
