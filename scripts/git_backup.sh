@@ -61,8 +61,20 @@ function remove_git_backup(){
       Y|y)
         echo -e "${white}"
         echo -e "Info: Stopping processes..."
-        pkill git-backup.sh
-        pkill Git-Backup
+        die="git-backup.sh"
+        # Get current script PID
+        current_pid="$$"
+        # Get all PIDs of processes with the matching name
+        pids=$(pgrep "$die")
+        # Loop through processes, skipping the current script
+        for pid in $pids; do
+          # Skip current script if PIDs match
+          if [[ "$pid" == "$$" ]]; then
+            continue
+          fi
+          # Kill the process
+          kill "$pid"
+        done
         pkill inotifywait
         echo -e "Info: Removing files..."
         rm -f "$HS_CONFIG_FOLDER"/git-backup.cfg
