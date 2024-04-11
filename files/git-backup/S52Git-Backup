@@ -9,6 +9,7 @@ case "$1" in
     echo "Stopping Git Backup..."
     pkill Git-Backup
     pkill inotifywait
+    pkill git-backup.sh
     ;;
   restart)
     echo "Restarting Git Backup..."
