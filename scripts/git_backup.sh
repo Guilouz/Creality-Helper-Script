@@ -60,9 +60,11 @@ function remove_git_backup(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
+        echo -e "Info: Stopping processes..."
+        pkill git-backup.sh
         echo -e "Info: Removing files..."
         rm -f "$HS_CONFIG_FOLDER"/git-backup.cfg
-        rm -f "INITD_FOLDER"/S52Git-Backup
+        rm -f "$INITD_FOLDER"/S52Git-Backup
         rm -rf "$PRINTER_DATA_FOLDER"/.git
         if grep -q "include Helper-Script/git-backup" "$PRINTER_CFG" ; then
           echo -e "Info: Removing Git Backup configurations in printer.cfg file..."
