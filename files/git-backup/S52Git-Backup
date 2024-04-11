@@ -19,7 +19,7 @@ case "$1" in
      /usr/data/helper-script/files/git-backup/git-backup.sh -b "$BRANCH" -t "$IFS" -g origin & > /dev/null
     ;;
   *)
-    Usage: $0 {start|stop|restart}
+    echo "Usage: $0 {start|stop|restart}"
     exit 1
     ;;
 esac
