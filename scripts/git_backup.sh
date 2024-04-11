@@ -62,6 +62,8 @@ function remove_git_backup(){
         echo -e "${white}"
         echo -e "Info: Stopping processes..."
         pkill git-backup.sh
+        pkill Git-Backup
+        pkill inotifywait
         echo -e "Info: Removing files..."
         rm -f "$HS_CONFIG_FOLDER"/git-backup.cfg
         rm -f "$INITD_FOLDER"/S52Git-Backup
