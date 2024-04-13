@@ -25,6 +25,9 @@ function install_guppyflo(){
           echo -e "Info: Stopping GuppyFLO service..."
           /etc/init.d/S99guppyflo stop &> /dev/null
         fi
+        if [ -f "$GUPPYFLO_FOLDER"/guppytunnel.json ]; then
+          mv "$GUPPYFLO_FOLDER"/guppytunnel.json "$USR_DATA"/guppytunnel.json
+        fi
         if [ -d "$GUPPYFLO_FOLDER" ]; then
           rm -rf "$GUPPYFLO_FOLDER"
         fi
@@ -48,6 +51,9 @@ function install_guppyflo(){
         ln -sf "$GUPPYFLO_FOLDER"/services/S99guppyflo "$INITD_FOLDER"/S99guppyflo
         ln -sf "$GUPPYFLO_FOLDER"/services/respawn/libeinfo.so.1 /lib/libeinfo.so.1
         ln -sf "$GUPPYFLO_FOLDER"/services/respawn/librc.so.1 /lib/librc.so.1
+        if [ -f "$USR_DATA"/guppytunnel.json ]; then
+          mv "$USR_DATA"/guppytunnel.json "$GUPPYFLO_FOLDER"/guppytunnel.json
+        fi
         echo -e "Info: Starting GuppyFLO service..."
         /etc/init.d/S99guppyflo start &> /dev/null
         ok_msg "GuppyFLO has been installed successfully!"
