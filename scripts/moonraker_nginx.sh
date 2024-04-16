@@ -36,6 +36,9 @@ function install_moonraker_nginx(){
           chmod +x "$INITD_FOLDER"/S56moonraker_service
         fi
         echo -e "Info: Copying Moonraker configuration file..."
+        if [ -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf ]; then
+          rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf
+        fi
         cp "$MOONRAKER_URL2" "$KLIPPER_CONFIG_FOLDER"/moonraker.conf
         if [ -f "$PRINTER_DATA_FOLDER"/moonraker.asvc ]; then
           rm -f "$PRINTER_DATA_FOLDER"/moonraker.asvc
