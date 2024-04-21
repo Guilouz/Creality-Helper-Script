@@ -182,13 +182,24 @@ function install_menu() {
       18)
         if [ -f "$CAMERA_SETTINGS_FILE" ]; then
           error_msg "Camera Settings Control is already installed!"
-        elif v4l2-ctl --list-devices | grep -q 'CCX2F3299'; then
+          continue
+	fi
+        if v4l2-ctl --list-devices | grep -q 'CCX2F3299'; then
           error_msg "You have the new hardware version of the camera and it's not compatible!"
-        elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
-          error_msg "Klipper Gcode Shell Command is needed, please install it first!"
-        else
-          run "install_camera_settings_control" "install_menu_ui"
-        fi;;
+          echo -e "\e[1A\e[K ${yellow}You can safely ignore this message, and continue if you have additional USB webcams."
+          read -p " ${white}Continue (y/n): ${yellow}" response
+          case "$response" in
+            [nN][oO]|[nN])
+            run "install_menu_ui" 
+          ;;
+          *)
+            if [ ! -f "$KLIPPER_SHELL_FILE" ]; then
+              error_msg "Klipper Gcode Shell Command is needed, please install it first!"
+            else
+              run "install_camera_settings_control" "install_menu_ui"
+            fi
+          esac
+	fi;;
       19)
         if [ -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is already installed!"
