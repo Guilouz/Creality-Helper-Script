@@ -185,8 +185,11 @@ function install_menu() {
           continue
 	fi
         if v4l2-ctl --list-devices | grep -q 'CCX2F3299'; then
-          error_msg "You have the new hardware version of the camera and it's not compatible!"
-          echo -e "\e[1A\e[K ${yellow}You can safely ignore this message, and continue if you have additional USB webcams."
+          error_msg "You have the new hardware version of the Creality AI camera and it's not compatible!"
+        fi
+        if [ "lsusb | grep -E \"(Integrated Camera|Webcam|CVD|Video|uvcvideo)\"" ]; then
+          echo -e "\e[1A\e[K ${yellow}An additional USB webcam was detected. It may work with the camera settings, but that's not guaranteed."
+          echo -e "${yellow} Would you like too install anyway?"
           read -p " ${white}Continue (y/n): ${yellow}" response
           case "$response" in
             [nN][oO]|[nN])
@@ -199,7 +202,7 @@ function install_menu() {
               run "install_camera_settings_control" "install_menu_ui"
             fi
           esac
-	fi;;
+        fi;;
       19)
         if [ -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is already installed!"
