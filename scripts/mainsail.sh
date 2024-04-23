@@ -41,7 +41,7 @@ function install_mainsail(){
         else
           echo -e "Info: Mainsail configurations are already enabled for Update Manager..."        
         fi
-        echo -e "Info: Retarting Nginx service..."
+        echo -e "Info: Restarting Nginx service..."
         restart_nginx
         echo -e "Info: Restarting Moonraker service..."
         stop_moonraker
@@ -71,7 +71,7 @@ function remove_mainsail(){
         if grep -q "\[update_manager mainsail\]" "$MOONRAKER_CFG" ; then
           echo -e "Info: Disabling Mainsail configurations for Update Manager..."
           sed -i '/^\[update_manager mainsail\]/,/^\s*$/ s/^\(\s*\)\([^#]\)/#\1\2/' "$MOONRAKER_CFG"
-          echo -e "Info: Retarting Nginx service..."
+          echo -e "Info: Restarting Nginx service..."
           restart_nginx
           echo -e "Info: Restarting Moonraker service..."
           stop_moonraker

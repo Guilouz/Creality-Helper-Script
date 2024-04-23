@@ -40,7 +40,7 @@ function install_fluidd(){
         else
           echo -e "Info: Fluidd configurations are already enabled for Update Manager..."        
         fi
-        echo -e "Info: Retarting Nginx service..."
+        echo -e "Info: Restarting Nginx service..."
         restart_nginx
         echo -e "Info: Restarting Moonraker service..."
         stop_moonraker
@@ -70,7 +70,7 @@ function remove_fluidd(){
         if grep -q "\[update_manager fluidd\]" "$MOONRAKER_CFG" ; then
           echo -e "Info: Disabling Fluidd configurations for Update Manager..."
           sed -i '/^\[update_manager fluidd\]/,/^\s*$/ s/^\(\s*\)\([^#]\)/#\1\2/' "$MOONRAKER_CFG"
-          echo -e "Info: Retarting Nginx service..."
+          echo -e "Info: Restarting Nginx service..."
           restart_nginx
           echo -e "Info: Restarting Moonraker service..."
           stop_moonraker
