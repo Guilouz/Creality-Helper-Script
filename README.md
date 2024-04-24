@@ -1,9 +1,13 @@
 # Creality Helper Script
 
-<img width="1102" src="https://github.com/Guilouz/Creality-K1-Series/blob/main/docs/assets/img/home/home.png">
+## About
+
+This script intended for use on Creality K1 Series, KE Series and Ender-3 V3 Series printer allows to add more features.
+
+If you don't know what you're doing, I don't recommend following this guide.
 
 ## Wiki
 
-Guide to use it is available here: [Wiki](https://guilouz.github.io/Creality-K1-Series/)
+Guide to use it is available here: [Wiki](https://guilouz.github.io/Creality-Helper-Script-Wiki/)
 
 <br />
