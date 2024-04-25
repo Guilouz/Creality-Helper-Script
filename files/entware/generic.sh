@@ -22,12 +22,31 @@ do
   mkdir -p /usr/data/opt/$folder
 done
 
-echo -e "Info: Downloading opkg package manager..."
+echo -e "Info: Downloading opkg package manager from Entware repo..."
 chmod 755 /usr/data/helper-script/files/fixes/curl
-URL="https://bin.entware.net/mipselsf-k3.4/installer"
-#URL="http://www.openk1.org/static/entware/mipselsf-k3.4/installer"
-/usr/data/helper-script/files/fixes/curl -L "$URL/opkg" -o "/opt/bin/opkg"
-/usr/data/helper-script/files/fixes/curl -L "$URL/opkg.conf" -o "/opt/etc/opkg.conf"
+primary_URL="https://bin.entware.net/mipselsf-k3.4/installer"
+secondary_URL="http://www.openk1.org/static/entware/mipselsf-k3.4/installer"
+
+download_files() {
+  local url="$1"
+  local output_file="$2"
+  /usr/data/helper-script/files/fixes/curl -L "$url" -o "$output_file"
+  return $?
+}
+
+if download_files "$primary_URL/opkg" "/opt/bin/opkg"; then
+  download_files "$primary_URL/opkg.conf" "/opt/etc/opkg.conf"
+else
+  echo -e "Info: Unable to download from Entware repo. Attempting to download from openK1 repo..."
+  if download_files "$secondary_URL/opkg" "/opt/bin/opkg"; then
+    download_files "$secondary_URL/opkg.conf" "/opt/etc/opkg.conf"
+  else
+    echo "Info: Failed to download from openK1 repo..."
+    rm -rf /opt
+    rm -rf /usr/data/opt
+    exit 1
+  fi
+fi
 
 echo -e "Info: Applying permissions..."
 chmod 755 /opt/bin/opkg
