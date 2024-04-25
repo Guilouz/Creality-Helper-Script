@@ -87,7 +87,7 @@ function reset_factory_settings_message(){
   echo -e " │ ${cyan}Note: After factory reset all features already been          ${white}│"
   echo -e " │ ${cyan}installed with Creality Helper Script must be reinstalled    ${white}│"
   echo -e " │ ${cyan}and it's necessary to reconnect your printer to your network ${white}│"
-  echo -e " │ ${cyan} from screen settings in `Settings` → `Network` tab.         ${white}│"
+  echo -e " │ ${cyan}from screen settings in 'Settings' → 'Network' tab.          ${white}│"
   hr
   bottom_line
 }
