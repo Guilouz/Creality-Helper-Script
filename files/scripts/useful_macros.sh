@@ -2,12 +2,6 @@
 
 set -e
 
-function reload_camera(){
-  echo -e "Info: Reload camera config..."
-  ACTION=reload /usr/bin/auto_uvc.sh
-  exit 0
-}
-
 function backup_klipper(){
   if [ -f /usr/data/printer_data/config/backup_config.tar.gz ]; then
     rm -f /usr/data/printer_data/config/backup_config.tar.gz
@@ -61,6 +55,12 @@ function restore_moonraker(){
   tar -xvf backup_database.tar.gz
   mv backup_database.tar.gz config/backup_database.tar.gz
   echo -e "Info: Moonraker database has been restored successfully!"
+  exit 0
+}
+
+function reload_camera(){
+  echo -e "Info: Reloading camera config..."
+  ACTION=reload /usr/bin/auto_uvc.sh
   exit 0
 }
 
