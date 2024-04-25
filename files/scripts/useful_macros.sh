@@ -2,6 +2,12 @@
 
 set -e
 
+function reload_camera(){
+  echo -e "Info: Reload camera config..."
+  ACTION=reload /usr/bin/auto_uvc.sh
+  exit 0
+}
+
 function backup_klipper(){
   if [ -f /usr/data/printer_data/config/backup_config.tar.gz ]; then
     rm -f /usr/data/printer_data/config/backup_config.tar.gz
@@ -66,7 +72,9 @@ elif [ "$1" == "-backup_moonraker" ]; then
   backup_moonraker
 elif [ "$1" == "-restore_moonraker" ]; then
   restore_moonraker
+elif [ "$1" == "-reload_camera" ]; then
+  reload_camera
 else
-  echo -e "Invalid argument. Usage: $0 [-backup_klipper | -restore_klipper | -backup_moonraker | -restore_moonraker]"
+  echo -e "Invalid argument. Usage: $0 [-backup_klipper | -restore_klipper | -backup_moonraker | -restore_moonraker | -reload_camera]"
   exit 1
 fi
