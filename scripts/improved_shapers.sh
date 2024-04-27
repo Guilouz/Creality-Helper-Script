@@ -88,8 +88,8 @@ function remove_improved_shapers(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
-        echo -e "Info: Restoring original file..."
-        if [ -f "$HS_BACKUP_FOLDER"/ft2font.cpython-38-mipsel-linux-gnu.so ]; then
+        if [ -f "$HS_BACKUP_FOLDER"/improved-shapers/ft2font.cpython-38-mipsel-linux-gnu.so ]; then
+          echo -e "Info: Restoring original file..."
           mv "$HS_BACKUP_FOLDER"/improved-shapers/ft2font.cpython-38-mipsel-linux-gnu.so /usr/lib/python3.8/site-packages/matplotlib
           rm -rf "$HS_BACKUP_FOLDER"/improved-shapers
         fi
