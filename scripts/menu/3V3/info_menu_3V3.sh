@@ -21,7 +21,9 @@ function check_file_3v3() {
 }
 
 function check_simplyprint_3v3() {
-  if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+  if [ ! -f "$MOONRAKER_CFG" ]; then
+    echo -e "${red}✗"
+  elif grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
     echo -e "${green}✓"
   else
     echo -e "${red}✗"

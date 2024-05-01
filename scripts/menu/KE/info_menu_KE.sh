@@ -21,7 +21,9 @@ function check_file_ke() {
 }
 
 function check_simplyprint_ke() {
-  if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+  if [ ! -f "$MOONRAKER_CFG" ]; then
+    echo -e "${red}✗"
+  elif grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
     echo -e "${green}✓"
   else
     echo -e "${red}✗"
