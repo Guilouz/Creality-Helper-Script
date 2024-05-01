@@ -50,7 +50,7 @@ function install_improved_shapers(){
         else
           echo -e "Info: [gcode_macro AUTOTUNE_SHAPERS] configurations are already disabled in gcode_macro.cfg file..."
         fi
-        if [ $K1 -eq 1 ]; then
+        if [ "$model" = "K1" ]; then
           if grep -q '\[gcode_macro INPUTSHAPER\]' "$MACROS_CFG" ; then
             echo -e "Info: Replacing [gcode_macro INPUTSHAPER] configurations in gcode_macro.cfg file..."
             sed -i 's/SHAPER_CALIBRATE AXIS=y/SHAPER_CALIBRATE/' "$MACROS_CFG"
@@ -106,7 +106,7 @@ function remove_improved_shapers(){
         else
           echo -e "Info: [gcode_macro AUTOTUNE_SHAPERS] configurations are already restored in gcode_macro.cfg file..."
         fi
-        if [ $K1 -eq 1 ]; then
+        if [ "$model" = "K1" ]; then
           if grep -q '\[gcode_macro INPUTSHAPER\]' "$MACROS_CFG" ; then
             echo -e "Info: Restoring [gcode_macro INPUTSHAPER] configurations in gcode_macro.cfg file..."
             sed -i 's/SHAPER_CALIBRATE/SHAPER_CALIBRATE AXIS=y/' "$MACROS_CFG"

@@ -29,7 +29,11 @@ function install_useful_macros(){
           mkdir -p "$HS_CONFIG_FOLDER"
         fi
         echo -e "Info: Linking file..."
-        ln -sf "$USEFUL_MACROS_URL" "$HS_CONFIG_FOLDER"/useful-macros.cfg
+        if [ "$model" = "K1" ]; then
+          ln -sf "$USEFUL_MACROS_URL" "$HS_CONFIG_FOLDER"/useful-macros.cfg
+        else
+          ln -sf "$USEFUL_MACROS_3V3_URL" "$HS_CONFIG_FOLDER"/useful-macros.cfg
+        fi
         if grep -q "include Helper-Script/useful-macros" "$PRINTER_CFG" ; then
           echo -e "Info: Useful Macros configurations are already enabled in printer.cfg file..."
         else

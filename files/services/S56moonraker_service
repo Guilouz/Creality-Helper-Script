@@ -12,36 +12,36 @@ PRINTER_LOGS_DIR=$PRINTER_DATA_DIR/logs
 PID_FILE=/var/run/moonraker.pid
 
 start() {
-  [ -d $PRINTER_DATA_DIR ] || mkdir -p $PRINTER_DATA_DIR
-  [ -d $PRINTER_CONFIG_DIR ] || mkdir -p $PRINTER_CONFIG_DIR
-  [ -d $PRINTER_LOGS_DIR ] || mkdir -p $PRINTER_LOGS_DIR
-  
-  rm -rf /usr/data/moonraker/tmp; mkdir -p /usr/data/moonraker/tmp
-  TMPDIR=/usr/data/moonraker/tmp HOME=/root start-stop-daemon -S -q -b -m -p $PID_FILE \
-    --exec $PROG -- $PY_SCRIPT -d $PRINTER_DATA_DIR
+
+        [ -d $PRINTER_DATA_DIR ] || mkdir -p $PRINTER_DATA_DIR
+        [ -d $PRINTER_CONFIG_DIR ] || mkdir -p $PRINTER_CONFIG_DIR
+        [ -d $PRINTER_LOGS_DIR ] || mkdir -p $PRINTER_LOGS_DIR
+
+        HOME=/root start-stop-daemon -S -q -b -m -p $PID_FILE \
+                --exec $PROG -- $PY_SCRIPT -d $PRINTER_DATA_DIR
 }
 stop() {
-  start-stop-daemon -K -q -p $PID_FILE
+        start-stop-daemon -K -q -p $PID_FILE
 }
 restart() {
-  stop
-  sleep 1
-  start
+        stop
+        sleep 1
+        start
 }
 
 case "$1" in
   start)
-    start
-    ;;
+        start
+        ;;
   stop)
-    stop
-    ;;
+        stop
+        ;;
   restart|reload)
-    restart
-    ;;
+        restart
+        ;;
   *)
-    echo "Usage: $0 {start|stop|restart}"
-    exit 1
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
 esac
 
 exit $?

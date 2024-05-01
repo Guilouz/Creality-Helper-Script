@@ -45,11 +45,12 @@ function info_menu_ui_ke() {
   subtitle '•IMPROVEMENTS:'
   info_line "$(check_folder_ke "$IMP_SHAPERS_FOLDER")" 'Improved Shapers Calibrations'
   info_line "$(check_file_ke "$SAVE_ZOFFSET_FILE")" 'Save Z-Offset Macros'
-  info_line "$(check_file_ke "$VIRTUAL_PINS_FILE")" 'Virtual Pins Support'
   info_line "$(check_file_ke "$GIT_BACKUP_FILE")" 'Git Backup'
   hr
   subtitle '•CAMERA:'
   info_line "$(check_file_ke "$TIMELAPSE_FILE")" 'Moonraker Timelapse'
+  info_line "$(check_file_ke "$CAMERA_SETTINGS_FILE")" 'Nebula Camera Settings Control'
+  info_line "$(check_file_ke "$USB_CAMERA_FILE")" 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
   info_line "$(check_folder_ke "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'

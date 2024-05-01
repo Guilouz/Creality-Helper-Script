@@ -2,7 +2,12 @@
 
 set -e
 
-if /usr/bin/get_sn_mac.sh model 2>&1 | grep -iq "K1"; then K1=1; else K1=0; fi
+get_model=$( /usr/bin/get_sn_mac.sh model 2>&1 )
+if echo "$get_model" | grep -iq "K1"; then 
+  model="K1"
+elif echo "$get_model" | grep -iq "F001"; then 
+  model="3V3"
+fi
 
 function get_script_version() {
   local version
@@ -21,30 +26,22 @@ function version_line() {
 
 function script_title() {
   local title
-  if [ $K1 -eq 0 ]; then
-    title="KE"
+  if [ "$model" = "K1" ]; then
+    title="K1 SERIES"
+  elif [ "$model" = "3V3" ]; then
+    title="ENDER-3 V3 SERIES"
   else
-    title="K1"
+    title="KE SERIES"
   fi
   echo "${title}"
 }
 
-function fw_version() {
-  local firmware
-  if [ $K1 -eq 0 ]; then
-    firmware="1.1.0.12"
-  else
-    firmware="1.3.3.5"
-  fi
-  echo "${firmware}"
-}
-
 function main_menu_ui() {
   top_line
-  title "• HELPER SCRIPT FOR CREALITY $(script_title) SERIES •" "${blue}"
+  title "• HELPER SCRIPT FOR CREALITY $(script_title) •" "${blue}"
   title "Copyright © Cyril Guislain (Guilouz)" "${white}"
   inner_line
-  title "/!\\ ONLY USE IT WITH FIRMWARE $(fw_version) AND ABOVE /!\\" "${darkred}"
+  title "/!\\ ONLY USE THIS SCRIPT WITH LATEST FIRMWARE VERSION /!\\" "${darkred}"
   inner_line
   hr
   main_menu_option '1' '[Install]' 'Menu'
@@ -71,41 +68,51 @@ function main_menu() {
     read -p "${white} Type your choice and validate with Enter: ${yellow}" main_menu_opt
     case "${main_menu_opt}" in
       1) clear
-         if [ $K1 -eq 0 ]; then
-           install_menu_ke
+         if [ "$model" = "K1" ]; then
+           install_menu_k1
+         elif [ "$model" = "3V3" ]; then
+           install_menu_3v3
          else
-           install_menu
+           install_menu_ke
          fi
          break;;
       2) clear
-         if [ $K1 -eq 0 ]; then
-           remove_menu_ke
+         if [ "$model" = "K1" ]; then
+           remove_menu_k1
+         elif [ "$model" = "3V3" ]; then
+           remove_menu_3v3
          else
-           remove_menu
+           remove_menu_ke
          fi
          break;;
       3) clear
-         if [ $K1 -eq 0 ]; then
-           customize_menu_ke
+         if [ "$model" = "K1" ]; then
+           customize_menu_k1
+         elif [ "$model" = "3V3" ]; then
+           customize_menu_3v3
          else
-           customize_menu
+           customize_menu_ke
          fi
          break;;
       4) clear
          backup_restore_menu
          break;;
       5) clear
-         if [ $K1 -eq 0 ]; then
-           tools_menu_ke
+         if [ "$model" = "K1" ]; then
+           tools_menu_k1
+         elif [ "$model" = "3V3" ]; then
+           tools_menu_3v3
          else
-           tools_menu
+           tools_menu_ke
          fi
          main_ui;;
       6) clear
-         if [ $K1 -eq 0 ]; then
-           info_menu_ke
+         if [ "$model" = "K1" ]; then
+           info_menu_k1
+         elif [ "$model" = "3V3" ]; then
+           info_menu_3v3
          else
-           info_menu
+           info_menu_ke
          fi
          break;;
       7) clear

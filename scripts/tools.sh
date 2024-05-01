@@ -157,7 +157,12 @@ function printing_gcode_from_folder(){
           rm -f "$KLIPPER_KLIPPY_FOLDER"/gcode.pyc
         fi
         echo -e "Info: Linking files..."
-        ln -sf "$KLIPPER_GCODE_URL" "$KLIPPER_KLIPPY_FOLDER"/gcode.py
+        if [ "$model" = "K1" ]; then
+          ln -sf "$KLIPPER_GCODE_URL" "$KLIPPER_KLIPPY_FOLDER"/gcode.py
+        fi
+        if [ "$model" = "3V3" ]; then
+          ln -sf "$KLIPPER_GCODE_3V3_URL" "$KLIPPER_KLIPPY_FOLDER"/gcode.py
+        fi
         echo -e "Info: Restarting Klipper service..."
         restart_klipper
         ok_msg "Fix has been applied successfully!"

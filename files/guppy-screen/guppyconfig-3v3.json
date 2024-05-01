@@ -1,0 +1,51 @@
+{
+  "config_path": "/usr/data/guppyscreen/guppyconfig.json",
+  "default_printer": "Ender-3 V3",
+  "display_rotate": 3,
+  "display_sleep_sec": -1,
+  "guppy_init_script": "/etc/init.d/S99guppyscreen",
+  "invert_z_icon": true,
+  "log_path": "/usr/data/printer_data/logs/guppyscreen.log",
+  "printers": {
+    "Ender-3 V3": {
+      "default_macros": {
+        "cooldown": "SET_HEATER_TEMPERATURE HEATER=extruder TARGET=0\nSET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=0",
+        "load_filament": "LOAD_MATERIAL",
+        "unload_filament": "QUIT_MATERIAL"
+      },
+      "fans": [
+        {
+          "display_name": "Model Cooling",
+          "id": "output_pin fan0"
+        },
+        {
+          "display_name": "Auxiliary Cooling",
+          "id": "output_pin fan2"
+        }
+      ],
+      "leds": null,
+      "log_level": "debug",
+      "monitored_sensors": [
+        {
+          "color": "red",
+          "controllable": true,
+          "display_name": "Extruder",
+          "id": "extruder"
+        },
+        {
+          "color": "purple",
+          "controllable": true,
+          "display_name": "Bed",
+          "id": "heater_bed"
+        }
+      ],
+      "moonraker_api_key": false,
+      "moonraker_host": "127.0.0.1",
+      "moonraker_port": 7125
+    }
+  },
+  "prompt_emergency_stop": true,
+  "thumbnail_path": "/usr/data/printer_data/thumbnails",
+  "touch_calibrated": false,
+  "wpa_supplicant": "/var/run/wpa_supplicant"
+}

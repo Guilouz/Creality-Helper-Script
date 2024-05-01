@@ -31,28 +31,48 @@ function remove_creality_web_interface(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
-        echo -e "Info: Disabling files..."
-        if [ -f /usr/bin/web-server ]; then
-          mv /usr/bin/web-server /usr/bin/web-server.disabled
-        fi
-        if [ -f /usr/bin/Monitor ]; then
-          mv /usr/bin/Monitor /usr/bin/Monitor.disabled
-        fi
-        echo -e "Info: Stopping services..."
-        set +e
-        killall -q Monitor
-        killall -q web-server
-        set -e
         if [ -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
-          sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+          if [ "$model" = "3V3" ]; then
+            sed -i '/listen 4408 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
+          else
+            sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+          fi
+          echo -e "Info: Disabling files..."
+          if [ -f /usr/bin/web-server ]; then
+            mv /usr/bin/web-server /usr/bin/web-server.disabled
+          fi
+          if [ -f /usr/bin/Monitor ]; then
+            mv /usr/bin/Monitor /usr/bin/Monitor.disabled
+          fi
+          echo -e "Info: Stopping services..."
+          set +e
+          killall -q Monitor
+          killall -q web-server
+          set -e
           echo -e "Info: Restarting Nginx service..."
           restart_nginx
           ok_msg "Creality Web Interface has been removed successfully!"
           echo -e " ${white}You can now connect to Fluidd Web Interface with ${yellow}http://$(check_ipaddress)${white}"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
-          sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+          if [ "$model" = "3V3" ]; then
+            sed -i '/listen 4409 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
+          else
+            sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+          fi
+          echo -e "Info: Disabling files..."
+          if [ -f /usr/bin/web-server ]; then
+            mv /usr/bin/web-server /usr/bin/web-server.disabled
+          fi
+          if [ -f /usr/bin/Monitor ]; then
+            mv /usr/bin/Monitor /usr/bin/Monitor.disabled
+          fi
+          echo -e "Info: Stopping services..."
+          set +e
+          killall -q Monitor
+          killall -q web-server
+          set -e
           echo -e "Info: Restarting Nginx service..."
           restart_nginx
           ok_msg "Creality Web Interface has been removed successfully!"
@@ -60,13 +80,28 @@ function remove_creality_web_interface(){
         elif [ -d "$FLUIDD_FOLDER" ] && [ -d "$MAINSAIL_FOLDER" ]; then
           local interface_choice
           while true; do
-            echo
             read -p " ${white}Which Web Interface do you want to set as default (on port 80)? (${yellow}fluidd${white}/${yellow}mainsail${white}): ${yellow}" interface_choice
             case "${interface_choice}" in
               FLUIDD|fluidd)
                 echo -e "${white}"
                 echo -e "Info: Applying changes..."
-                sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+                if [ "$model" = "3V3" ]; then
+                  sed -i '/listen 4408 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
+                else
+                  sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+                fi
+                echo -e "Info: Disabling files..."
+                if [ -f /usr/bin/web-server ]; then
+                  mv /usr/bin/web-server /usr/bin/web-server.disabled
+                fi
+                if [ -f /usr/bin/Monitor ]; then
+                  mv /usr/bin/Monitor /usr/bin/Monitor.disabled
+                fi
+                echo -e "Info: Stopping services..."
+                set +e
+                killall -q Monitor
+                killall -q web-server
+                set -e
                 echo -e "Info: Restarting Nginx service..."
                 restart_nginx
                 ok_msg "Creality Web Interface has been removed successfully!"
@@ -75,7 +110,23 @@ function remove_creality_web_interface(){
               MAINSAIL|mainsail)
                 echo -e "${white}"
                 echo -e "Info: Applying changes..."
-                sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+                if [ "$model" = "3V3" ]; then
+                  sed -i '/listen 4409 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
+                else
+                  sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
+                fi
+                echo -e "Info: Disabling files..."
+                if [ -f /usr/bin/web-server ]; then
+                  mv /usr/bin/web-server /usr/bin/web-server.disabled
+                fi
+                if [ -f /usr/bin/Monitor ]; then
+                  mv /usr/bin/Monitor /usr/bin/Monitor.disabled
+                fi
+                echo -e "Info: Stopping services..."
+                set +e
+                killall -q Monitor
+                killall -q web-server
+                set -e
                 echo -e "Info: Restarting Nginx service..."
                 restart_nginx
                 ok_msg "Creality Web Interface has been removed successfully!"
@@ -104,6 +155,12 @@ function restore_creality_web_interface(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
+        echo -e "Info: Restoring changes..."
+        if [ "$model" = "3V3" ]; then
+          sed -i '/listen 80;/d' /etc/nginx/nginx.conf
+        else
+          sed -i '/listen 80;/d' /usr/data/nginx/nginx/nginx.conf
+        fi
         echo -e "Info: Restoring files..."
         if [ -f /usr/bin/web-server.disabled ] && [ -f "$INITD_FOLDER"/S99start_app ]; then
           mv /usr/bin/web-server.disabled /usr/bin/web-server
@@ -111,8 +168,6 @@ function restore_creality_web_interface(){
         if [ -f /usr/bin/Monitor.disabled ] && [ ! -d "$GUPPY_SCREEN_FOLDER" ]; then
           mv /usr/bin/Monitor.disabled /usr/bin/Monitor
         fi
-        echo -e "Info: Restoring changes..."
-        sed -i '/listen 80;/d' /usr/data/nginx/nginx/nginx.conf
         echo -e "Info: Restarting services..."
         restart_nginx
         set +e

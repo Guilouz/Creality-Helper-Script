@@ -8,7 +8,10 @@ function kamp_message(){
   inner_line
   hr
   echo -e " │ ${cyan}KAMP is an extension that allows to generate a mesh and      ${white}│"
-  echo -e " │ ${cyan}purge line only in the area you really need it.              ${white}│"
+  echo -e " │ ${cyan}purge line only in the area of the bed used by the objects   ${white}│"
+  echo -e " │ ${cyan}being printed. When used, the method will automatically      ${white}│"
+  echo -e " │ ${cyan}adjust the mesh parameters based on the area occupied by the ${white}│"
+  echo -e " │ ${cyan}defined print objects.                                       ${white}│"
   hr
   bottom_line
 }
@@ -37,8 +40,19 @@ function install_kamp(){
         ln -sf "$KAMP_URL"/Line_Purge.cfg "$KAMP_FOLDER"/Line_Purge.cfg
         ln -sf "$KAMP_URL"/Prusa_Slicer.cfg "$KAMP_FOLDER"/Prusa_Slicer.cfg
         ln -sf "$KAMP_URL"/Smart_Park.cfg "$KAMP_FOLDER"/Smart_Park.cfg
-        ln -sf "$KAMP_URL"/Start_Print.cfg "$KAMP_FOLDER"/Start_Print.cfg
+        if [ "$model" = "K1" ]; then
+          ln -sf "$KAMP_URL"/Start_Print.cfg "$KAMP_FOLDER"/Start_Print.cfg
+        else
+          ln -sf "$KAMP_URL"/Start_Print-3v3.cfg "$KAMP_FOLDER"/Start_Print.cfg
+        fi
         cp "$KAMP_URL"/KAMP_Settings.cfg "$KAMP_FOLDER"/KAMP_Settings.cfg
+        ln -sf "$VIRTUAL_PINS_URL" "$VIRTUAL_PINS_FILE"
+        if grep -q "[virtual_pins]" "$PRINTER_CFG" ; then
+          echo -e "Info: Adding [virtual_pins] configuration in printer.cfg file..."
+          sed -i '/\[include sensorless.cfg\]/i [virtual_pins]' "$PRINTER_CFG"
+        else
+          echo -e "Info: [virtual_pins] configuration is already enabled in printer.cfg file..."
+        fi
         if grep -q "include Helper-Script/KAMP/KAMP_Settings" "$PRINTER_CFG" ; then
           echo -e "Info: KAMP configurations are already enabled in printer.cfg file..."
         else
@@ -97,6 +111,14 @@ function remove_kamp(){
         echo -e "${white}"
         echo -e "Info: Removing files..." 
         rm -rf "$HS_CONFIG_FOLDER"/KAMP
+        rm -f "$KLIPPER_EXTRAS_FOLDER"/virtual_pins.py 
+        rm -f "$KLIPPER_EXTRAS_FOLDER"/virtual_pins.pyc
+        if grep -q "[virtual_pins]" "$PRINTER_CFG" ; then
+          echo -e "Info: Removing [virtual_pins] configuration in printer.cfg file..."
+          sed -i '/\[virtual_pins\]/d' "$PRINTER_CFG"
+        else
+          echo -e "Info: [virtual_pins] configuration is already removed in printer.cfg file..."
+        fi
         if grep -q "include Helper-Script/KAMP/KAMP_Settings" "$PRINTER_CFG" ; then
           echo -e "Info: Removing KAMP configurations in printer.cfg file..."
           sed -i '/include Helper-Script\/KAMP\/KAMP_Settings\.cfg/d' "$PRINTER_CFG"

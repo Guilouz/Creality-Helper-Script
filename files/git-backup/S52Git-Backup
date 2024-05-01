@@ -1,26 +1,29 @@
 #!/bin/sh
 
+start_git_backup() {
+  echo "Info: Starting Git Backup..."
+  /usr/data/helper-script/files/git-backup/git-backup.sh -b "$BRANCH" -t "$IFS" -g origin > /dev/null 2>&1 &
+}
+
 case "$1" in
   start)
-    echo "Starting Git Backup..."
-    /usr/data/helper-script/files/git-backup/git-backup.sh -b "$BRANCH" -t "$IFS" -g origin & > /dev/null
+    start_git_backup
     ;;
   stop)
-    echo "Stopping Git Backup..."
-    pkill Git-Backup
-    pkill inotifywait
-    pkill git-backup.sh
+    echo "Info: Stopping Git Backup..."
+    killall -q git-backup.sh
+    killall -q inotifywait
     ;;
   restart)
-    echo "Restarting Git Backup..."
-    pkill Git-Backup
-    pkill inotifywait
+    echo "Info: Restarting Git Backup..."
+    $0 stop
     sleep 1
-     /usr/data/helper-script/files/git-backup/git-backup.sh -b "$BRANCH" -t "$IFS" -g origin & > /dev/null
+    start_git_backup
     ;;
   *)
     echo "Usage: $0 {start|stop|restart}"
     exit 1
     ;;
 esac
+
 exit 0

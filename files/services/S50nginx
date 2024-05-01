@@ -9,13 +9,16 @@ NGINX_ARGS="-c /usr/data/nginx/nginx/nginx.conf"
 
 case "$1" in
   start)
+    echo "Starting nginx..."
 	mkdir -p /var/log/nginx /var/tmp/nginx
 	start-stop-daemon -S -p "$PIDFILE" --exec "$NGINX" -- $NGINX_ARGS
 	;;
   stop)
+    echo "Stopping nginx..."
 	start-stop-daemon -K -x "$NGINX" -p "$PIDFILE" -o
 	;;
   reload|force-reload)
+    echo "Reloading nginx..."
 	"$NGINX" -s reload
 	;;
   restart)

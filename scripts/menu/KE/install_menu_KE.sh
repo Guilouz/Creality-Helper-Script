@@ -19,19 +19,20 @@ function install_menu_ui_ke() {
   subtitle '•IMPROVEMENTS:'
   menu_option ' 6' 'Install' 'Improved Shapers Calibrations'
   menu_option ' 7' 'Install' 'Save Z-Offset Macros'
-  menu_option ' 8' 'Install' 'Virtual Pins Support'
-  menu_option ' 9' 'Install' 'Git Backup'
+  menu_option ' 8' 'Install' 'Git Backup'
   hr
   subtitle '•CAMERA:'
-  menu_option '10' 'Install' 'Moonraker Timelapse'
+  menu_option ' 9' 'Install' 'Moonraker Timelapse'
+  menu_option '10' 'Install' 'Nebula Camera Settings Control'
+  menu_option '11' 'Install' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '11' 'Install' 'OctoEverywhere'
-  menu_option '12' 'Install' 'Moonraker Obico'
-  menu_option '13' 'Install' 'GuppyFLO'
-  menu_option '14' 'Install' 'Mobileraker Companion'
-  menu_option '15' 'Install' 'OctoApp Companion'
-  menu_option '16' 'Install' 'SimplyPrint'
+  menu_option '12' 'Install' 'OctoEverywhere'
+  menu_option '13' 'Install' 'Moonraker Obico'
+  menu_option '14' 'Install' 'GuppyFLO'
+  menu_option '15' 'Install' 'Mobileraker Companion'
+  menu_option '16' 'Install' 'OctoApp Companion'
+  menu_option '17' 'Install' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -100,12 +101,6 @@ function install_menu_ke() {
           run "install_save_zoffset_macros" "install_menu_ui_ke"
         fi;;
       8)
-        if [ -f "$VIRTUAL_PINS_FILE" ]; then
-          error_msg "Virtual Pins Support is already installed!"
-        else
-          run "install_virtual_pins" "install_menu_ui_ke"
-        fi;;
-      9)
         if [ -f "$GIT_BACKUP_FILE" ]; then
           error_msg "Git Backup is already installed!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
@@ -115,7 +110,7 @@ function install_menu_ke() {
         else
           run "install_git_backup" "install_menu_ui_ke"
         fi;;
-      10)
+      9)
         if [ -f "$TIMELAPSE_FILE" ]; then
           error_msg "Moonraker Timelapse is already installed!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
@@ -123,65 +118,85 @@ function install_menu_ke() {
         else
           run "install_moonraker_timelapse" "install_menu_ui_ke"
         fi;;
+      10)
+        if [ -f "$CAMERA_SETTINGS_FILE" ]; then
+          error_msg "Nebula Camera Settings Control is already installed!"
+        elif ! v4l2-ctl --list-devices | grep -q 'CCX2F3298'; then
+          error_msg "Nebula camera not detected, please plug it in!"
+        elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
+          error_msg "Klipper Gcode Shell Command is needed, please install it first!"
+        else
+          run "install_camera_settings_control" "install_menu_ui_ke"
+        fi;;
       11)
+        if [ -f "$USB_CAMERA_FILE" ]; then
+          error_msg "Camera USB Support is already installed!"
+        elif v4l2-ctl --list-devices | grep -qE 'CREALITY|CCX2F3298'; then
+          error_msg "It looks like you are using a Creality camera and it's not compatible!"
+        elif [ ! -f "$ENTWARE_FILE" ]; then
+          error_msg "Entware is needed, please install it first!"
+        else
+          run "install_usb_camera" "install_menu_ui_ke"
+        fi;;
+      12)
         if [ -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is already installed!"
         elif [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
           run "install_octoeverywhere" "install_menu_ui_ke"
         fi;;
-      12)
+      13)
         if [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is already installed!"
         elif [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
           run "install_moonraker_obico" "install_menu_ui_ke"
         fi;;
-      13)
+      14)
         if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         else
           run "install_guppyflo" "install_menu_ui_ke"
         fi;;
-      14)
+      15)
         if [ -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is already installed!"
         elif [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
           run "install_mobileraker_companion" "install_menu_ui_ke"
         fi;;
-      15)
+      16)
         if [ -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is already installed!"
         elif [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
           run "install_octoapp_companion" "install_menu_ui_ke"
         fi;;
-      16)
+      17)
         if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is already installed!"
         elif [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
           run "install_simplyprint" "install_menu_ui_ke"
         fi;;

@@ -19,19 +19,20 @@ function remove_menu_ui_ke() {
   subtitle '•IMPROVEMENTS:'
   menu_option ' 6' 'Remove' 'Improved Shapers Calibrations'
   menu_option ' 7' 'Remove' 'Save Z-Offset Macros'
-  menu_option ' 8' 'Remove' 'Virtual Pins Support'
-  menu_option ' 9' 'Remove' 'Git Backup'
+  menu_option ' 8' 'Remove' 'Git Backup'
   hr
   subtitle '•CAMERA:'
-  menu_option '10' 'Remove' 'Moonraker Timelapse'
+  menu_option ' 9' 'Remove' 'Moonraker Timelapse'
+  menu_option '10' 'Install' 'Nebula Camera Settings Control'
+  menu_option '11' 'Remove' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '11' 'Remove' 'OctoEverywhere'
-  menu_option '12' 'Remove' 'Moonraker Obico'
-  menu_option '13' 'Remove' 'GuppyFLO'
-  menu_option '14' 'Remove' 'Mobileraker Companion'
-  menu_option '15' 'Remove' 'OctoApp Companion'
-  menu_option '16' 'Remove' 'SimplyPrint'
+  menu_option '12' 'Remove' 'OctoEverywhere'
+  menu_option '13' 'Remove' 'Moonraker Obico'
+  menu_option '14' 'Remove' 'GuppyFLO'
+  menu_option '15' 'Remove' 'Mobileraker Companion'
+  menu_option '16' 'Remove' 'OctoApp Companion'
+  menu_option '17' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -86,6 +87,8 @@ function remove_menu_ke() {
           error_msg "Entware is needed to use OctoEverywhere, please uninstall it first!"
         elif [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Entware is needed to use Moonraker Obico, please uninstall it first!"
+        elif [ ! -f "$USB_CAMERA_FILE" ]; then
+          error_msg "Entware is needed to use USB Camera Support, please uninstall it first!"
         else
           run "remove_entware" "remove_menu_ui_ke"
         fi;;
@@ -96,7 +99,7 @@ function remove_menu_ke() {
           error_msg "Klipper Gcode Shell Command is needed to use Guppy Screen, please uninstall it first!"
         elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
           error_msg "Klipper Gcode Shell Command is needed to use Improved Shapers Calibrations, please uninstall it first!"
-        elif [ -d "$GIT_BACKUP_FOLDER" ]; then
+        elif [ -f "$GIT_BACKUP_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed to use Git Backup, please uninstall it first!"
         else
           run "remove_gcode_shell_command" "remove_menu_ui_ke"
@@ -114,58 +117,64 @@ function remove_menu_ke() {
           run "remove_save_zoffset_macros" "remove_menu_ui_ke"
         fi;;
       8)
-        if [ ! -f "$VIRTUAL_PINS_FILE" ]; then
-          error_msg "Virtual Pins Support is not installed!"
-        else
-          run "remove_virtual_pins" "remove_menu_ui_ke"
-        fi;;
-      9)
         if [ ! -f "$GIT_BACKUP_FILE" ]; then
           error_msg "Git Backup is not installed!"
         else
           run "remove_git_backup" "remove_menu_ui_ke"
         fi;;
-      10)
+      9)
         if [ ! -f "$TIMELAPSE_FILE" ]; then
           error_msg "Moonraker Timelapse is not installed!"
         else
           run "remove_moonraker_timelapse" "remove_menu_ui_ke"
         fi;;
+      10)
+        if [ ! -f "$CAMERA_SETTINGS_FILE" ]; then
+          error_msg "Nebula Camera Settings Control is not installed!"
+        else
+          run "remove_camera_settings_control" "remove_menu_ui_ke"
+        fi;;
       11)
+        if [ ! -f "$USB_CAMERA_FILE" ]; then
+          error_msg "USB Camera Support is not installed!"
+        else
+          run "remove_usb_camera" "remove_menu_ui_3v3"
+        fi;;
+      12)
         if [ ! -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is not installed!"
         else
           run "remove_octoeverywhere" "remove_menu_ui_ke"
         fi;;
-      12)
+      13)
         if [ ! -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is not installed!"
         else
           run "remove_moonraker_obico" "remove_menu_ui_ke"
         fi;;
-      13)
+      14)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_ke"
         fi;;
-      14)
+      15)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_ke"
         fi;;
-      15)
+      16)
         if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui_ke"
         fi;;
-      16)
+      17)
         if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is not installed!"
         else
-          run "remove_simplyprint" "remove_menu_ui"
+          run "remove_simplyprint" "remove_menu_ui_ke"
         fi;;
       B|b)
         clear; main_menu; break;;

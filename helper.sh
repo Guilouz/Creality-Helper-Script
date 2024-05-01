@@ -6,6 +6,8 @@ clear
 HELPER_SCRIPT_FOLDER="$( cd "$( dirname "${0}" )" && pwd )"
 for script in "${HELPER_SCRIPT_FOLDER}/scripts/"*.sh; do . "${script}"; done
 for script in "${HELPER_SCRIPT_FOLDER}/scripts/menu/"*.sh; do . "${script}"; done
+for script in "${HELPER_SCRIPT_FOLDER}/scripts/menu/3V3/"*.sh; do . "${script}"; done
+for script in "${HELPER_SCRIPT_FOLDER}/scripts/menu/K1/"*.sh; do . "${script}"; done
 for script in "${HELPER_SCRIPT_FOLDER}/scripts/menu/KE/"*.sh; do . "${script}"; done
 
 function update_helper_script() {
@@ -43,7 +45,7 @@ function update_menu() {
     echo -e " │ ${cyan}contain bug fixes, important changes or new features.        ${white}│"
     echo -e " │ ${cyan}Please consider updating!                                    ${white}│"
     hr 
-    echo -e " │ See changelog here: ${yellow}https://tinyurl.com/223jc4zr             ${white}│"
+    echo -e " │ See changelog here: ${yellow}https://tinyurl.com/3sf3bzck             ${white}│"
     hr
     bottom_line
     local yn

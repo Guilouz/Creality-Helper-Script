@@ -28,7 +28,11 @@ function install_camera_settings_control(){
           mkdir -p "$HS_CONFIG_FOLDER"
         fi
         echo -e "Info: Linking file..."
-        cp "$CAMERA_SETTINGS_URL" "$HS_CONFIG_FOLDER"/camera-settings.cfg
+        if v4l2-ctl --list-devices | grep -q 'CCX2F3298'; then
+          cp "$CAMERA_SETTINGS_NEBULA_URL" "$HS_CONFIG_FOLDER"/camera-settings.cfg
+        else
+          cp "$CAMERA_SETTINGS_URL" "$HS_CONFIG_FOLDER"/camera-settings.cfg
+        fi
         if grep -q "include Helper-Script/camera-settings" "$PRINTER_CFG" ; then
           echo -e "Info: Camera Settings configurations are already enabled in printer.cfg file..."
         else

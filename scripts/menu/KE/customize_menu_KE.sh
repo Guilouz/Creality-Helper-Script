@@ -33,7 +33,7 @@ function customize_menu_ke() {
     case "${customize_menu_opt}" in
       1)
         if [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
-          error_msg "Fluidd or Mainsail is needed, please install it first!"
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         elif [ ! -f "$CREALITY_WEB_FILE" ]; then
           error_msg "Creality Web Interface is already removed!"
           echo -e " ${darkred}Please restore Creality Web Interface first if you want to change the default Web Interface.${white}"
