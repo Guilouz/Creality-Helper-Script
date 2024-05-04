@@ -57,7 +57,9 @@ function customize_menu_ke() {
         elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
           error_msg "Please remove Improved Shapers Calibrations first, Guppy Screen already use it!"
         elif [ ! -f /lib/ld-2.29.so ]; then
-          error_msg "Make sure you're running 1.3.x.x firmware version!"
+          error_msg "Make sure you're running latest firmware version!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed, please install it first!"
         else
