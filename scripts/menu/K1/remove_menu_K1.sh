@@ -60,6 +60,8 @@ function remove_menu_k1() {
       1)
         if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Moonraker and Nginx are not installed!"
+        elif [ -d "$GUPPY_SCREEN_FOLDER" ]; then
+          error_msg "Moonraker is needed to use Guppy Screen, please uninstall it first!"
         else
          run "remove_moonraker_nginx" "remove_menu_ui_k1"
         fi;;
