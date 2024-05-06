@@ -150,6 +150,12 @@ function install_moonraker_3v3(){
           mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
           cp "$NGINX_CONF_URL" /etc/nginx/nginx.conf
         fi
+        if [ -f "$INITD_FOLDER"/S56moonraker_service ]; then
+          echo -e "Info: Copying Moonraker service file..."
+          mv "$INITD_FOLDER"/S56moonraker_service "$INITD_FOLDER"/disabled.S56moonraker_service
+          cp "$MOONRAKER_SERVICE_URL" "$INITD_FOLDER"/S56moonraker_service
+          chmod +x "$INITD_FOLDER"/S56moonraker_service
+        fi
         echo -e "Info: Copying Moonraker configuration file..."
         if [ -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf ]; then
           rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf
@@ -216,6 +222,11 @@ function remove_moonraker_3v3(){
           echo -e "Info: Restoring stock Nginx configuration..."
           rm -f /etc/nginx/nginx.conf
           mv /etc/nginx/nginx.conf.backup /etc/nginx/nginx.conf
+        fi
+        if [ -f "$INITD_FOLDER"/disabled.S56moonraker_service ]; then
+          echo -e "Info: Restoring Moonraker service file..."
+          rm -f "$INITD_FOLDER"/S56moonraker_service
+          mv "$INITD_FOLDER"/disabled.S56moonraker_service "$INITD_FOLDER"/S56moonraker_service
         fi
         echo -e "Info: Restoring stock Moonraker version..."
         rm -rf /overlay/upper/usr/share/moonraker
