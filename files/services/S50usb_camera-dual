@@ -16,7 +16,7 @@ case "$1" in
     ;;
   stop)
     echo "Stopping USB Camera..."
-    killall -q mjpg_streamer
+    killall -q mjpg_streamer && killall -q cam_app && killall -q cx_ai_middleware
     ;;
   restart|reload)
     "$0" stop
