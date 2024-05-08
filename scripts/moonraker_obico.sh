@@ -70,8 +70,10 @@ function remove_moonraker_obico(){
         rm -f /etc/init.d/S99moonraker_obico
         if [ -f "$ENTWARE_FILE" ]; then
           echo -e "Info: Removing packages..."
+          set +e
           "$ENTWARE_FILE" --autoremove remove python3
           "$ENTWARE_FILE" --autoremove remove python3-pip
+          set -e
         fi
         echo -e "Info: Restarting Moonraker service..."
         stop_moonraker

@@ -82,7 +82,9 @@ function remove_git_backup(){
         fi
         if [ -f "$ENTWARE_FILE" ]; then
           echo -e "Info: Removing packages..."
+          set +e
           "$ENTWARE_FILE" --autoremove remove inotifywait
+          set -e
         fi
         if [ ! -n "$(ls -A "$HS_CONFIG_FOLDER")" ]; then
           rm -rf "$HS_CONFIG_FOLDER"

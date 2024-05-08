@@ -84,11 +84,13 @@ function remove_usb_camera(){
         echo -e "Info: Removing file..."
         rm -f "$INITD_FOLDER"/S50usb_camera
         echo -e "Info: Removing packages..."
+        set +e
         "$ENTWARE_FILE" --autoremove remove mjpg-streamer-www
         "$ENTWARE_FILE" --autoremove remove mjpg-streamer-output-http
         "$ENTWARE_FILE" --autoremove remove mjpg-streamer-input-uvc
         "$ENTWARE_FILE" --autoremove remove mjpg-streamer-input-http
         "$ENTWARE_FILE" --autoremove remove mjpg-streamer
+        set -e
         ok_msg "USB Camera Support has been removed successfully!"
         echo -e "   Please reboot your printer by using power switch on back!"
         return;;
