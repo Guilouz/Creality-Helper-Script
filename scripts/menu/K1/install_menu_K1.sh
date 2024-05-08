@@ -183,13 +183,13 @@ function install_menu_k1() {
             read -p " ${white}Continue (y/n): ${yellow}" response
             case "$response" in
               [nN][oO]|[nN])
-              run "install_menu_ui" 
+              run "install_menu_ui_k1" 
             ;;
             *)
               if [ ! -f "$KLIPPER_SHELL_FILE" ]; then
                 error_msg "Klipper Gcode Shell Command is needed, please install it first!"
               else
-                run "install_camera_settings_control" "install_menu_ui"
+                run "install_camera_settings_control" "install_menu_ui_k1"
               fi
             esac
           fi
