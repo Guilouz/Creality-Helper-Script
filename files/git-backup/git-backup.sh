@@ -184,8 +184,8 @@ elif [ "$INSTALL" = 1 ]; then
         killall -q inotifywait >/dev/null 2>&1
         /opt/bin/opkg --autoremove remove inotifywait >/dev/null 2>&1
         echo "${white}${darkred} ✗ Your push would publish a private email address!"
-        echo "   You can make your email public or disable this protection by visiting:${white}"
-        echo "   http://github.com/settings/emails${white}"
+        echo "   You can use another email address or make this one public"
+        echo "   or disable this protection by visiting: http://github.com/settings/emails${white}"
         echo
         exit 0
     elif echo "$push_repo" | grep -q "error: failed to push some refs to"; then
