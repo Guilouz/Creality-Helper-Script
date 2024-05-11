@@ -195,3 +195,7 @@ function restart_klipper() {
   /etc/init.d/S55klipper_service restart
   set -e
 }
+
+function disabled_feature() {
+  error_msg "Due to some compatibility issues, this feature is temporarily disabled!"
+}

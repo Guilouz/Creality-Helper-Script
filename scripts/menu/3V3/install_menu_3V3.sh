@@ -180,7 +180,8 @@ function install_menu_3v3() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          run "install_octoeverywhere" "install_menu_ui_3v3"
+          #run "install_octoeverywhere" "install_menu_ui_3v3"
+          run "disabled_feature" "install_menu_ui_3v3"
         fi;;
       17)
         if [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
@@ -192,7 +193,8 @@ function install_menu_3v3() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          run "install_moonraker_obico" "install_menu_ui_3v3"
+          #run "install_moonraker_obico" "install_menu_ui_3v3"
+          run "disabled_feature" "install_menu_ui_3v3"
         fi;;
       18)
         if [ ! -d "$MOONRAKER_FOLDER" ]; then
@@ -208,7 +210,8 @@ function install_menu_3v3() {
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
-          run "install_mobileraker_companion" "install_menu_ui_3v3"
+          #run "install_mobileraker_companion" "install_menu_ui_3v3"
+          run "disabled_feature" "install_menu_ui_3v3"
         fi;;
       20)
         if [ -d "$OCTOAPP_COMPANION_FOLDER" ]; then
@@ -220,7 +223,8 @@ function install_menu_3v3() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          run "install_octoapp_companion" "install_menu_ui_3v3"
+          #run "install_octoapp_companion" "install_menu_ui_3v3"
+          run "disabled_feature" "install_menu_ui_3v3"
         fi;;
       21)
         if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
