@@ -200,7 +200,7 @@ function install_menu_k1() {
           error_msg "Entware is needed, please install it first!"
         else
           #run "install_octoeverywhere" "install_menu_ui_k1"
-          run "install_simplyprint" "install_menu_ui_k1"
+          run "disabled_feature" "install_menu_ui_k1"
         fi;;
       20)
         if [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
@@ -212,7 +212,8 @@ function install_menu_k1() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          run "install_moonraker_obico" "install_menu_ui_k1"
+          #run "install_moonraker_obico" "install_menu_ui_k1"
+          run "disabled_feature" "install_menu_ui_k1"
         fi;;
       21)
         if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
@@ -229,7 +230,7 @@ function install_menu_k1() {
           error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
           #run "install_mobileraker_companion" "install_menu_ui_k1"
-          run "install_simplyprint" "install_menu_ui_k1"
+          run "disabled_feature" "install_menu_ui_k1"
         fi;;
       23)
         if [ -d "$OCTOAPP_COMPANION_FOLDER" ]; then
@@ -242,7 +243,7 @@ function install_menu_k1() {
           error_msg "Entware is needed, please install it first!"
         else
           #run "install_octoapp_companion" "install_menu_ui_k1"
-          run "install_simplyprint" "install_menu_ui_k1"
+          run "disabled_feature" "install_menu_ui_k1"
         fi;;
       24)
         if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
