@@ -227,8 +227,7 @@ function install_menu_k1() {
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
-          #run "install_mobileraker_companion" "install_menu_ui_k1"
-          run "disabled_feature" "install_menu_ui_k1"
+          run "install_mobileraker_companion" "install_menu_ui_k1"
         fi;;
       23)
         if [ -d "$OCTOAPP_COMPANION_FOLDER" ]; then
