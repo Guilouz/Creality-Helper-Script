@@ -240,8 +240,7 @@ function install_menu_k1() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          #run "install_octoapp_companion" "install_menu_ui_k1"
-          run "disabled_feature" "install_menu_ui_k1"
+          run "install_octoapp_companion" "install_menu_ui_k1"
         fi;;
       24)
         if grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
