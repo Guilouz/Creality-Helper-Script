@@ -226,6 +226,8 @@ function install_menu_k1() {
           error_msg "Moonraker and Nginx are needed, please install them first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           error_msg "Fluidd or Mainsail is needed, please install one of them first!"
+        elif [ ! -f "$ENTWARE_FILE" ]; then
+          error_msg "Entware is needed, please install it first!"
         else
           run "install_mobileraker_companion" "install_menu_ui_k1"
         fi;;
