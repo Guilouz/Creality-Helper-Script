@@ -7,6 +7,10 @@ if echo "$get_model" | grep -iq "K1"; then
   model="K1"
 elif echo "$get_model" | grep -iq "F001"; then 
   model="3V3"
+elif echo "$get_model" | grep -iq "F005"; then 
+  model="3KE"
+elif echo "$get_model" | grep -iq "F003"; then 
+  model="10SE"
 fi
 
 function get_script_version() {
@@ -30,8 +34,12 @@ function script_title() {
     title="K1 SERIES"
   elif [ "$model" = "3V3" ]; then
     title="ENDER-3 V3 SERIES"
+  elif [ "$model" = "3KE" ]; then
+    title="ENDER-3 V3 KE"
+  elif [ "$model" = "10SE" ]; then
+    title="CR-10 SE"
   else
-    title="KE SERIES"
+    title="PRINTERS"
   fi
   echo "${title}"
 }
