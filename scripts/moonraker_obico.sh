@@ -29,6 +29,7 @@ function install_moonraker_obico(){
           git clone "$MOONRAKER_OBICO_URL" "$MOONRAKER_OBICO_FOLDER"
 		fi
 		echo -e "Info: Running Moonraker Obico installer..."
+		pip3 uninstall virtualenv -y > /dev/null 2>&1
 		cd "$MOONRAKER_OBICO_FOLDER"
 		sh ./scripts/install_creality.sh -k
         ok_msg "Moonraker Obico has been installed successfully!"
