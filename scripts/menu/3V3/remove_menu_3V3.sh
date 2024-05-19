@@ -13,6 +13,10 @@ function remove_menu_ui_3v3() {
   menu_option ' 3' 'Remove' 'Mainsail (port 4409)'
   hr
   subtitle '•UTILITIES:'
+  menu_option ' 4' 'Remove' 'Entware'
+  menu_option ' 5' 'Remove' 'Klipper Gcode Shell Command'
+  hr
+  subtitle '•IMPROVEMENTS:'
   menu_option ' 6' 'Remove' 'Klipper Adaptive Meshing & Purging'
   menu_option ' 7' 'Remove' 'Buzzer Support'
   menu_option ' 8' 'Remove' 'Improved Shapers Calibrations'
