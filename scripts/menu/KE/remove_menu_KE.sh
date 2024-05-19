@@ -89,7 +89,7 @@ function remove_menu_ke() {
           error_msg "Entware is needed to use OctoEverywhere, please uninstall it first!"
         elif [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Entware is needed to use Moonraker Obico, please uninstall it first!"
-        elif [ ! -f "$USB_CAMERA_FILE" ]; then
+        elif [ -f "$USB_CAMERA_FILE" ]; then
           error_msg "Entware is needed to use USB Camera Support, please uninstall it first!"
         else
           run "remove_entware" "remove_menu_ui_ke"
