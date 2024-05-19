@@ -1,0 +1,45 @@
+#!/bin/sh
+
+#
+# This script will execute just before klipper starts and it does not rely on wipe data
+# it does the equivalent of  `echo "all" | nc -U /var/run/wipe.sock`
+#
+# It needs to run after S12udev is started which is what mounts the usb key
+#
+
+FLAG_FILE="/tmp/udisk/sda1/factory_reset"
+
+factory_reset() {
+    mv "$FLAG_FILE" "${FLAG_FILE}.old" >/dev/null 2>&1
+    /usr/bin/mcu_reset.sh >/dev/null 2>&1
+    ACTION=stop /usr/bin/auto_uvc.sh >/dev/null 2>&1
+    echo "Info: Factory reset was executed successfully, the printer will restart..."
+    /etc/init.d/rcK >/dev/null 2>&1
+    /bin/rm -rf /overlay/upper/* >/dev/null 2>&1
+    /usr/bin/find /usr/data/ -path '/usr/data/creality' -prune -o -path '/usr/data/wpa_supplicant.conf' -prune -o -path '/usr/data/machine_production_info' -prune -o -path '/usr/data/' -o -print -exec rm -rf {} \; >/dev/null 2>&1
+    /bin/sync >/dev/null 2>&1
+    /sbin/swapoff -a >/dev/null 2>&1
+    /sbin/reboot -f >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+		if [ -f "$FLAG_FILE" ]; then
+			echo "Info: Executing factory reset..."
+			factory_reset
+		else
+            echo "Info: No 'factory_reset' file found on the USB drive!"
+            exit 1
+		fi
+        ;;
+    reset)
+		echo "Info: Executing factory reset..."
+		factory_reset
+        ;;
+    *)
+        echo "Usage: $0 {start|reset}"
+        exit 1
+        ;;
+esac
+
+exit 0
