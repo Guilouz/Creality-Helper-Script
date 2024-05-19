@@ -183,9 +183,7 @@ function install_menu_3v3() {
           run "install_octoeverywhere" "install_menu_ui_3v3"
         fi;;
       17)
-        if [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
-          error_msg "Moonraker Obico is already installed!"
-        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+        if [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Updated Moonraker is needed, please install it first!"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           error_msg "Updated Fluidd or Mainsail is needed, please install one of them first!"

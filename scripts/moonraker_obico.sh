@@ -68,7 +68,7 @@ function remove_moonraker_obico(){
         rm -rf /usr/data/moonraker-obico-env
         rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker-obico-update.cfg 
         rm -f "$KLIPPER_CONFIG_FOLDER"/config/moonraker-obico.cfg
-        rm -f /etc/init.d/S99moonraker_obico
+        rm -f "$INITD_FOLDER"/S99moonraker_obico
         echo -e "Info: Restarting Moonraker service..."
         stop_moonraker
         start_moonraker
