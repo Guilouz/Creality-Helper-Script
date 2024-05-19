@@ -31,9 +31,9 @@ function install_m600_support(){
         if [ "$model" = "K1" ]; then 
           ln -sf "$M600_SUPPORT_URL" "$HS_CONFIG_FOLDER"/M600-support.cfg
         elif [ "$model" = "KE" ]; then
-          ln -sf "$M600_SUPPORT_KE_URL" "$HS_CONFIG_FOLDER"/M600-support.cfg
+          ln -sf "$M600_SUPPORT_KE_URL" "$HS_CONFIG_FOLDER"/M600-support-ke.cfg
         else
-          ln -sf "$M600_SUPPORT_3V3_URL" "$HS_CONFIG_FOLDER"/M600-support.cfg
+          ln -sf "$M600_SUPPORT_3V3_URL" "$HS_CONFIG_FOLDER"/M600-support-3v3.cfg
         fi
         if grep -q "include Helper-Script/M600-support" "$PRINTER_CFG" ; then
           echo -e "Info: M600 Support configurations are already enabled in printer.cfg file..."
