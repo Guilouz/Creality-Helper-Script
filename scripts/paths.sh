@@ -120,6 +120,7 @@ function set_paths() {
   M600_SUPPORT_FILE="${HS_CONFIG_FOLDER}/M600-support.cfg"
   M600_SUPPORT_URL="${HS_FILES}/macros/M600-support.cfg"
   M600_SUPPORT_3V3_URL="${HS_FILES}/macros/M600-support-3v3.cfg"
+  M600_SUPPORT_3KE_URL="${HS_FILES}/macros/M600-support-ke.cfg"
   
   # Git Backup #
   GIT_BACKUP_INSTALLER="${HS_FILES}/git-backup/git-backup.sh"
