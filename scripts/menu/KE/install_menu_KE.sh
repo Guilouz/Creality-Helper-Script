@@ -20,12 +20,12 @@ function install_menu_ui_ke() {
   menu_option ' 6' 'Install' 'Improved Shapers Calibrations'
   menu_option ' 7' 'Install' 'Save Z-Offset Macros'
   menu_option ' 8' 'Install' 'M600 Support'
-  menu_option '10' 'Install' 'Git Backup'
+  menu_option ' 9' 'Install' 'Git Backup'
   hr
   subtitle '•CAMERA:'
-  menu_option '11' 'Install' 'Moonraker Timelapse'
-  menu_option '12' 'Install' 'Nebula Camera Settings Control'
-  menu_option '13' 'Install' 'USB Camera Support'
+  menu_option '10' 'Install' 'Moonraker Timelapse'
+  menu_option '11' 'Install' 'Nebula Camera Settings Control'
+  menu_option '12' 'Install' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
   menu_option '13' 'Install' 'OctoEverywhere'
@@ -107,7 +107,7 @@ function install_menu_ke() {
         else
           run "install_m600_support" "install_menu_ui_k1"
         fi;;
-      10)
+      9)
         if [ -f "$GIT_BACKUP_FILE" ]; then
           error_msg "Git Backup is already installed!"
         elif [ ! -f "$ENTWARE_FILE" ]; then
