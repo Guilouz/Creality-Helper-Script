@@ -123,7 +123,7 @@ function remove_menu_ke() {
         if [ ! -f "$M600_SUPPORT_FILE" ]; then
           error_msg "M600 Support is not installed!"
         else
-          run "remove_m600_support" "remove_menu_ui_k1"
+          run "remove_m600_support" "remove_menu_ui_ke"
         fi;;
       9)
         if [ ! -f "$GIT_BACKUP_FILE" ]; then
