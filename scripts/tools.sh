@@ -85,9 +85,7 @@ function reset_factory_settings_message(){
   echo -e " │ ${cyan}settings only performs a partial reset.                      ${white}│"
   hr
   echo -e " │ ${cyan}Note: After factory reset all features already been          ${white}│"
-  echo -e " │ ${cyan}installed with Creality Helper Script must be reinstalled    ${white}│"
-  echo -e " │ ${cyan}and it's necessary to reconnect your printer to your network ${white}│"
-  echo -e " │ ${cyan}from screen settings in 'Settings' → 'Network' tab.          ${white}│"
+  echo -e " │ ${cyan}installed with Creality Helper Script must be reinstalled.   ${white}│"
   hr
   bottom_line
 }
@@ -339,6 +337,7 @@ function clear_cache(){
         echo -e "Info: Clearing git cache..."
         cd "${HELPER_SCRIPT_FOLDER}"
         git gc --aggressive --prune=all
+        pip cache purge
         ok_msg "Cache has been cleared!"
         return;;
       N|n)
@@ -412,8 +411,7 @@ function reset_factory_settings(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
-        echo -e "Info: Restoration..."
-        echo "all" | nc -U /var/run/wipe.sock
+        "$INITD_FOLDER"/S58factoryreset reset
         ;;
       N|n)
         error_msg "Reset canceled!"

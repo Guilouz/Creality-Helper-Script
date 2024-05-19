@@ -2,6 +2,11 @@
 
 set -e
 
+if [ ! -f /etc/init.d/S58factoryreset ]; then
+  cp /usr/data/helper-script/files/services/S58factoryreset /etc/init.d/S58factoryreset
+  chmod 755 /etc/init.d/S58factoryreset
+fi
+
 get_model=$( /usr/bin/get_sn_mac.sh model 2>&1 )
 if echo "$get_model" | grep -iq "K1"; then 
   model="K1"
