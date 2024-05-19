@@ -28,7 +28,7 @@ function install_m600_support(){
           mkdir -p "$HS_CONFIG_FOLDER"
         fi
         echo -e "Info: Linking file..."
-        if [ "$model" = "K1" ]; then
+        if [ "$model" = "K1" ] | [ "$model" = "KE" ]; then
           ln -sf "$M600_SUPPORT_URL" "$HS_CONFIG_FOLDER"/M600-support.cfg
         else
           ln -sf "$M600_SUPPORT_3V3_URL" "$HS_CONFIG_FOLDER"/M600-support.cfg
