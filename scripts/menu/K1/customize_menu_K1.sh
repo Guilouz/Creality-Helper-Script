@@ -71,16 +71,16 @@ function customize_menu_k1() {
       5)
         if [ -d "$GUPPY_SCREEN_FOLDER" ]; then
           error_msg "Guppy Screen is already installed!"
-          echo -e " ${darkred}Please remove Guppy Screen first if you want to change the theme.${white}"
-          echo
-        elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
-          error_msg "Please remove Improved Shapers Calibrations first, Guppy Screen already use it!"
-        elif [ ! -f /lib/ld-2.29.so ]; then
-          error_msg "Make sure you're running latest firmware version!"
         elif [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ "$(curl -s localhost:7125/server/info | jq .result.klippy_connected)" != "true" ]; then
+          error_msg "Moonraker and Klipper do not seem to be functional. Please check this!"
+        elif [ ! -f /lib/ld-2.29.so ]; then
+          error_msg "Make sure you're running latest firmware version!"
         elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed, please install it first!"
+        elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
+          error_msg "Please remove Improved Shapers Calibrations first, Guppy Screen already use it!"
         else
           run "install_guppy_screen" "customize_menu_ui_k1"
         fi;;
