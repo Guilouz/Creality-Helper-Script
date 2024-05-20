@@ -24,9 +24,6 @@ function install_mobileraker_companion(){
         echo -e "Info: Downloading Mobileraker Companion..."
         git config --global http.sslVerify false
         git clone "$MOBILERAKER_COMPANION_URL" "$MOBILERAKER_COMPANION_FOLDER"
-        rm -f "$MOBILERAKER_COMPANION_FOLDER"/scripts/install.sh
-        cp "${HS_FILES}"/fixes/install-mobileraker.sh "$MOBILERAKER_COMPANION_FOLDER"/scripts/install.sh
-        chmod 755 "$MOBILERAKER_COMPANION_FOLDER"/scripts/install.sh
         echo -e "Info: Running Mobileraker Companion installer..."
         sh "$MOBILERAKER_COMPANION_FOLDER"/scripts/install.sh
         echo
