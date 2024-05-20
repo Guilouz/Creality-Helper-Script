@@ -32,7 +32,7 @@ function check_simplyprint_ke() {
 
 function info_menu_ui_ke() {
   top_line
-  title '[ INFORMATIONS MENU ]' "${yellow}"
+  title '[ INFORMATION MENU ]' "${yellow}"
   inner_line
   hr
   subtitle '•ESSENTIALS:'

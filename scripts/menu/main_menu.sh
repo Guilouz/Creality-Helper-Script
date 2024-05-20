@@ -62,7 +62,7 @@ function main_menu_ui() {
   main_menu_option '3' '[Customize]' 'Menu'
   main_menu_option '4' '[Backup & Restore]' 'Menu'
   main_menu_option '5' '[Tools]' 'Menu'
-  main_menu_option '6' '[Informations]' 'Menu'
+  main_menu_option '6' '[Information]' 'Menu'
   main_menu_option '7' '[System]' 'Menu'
   hr
   inner_line

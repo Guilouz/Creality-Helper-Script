@@ -32,7 +32,7 @@ function check_simplyprint_3v3() {
 
 function info_menu_ui_3v3() {
   top_line
-  title '[ INFORMATIONS MENU ]' "${yellow}"
+  title '[ INFORMATION MENU ]' "${yellow}"
   inner_line
   hr
   subtitle '•ESSENTIALS:'
