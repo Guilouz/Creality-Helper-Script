@@ -85,8 +85,10 @@ function main_menu() {
            install_menu_k1
          elif [ "$model" = "3V3" ]; then
            install_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           install_menu_3ke
          else
-           install_menu_ke
+           install_menu_10se
          fi
          break;;
       2) clear
@@ -94,8 +96,10 @@ function main_menu() {
            remove_menu_k1
          elif [ "$model" = "3V3" ]; then
            remove_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           remove_menu_3ke
          else
-           remove_menu_ke
+           remove_menu_10se
          fi
          break;;
       3) clear
@@ -103,8 +107,10 @@ function main_menu() {
            customize_menu_k1
          elif [ "$model" = "3V3" ]; then
            customize_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           customize_menu_3ke
          else
-           customize_menu_ke
+           customize_menu_10se
          fi
          break;;
       4) clear
@@ -115,8 +121,10 @@ function main_menu() {
            tools_menu_k1
          elif [ "$model" = "3V3" ]; then
            tools_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           tools_menu_3ke
          else
-           tools_menu_ke
+           tools_menu_10se
          fi
          main_ui;;
       6) clear
@@ -124,8 +132,10 @@ function main_menu() {
            info_menu_k1
          elif [ "$model" = "3V3" ]; then
            info_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           info_menu_3ke
          else
-           info_menu_ke
+           info_menu_10se
          fi
          break;;
       7) clear
