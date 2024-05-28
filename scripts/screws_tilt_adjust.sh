@@ -38,7 +38,7 @@ function install_screws_tilt_adjust(){
         echo
         local printer_choice
         while true; do
-          read -p " ${white}Do you want install it for ${yellow}K1${white} or ${yellow}K1 Max${white}? (${yellow}k1${white}/${yellow}k1max${white}): ${yellow}" printer_choice
+          read -p " ${white}Do you want to install it for ${yellow}K1${white}, ${yellow}K1 Max${white} or ${yellow}3v3 KE${white}? (${yellow}k1${white}/${yellow}k1max${white}/${yellow}ke${white}): ${yellow}" printer_choice
           case "${printer_choice}" in
             K1|k1)
               echo -e "${white}"
@@ -50,6 +50,11 @@ function install_screws_tilt_adjust(){
               echo -e "Info: Linking files..."
               ln -sf "$SCREWS_ADJUST_K1M_URL" "$HS_CONFIG_FOLDER"/screws-tilt-adjust.cfg
               break;;
+            KE|ke)
+              echo -e "${white}"
+              echo -e "Info: Linking files..."
+              ln -sf "$SCREWS_ADJUST_KE_URL" "$HS_CONFIG_FOLDER"/screws-tilt-adjust.cfg
+              break;;        
             *)
               error_msg "Please select a correct choice!";;
           esac

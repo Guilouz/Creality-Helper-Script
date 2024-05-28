@@ -47,6 +47,8 @@ function info_menu_ui_ke() {
   subtitle '•IMPROVEMENTS:'
   info_line "$(check_folder_ke "$IMP_SHAPERS_FOLDER")" 'Improved Shapers Calibrations'
   info_line "$(check_file_ke "$SAVE_ZOFFSET_FILE")" 'Save Z-Offset Macros'
+  info_line "$(check_file_ke "$SCREWS_ADJUST_FILE")" 'Screws Tilt Adjust Support'
+  info_line "$(check_file_ke "$M600_SUPPORT_FILE")" 'M600 Support'
   info_line "$(check_file_ke "$GIT_BACKUP_FILE")" 'Git Backup'
   hr
   subtitle '•CAMERA:'
