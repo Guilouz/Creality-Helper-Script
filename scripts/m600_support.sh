@@ -55,6 +55,9 @@ function install_m600_support(){
         fi
         if grep -q "\[gcode_macro RESUME\]" "$MACROS_CFG" ; then
           echo -e "Info: Disabling [gcode_macro RESUME] in gcode_macro.cfg file..."
+          if [ "$model" = "3KE" ]; then
+            sed -i '/\[gcode_macro RESUME\]/,/^\s*RESUME_BASE {get_params}/ { /^\s*$/d }' "$MACROS_CFG"
+          fi
           sed -i '/^\[gcode_macro RESUME\]/,/^\s*$/ s/^\(\s*\)\([^#]\)/#\1\2/' "$MACROS_CFG"
         else
           echo -e "Info: [gcode_macro RESUME] is already disabled in gcode_macro.cfg file..."
