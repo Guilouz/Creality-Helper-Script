@@ -175,7 +175,7 @@ function install_menu_k1() {
         if [ -f "$CAMERA_SETTINGS_FILE" ]; then
           error_msg "Camera Settings Control is already installed!"
           continue
-        elif v4l2-ctl --list-devices | grep -q 'CCX2F3299' && [ -f "$INITD_FOLDER"/S99usb_camera ]; then
+        elif v4l2-ctl --list-devices | grep -q 'CCX2F3299' && [ -f "$INITD_FOLDER"/S50usb_camera ]; then
           error_msg "You have the new hardware version of the Creality AI camera and it's not compatible!"
           if [ "lsusb | grep -E \"(Integrated Camera|Webcam|CVD|Video|uvcvideo)\" | wx -l | grep -q '^ [1-9]" ]; then
             echo -e "\e[1A\e[K ${yellow}An additional USB webcam was detected. It may work with the camera settings, but that's not guaranteed."
