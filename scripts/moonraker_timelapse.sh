@@ -70,7 +70,9 @@ function remove_moonraker_timelapse(){
         rm -f /usr/data/moonraker/moonraker/moonraker/components/timelapse.py
         rm -f /usr/data/moonraker/moonraker/moonraker/components/timelapse.pyc
         if [ -f /opt/bin/ffmpeg ]; then
+          set +e
           "$ENTWARE_FILE" --autoremove remove ffmpeg
+          set -e
         fi
         if grep -q "include Helper-Script/timelapse" "$PRINTER_CFG" ; then
           echo -e "Info: Removing Moonraker Timelapse configurations in printer.cfg file..."

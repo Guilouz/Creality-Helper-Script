@@ -29,6 +29,7 @@ function install_moonraker_obico(){
           git clone "$MOONRAKER_OBICO_URL" "$MOONRAKER_OBICO_FOLDER"
 		fi
 		echo -e "Info: Running Moonraker Obico installer..."
+		pip3 uninstall virtualenv -y > /dev/null 2>&1
 		cd "$MOONRAKER_OBICO_FOLDER"
 		sh ./scripts/install_creality.sh -k
         ok_msg "Moonraker Obico has been installed successfully!"
@@ -67,12 +68,7 @@ function remove_moonraker_obico(){
         rm -rf /usr/data/moonraker-obico-env
         rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker-obico-update.cfg 
         rm -f "$KLIPPER_CONFIG_FOLDER"/config/moonraker-obico.cfg
-        rm -f /etc/init.d/S99moonraker_obico
-        if [ -f "$ENTWARE_FILE" ]; then
-          echo -e "Info: Removing packages..."
-          "$ENTWARE_FILE" --autoremove remove python3
-          "$ENTWARE_FILE" --autoremove remove python3-pip
-        fi
+        rm -f "$INITD_FOLDER"/S99moonraker_obico
         echo -e "Info: Restarting Moonraker service..."
         stop_moonraker
         start_moonraker

@@ -1,0 +1,60 @@
+#!/bin/sh
+
+#
+# This script does the equivalent of  `echo "all" | nc -U /var/run/wipe.sock`
+#
+
+FLAG_FILE="/tmp/udisk/sda1/factory_reset"
+
+factory_reset() {
+    mv "$FLAG_FILE" "${FLAG_FILE}.old" >/dev/null 2>&1
+    /usr/bin/mcu_reset.sh >/dev/null 2>&1
+    ACTION=stop /usr/bin/auto_uvc.sh >/dev/null 2>&1
+    echo "Info: Factory reset was executed successfully, the printer will restart..."
+    /etc/init.d/rcK >/dev/null 2>&1
+    /usr/bin/find /overlay/upper/ -path '/overlay/upper/etc/dropbear' -prune -o \
+        -path /overlay/upper/etc/init.d/S58factoryreset -o \
+        -exec rm {} \; >/dev/null 2>&1
+    /usr/bin/find /overlay/upper/ -type d \
+        -depth -print \
+        -exec rmdir {} \; >/dev/null 2>&1
+    /usr/bin/find /usr/data/ \
+        -path '/usr/data/creality' -prune -o \
+        -path '/usr/data/wpa_supplicant.conf' -prune -o \
+        -path '/usr/data/machine_production_info' -prune -o \
+        -path '/usr/data/' -o -print \
+        -exec rm -rf {} \; >/dev/null 2>&1
+    /usr/bin/find /usr/data/creality/userdata \
+        -path '/usr/data/creality/userdata/config/system_config.json' -prune -o \
+        -path '/usr/data/creality/userdata/user_agree_root' -prune -o \
+        -path '/usr/data/creality/userdata' -o -type d -o -print \
+        -exec rm {} \; >/dev/null 2>&1
+    /usr/bin/find /usr/data/creality/ \
+        -depth -print \
+        -exec rmdir {} \; >/dev/null 2>&1
+    /bin/sync >/dev/null 2>&1
+    /sbin/swapoff -a >/dev/null 2>&1
+    /sbin/reboot -f >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+		if [ -f "$FLAG_FILE" ]; then
+			echo "Info: Executing factory reset..."
+			factory_reset
+		else
+            echo "Info: No 'factory_reset' file found on the USB drive!"
+            exit 1
+		fi
+        ;;
+    reset)
+		echo "Info: Executing factory reset..."
+		factory_reset
+        ;;
+    *)
+        echo "Usage: $0 {start|reset}"
+        exit 1
+        ;;
+esac
+
+exit 0

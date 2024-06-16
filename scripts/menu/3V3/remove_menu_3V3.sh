@@ -13,6 +13,10 @@ function remove_menu_ui_3v3() {
   menu_option ' 3' 'Remove' 'Mainsail (port 4409)'
   hr
   subtitle '•UTILITIES:'
+  menu_option ' 4' 'Remove' 'Entware'
+  menu_option ' 5' 'Remove' 'Klipper Gcode Shell Command'
+  hr
+  subtitle '•IMPROVEMENTS:'
   menu_option ' 6' 'Remove' 'Klipper Adaptive Meshing & Purging'
   menu_option ' 7' 'Remove' 'Buzzer Support'
   menu_option ' 8' 'Remove' 'Improved Shapers Calibrations'
@@ -87,7 +91,7 @@ function remove_menu_3v3() {
           error_msg "Entware is needed to use OctoEverywhere, please uninstall it first!"
         elif [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Entware is needed to use Moonraker Obico, please uninstall it first!"
-        elif [ ! -f "$USB_CAMERA_FILE" ]; then
+        elif [ -f "$USB_CAMERA_FILE" ]; then
           error_msg "Entware is needed to use USB Camera Support, please uninstall it first!"
         else
           run "remove_entware" "remove_menu_ui_3v3"

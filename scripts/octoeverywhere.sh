@@ -54,6 +54,9 @@ function remove_octoeverywhere(){
         echo -e "Info: Running OctoEverywhere uninstaller..."
         cd "$OCTOEVERYWHERE_FOLDER"
 		sh ./uninstall.sh
+		if [ -f /root/update-octoeverywhere.sh ]; then
+		  rm -f /root/update-octoeverywhere.sh
+		fi
         ok_msg "OctoEverywhere has been removed successfully!"
         return;;
       N|n)

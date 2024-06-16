@@ -2,7 +2,7 @@
 
 set -e
 
-function customize_menu_ui_ke() {
+function customize_menu_ui_3ke() {
   top_line
   title '[ CUSTOMIZE MENU ]' "${yellow}"
   inner_line
@@ -24,9 +24,9 @@ function customize_menu_ui_ke() {
   bottom_line
 }
 
-function customize_menu_ke() {
+function customize_menu_3ke() {
   clear
-  customize_menu_ui_ke
+  customize_menu_ui_3ke
   local customize_menu_opt
   while true; do
     read -p " ${white}Type your choice and validate with Enter: ${yellow}" customize_menu_opt
@@ -39,7 +39,7 @@ function customize_menu_ke() {
           echo -e " ${darkred}Please restore Creality Web Interface first if you want to change the default Web Interface.${white}"
           echo
         else
-          run "remove_creality_web_interface" "customize_menu_ui_ke"
+          run "remove_creality_web_interface" "customize_menu_ui_3ke"
         fi;;
       2)
         if [ -f "$CREALITY_WEB_FILE" ]; then
@@ -47,29 +47,29 @@ function customize_menu_ke() {
         elif [ ! -f "$INITD_FOLDER"/S99start_app ]; then
           error_msg "Guppy Screen need to be removed first to restore Creality Web Interface!"
         else
-          run "restore_creality_web_interface" "customize_menu_ui_ke"
+          run "restore_creality_web_interface" "customize_menu_ui_3ke"
         fi;;
       3)
         if [ -d "$GUPPY_SCREEN_FOLDER" ]; then
           error_msg "Guppy Screen is already installed!"
-          echo -e " ${darkred}Please remove Guppy Screen first if you want to change the theme.${white}"
-          echo
-        elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
-          error_msg "Please remove Improved Shapers Calibrations first, Guppy Screen already use it!"
-        elif [ ! -f /lib/ld-2.29.so ]; then
-          error_msg "Make sure you're running latest firmware version!"
         elif [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ "$(curl -s localhost:7125/server/info | jq .result.klippy_connected)" != "true" ]; then
+          error_msg "Moonraker and Klipper do not seem to be functional. Please check this!"
+        elif [ ! -f /lib/ld-2.29.so ]; then
+          error_msg "Make sure you're running latest firmware version!"
         elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed, please install it first!"
+        elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
+          error_msg "Please remove Improved Shapers Calibrations first, Guppy Screen already use it!"
         else
-          run "install_guppy_screen" "customize_menu_ui_ke"
+          run "install_guppy_screen" "customize_menu_ui_3ke"
         fi;;
       4)
         if [ ! -d "$GUPPY_SCREEN_FOLDER" ]; then
           error_msg "Guppy Screen is not installed!"
         else
-          run "remove_guppy_screen" "customize_menu_ui_ke"
+          run "remove_guppy_screen" "customize_menu_ui_3ke"
         fi;;
       5)
         if [ -f "$FLUIDD_LOGO_FILE" ]; then
@@ -77,7 +77,7 @@ function customize_menu_ke() {
         elif [ ! -d "$FLUIDD_FOLDER" ]; then
           error_msg "Fluidd is needed, please install it first!"
         else
-          run "install_creality_dynamic_logos" "customize_menu_ui_ke"
+          run "install_creality_dynamic_logos" "customize_menu_ui_3ke"
         fi;;
       B|b)
         clear; main_menu; break;;
@@ -87,5 +87,5 @@ function customize_menu_ke() {
         error_msg "Please select a correct choice!";;
     esac
   done
-  customize_menu_ke
+  customize_menu_3ke
 }

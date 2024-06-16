@@ -115,11 +115,13 @@ function set_paths() {
   SCREWS_ADJUST_URL="${HS_FILES}/screws-tilt-adjust/screws_tilt_adjust.py"
   SCREWS_ADJUST_K1_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1.cfg"
   SCREWS_ADJUST_K1M_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1max.cfg"
+  SCREWS_ADJUST_3KE_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-3ke.cfg"
   
   # M600 Support #
   M600_SUPPORT_FILE="${HS_CONFIG_FOLDER}/M600-support.cfg"
   M600_SUPPORT_URL="${HS_FILES}/macros/M600-support.cfg"
   M600_SUPPORT_3V3_URL="${HS_FILES}/macros/M600-support-3v3.cfg"
+  M600_SUPPORT_3KE_URL="${HS_FILES}/macros/M600-support-ke.cfg"
   
   # Git Backup #
   GIT_BACKUP_INSTALLER="${HS_FILES}/git-backup/git-backup.sh"

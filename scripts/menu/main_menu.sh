@@ -2,11 +2,22 @@
 
 set -e
 
+if [ ! -f /etc/init.d/S58factoryreset ]; then
+  cp /usr/data/helper-script/files/services/S58factoryreset /etc/init.d/S58factoryreset
+  chmod 755 /etc/init.d/S58factoryreset
+fi
+
 get_model=$( /usr/bin/get_sn_mac.sh model 2>&1 )
 if echo "$get_model" | grep -iq "K1"; then 
   model="K1"
 elif echo "$get_model" | grep -iq "F001"; then 
   model="3V3"
+elif echo "$get_model" | grep -iq "F002"; then 
+  model="3V3"
+elif echo "$get_model" | grep -iq "F005"; then 
+  model="3KE"
+elif echo "$get_model" | grep -iq "F003"; then 
+  model="10SE"
 fi
 
 function get_script_version() {
@@ -30,8 +41,12 @@ function script_title() {
     title="K1 SERIES"
   elif [ "$model" = "3V3" ]; then
     title="ENDER-3 V3 SERIES"
+  elif [ "$model" = "3KE" ]; then
+    title="ENDER-3 V3 KE"
+  elif [ "$model" = "10SE" ]; then
+    title="CR-10 SE"
   else
-    title="KE SERIES"
+    title="PRINTERS"
   fi
   echo "${title}"
 }
@@ -49,7 +64,7 @@ function main_menu_ui() {
   main_menu_option '3' '[Customize]' 'Menu'
   main_menu_option '4' '[Backup & Restore]' 'Menu'
   main_menu_option '5' '[Tools]' 'Menu'
-  main_menu_option '6' '[Informations]' 'Menu'
+  main_menu_option '6' '[Information]' 'Menu'
   main_menu_option '7' '[System]' 'Menu'
   hr
   inner_line
@@ -72,8 +87,10 @@ function main_menu() {
            install_menu_k1
          elif [ "$model" = "3V3" ]; then
            install_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           install_menu_3ke
          else
-           install_menu_ke
+           install_menu_10se
          fi
          break;;
       2) clear
@@ -81,8 +98,10 @@ function main_menu() {
            remove_menu_k1
          elif [ "$model" = "3V3" ]; then
            remove_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           remove_menu_3ke
          else
-           remove_menu_ke
+           remove_menu_10se
          fi
          break;;
       3) clear
@@ -90,8 +109,10 @@ function main_menu() {
            customize_menu_k1
          elif [ "$model" = "3V3" ]; then
            customize_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           customize_menu_3ke
          else
-           customize_menu_ke
+           customize_menu_10se
          fi
          break;;
       4) clear
@@ -102,8 +123,10 @@ function main_menu() {
            tools_menu_k1
          elif [ "$model" = "3V3" ]; then
            tools_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           tools_menu_3ke
          else
-           tools_menu_ke
+           tools_menu_10se
          fi
          main_ui;;
       6) clear
@@ -111,8 +134,10 @@ function main_menu() {
            info_menu_k1
          elif [ "$model" = "3V3" ]; then
            info_menu_3v3
+         elif [ "$model" = "3KE" ]; then
+           info_menu_3ke
          else
-           info_menu_ke
+           info_menu_10se
          fi
          break;;
       7) clear
