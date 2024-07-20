@@ -111,6 +111,14 @@ elif [ "$INSTALL" = 1 ]; then
     
     # Prompt user for configuration
     echo "${white}"
+    read -p " Please enter your ${green}Git URL${white} and press Enter: ${yellow}" GIT_URL
+    while [ -z "$GIT_URL" ]; do
+        echo "${white}"
+        echo "${darkred} ✗ Invalid Git URL!${white}"
+        echo
+        read -p " Please enter your ${green}GitHub URL${white} and press Enter: ${yellow}" GIT_URL
+    done
+    echo "${white}"
     read -p " Please enter your ${green}GitHub username${white} and press Enter: ${yellow}" USER_NAME
     while [ -z "$USER_NAME" ]; do
         echo "${white}"
@@ -164,7 +172,7 @@ elif [ "$INSTALL" = 1 ]; then
     git config --global user.name "$USER_NAME"
     git config --global user.email "$USER_MAIL"
     git init
-    git remote add origin "https://$USER_NAME:$GITHUB_TOKEN@github.com/$USER_NAME/$REPO_NAME.git"
+    git remote add origin "https://$USER_NAME:$GITHUB_TOKEN@$GIT_URL/$USER_NAME/$REPO_NAME.git"
     git checkout -b "$REPO_BRANCH"
     git add .
     git commit -m "Initial Backup"
@@ -212,7 +220,7 @@ elif [ "$INSTALL" = 1 ]; then
         killall -q inotifywait >/dev/null 2>&1
         /opt/bin/opkg --autoremove remove inotifywait >/dev/null 2>&1
         echo "${white}${darkred} ✗ Authentication failed!"
-        echo "   Check your GitHub personal access token and restart Git Backup installation.${white}"
+        echo "   Check your Git server personal access token and restart Git Backup installation.${white}"
         echo
         exit 0
     else
@@ -229,6 +237,7 @@ elif [ "$INSTALL" = 1 ]; then
     echo "REMOTE=$REPO_NAME" >> "$ENV"
     echo "BRANCH=$REPO_BRANCH" >> "$ENV"
     echo "USER=$USER_NAME" >> "$ENV"
+    echo "GIT_URL=$GIT_URL" >> "$ENV"
     
     # Insert .env to init.d
     echo "Info: Copying file..."
