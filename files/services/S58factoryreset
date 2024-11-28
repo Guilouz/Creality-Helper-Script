@@ -4,10 +4,7 @@
 # This script does the equivalent of  `echo "all" | nc -U /var/run/wipe.sock`
 #
 
-FLAG_FILE="/tmp/udisk/sda1/factory_reset"
-
 factory_reset() {
-    mv "$FLAG_FILE" "${FLAG_FILE}.old" >/dev/null 2>&1
     /usr/bin/mcu_reset.sh >/dev/null 2>&1
     ACTION=stop /usr/bin/auto_uvc.sh >/dev/null 2>&1
     echo "Info: Factory reset was executed successfully, the printer will restart..."
@@ -41,8 +38,11 @@ factory_reset() {
 
 case "$1" in
     start)
-		if [ -f "$FLAG_FILE" ]; then
+        FLAG_FILE=$(ls /tmp/udisk/sda*/emergency_factory_reset 2> /dev/null)
+		if [ $? -eq 0 ] && [ "x$FLAG_FILE" != "x" ]; then
+		    FLAG_FILE=$(echo $FLAG_FILE | awk '{print $1}')
 			echo "Info: Executing factory reset..."
+			mv "$FLAG_FILE" "${FLAG_FILE}.old" >/dev/null 2>&1
 			factory_reset
 		else
             echo "Info: No 'factory_reset' file found on the USB drive!"
