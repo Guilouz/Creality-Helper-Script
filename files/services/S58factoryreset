@@ -38,7 +38,7 @@ factory_reset() {
 
 case "$1" in
     start)
-        FLAG_FILE=$(ls /tmp/udisk/sda*/emergency_factory_reset 2> /dev/null)
+        FLAG_FILE=$(ls /tmp/udisk/sda*/factory_reset 2> /dev/null)
 		if [ $? -eq 0 ] && [ "x$FLAG_FILE" != "x" ]; then
 		    FLAG_FILE=$(echo $FLAG_FILE | awk '{print $1}')
 			echo "Info: Executing factory reset..."
