@@ -99,7 +99,7 @@ function set_paths() {
   
   # Improved Shapers Calibrations #
   IMP_SHAPERS_FOLDER="${HS_CONFIG_FOLDER}/improved-shapers"
-  IMP_SHAPERS_URL="${HS_FILES}/improved-shapers/"
+  IMP_SHAPERS_URL="${HS_FILES}/improved-shapers"
   
   # Useful Macros #
   USEFUL_MACROS_FILE="${HS_CONFIG_FOLDER}/useful-macros.cfg"

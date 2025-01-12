@@ -73,6 +73,7 @@ function install_moonraker_nginx(){
         echo -e "Info: Installing necessary packages..."
         cd "$MOONRAKER_FOLDER"/moonraker-env/bin
         python3 -m pip install --no-cache-dir pyserial-asyncio==0.6
+        python3 -m pip install --no-cache-dir "dbus-fast<=2.28.0"
         echo -e "Info: Starting Nginx service..."
         start_nginx
         echo -e "Info: Starting Moonraker service..."
