@@ -70,10 +70,6 @@ function install_moonraker_nginx(){
         chmod 755 "$SYSTEMCTL_URL"
         ln -sf "$SUDO_URL" "$SUDO_FILE"
         ln -sf "$SYSTEMCTL_URL" "$SYSTEMCTL_FILE"
-        echo -e "Info: Installing necessary packages..."
-        cd "$MOONRAKER_FOLDER"/moonraker-env/bin
-        python3 -m pip install --no-cache-dir pyserial-asyncio==0.6
-        python3 -m pip install --no-cache-dir "dbus-fast<=2.28.0"
         echo -e "Info: Starting Nginx service..."
         start_nginx
         echo -e "Info: Starting Moonraker service..."
@@ -101,9 +97,6 @@ function remove_moonraker_nginx(){
         stop_moonraker
         stop_nginx
         echo -e "Info: Removing files..."
-        cd "$MOONRAKER_FOLDER"/moonraker-env/bin
-        python3 -m pip uninstall -y pyserial-asyncio==0.6
-        cd
         rm -f "$INITD_FOLDER"/S50nginx
         rm -f "$INITD_FOLDER"/S56moonraker_service
         rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf
@@ -177,9 +170,6 @@ function install_moonraker_3v3(){
         chmod 755 "$SYSTEMCTL_URL"
         ln -sf "$SUDO_URL" "$SUDO_FILE"
         ln -sf "$SYSTEMCTL_URL" "$SYSTEMCTL_FILE"
-        echo -e "Info: Installing necessary packages..."
-        cd "$MOONRAKER_FOLDER"/moonraker-env/bin
-        python3 -m pip install --no-cache-dir pyserial-asyncio==0.6
         echo -e "Info: Starting Nginx service..."
         start_nginx
         echo -e "Info: Starting Moonraker service..."
@@ -207,9 +197,6 @@ function remove_moonraker_3v3(){
         stop_moonraker
         stop_nginx
         echo -e "Info: Removing files..."
-        cd "$MOONRAKER_FOLDER"/moonraker-env/bin
-        python3 -m pip uninstall -y pyserial-asyncio==0.6
-        cd
         rm -rf "$PRINTER_DATA_FOLDER"/comms
         rm -rf "$MOONRAKER_FOLDER"
         rm -f "$KLIPPER_CONFIG_FOLDER"/moonraker.conf
