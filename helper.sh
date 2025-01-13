@@ -55,6 +55,9 @@ function update_menu() {
       case "${yn}" in
         Y|y)
           run "update_helper_script"
+          if [ ! -x "$HELPER_SCRIPT_FOLDER"/helper.sh ]; then
+            chmod +x "$HELPER_SCRIPT_FOLDER"/helper.sh >/dev/null 2>&1
+          fi
           break;;
         N|n)
           break;;
@@ -65,6 +68,9 @@ function update_menu() {
   fi
 }
 
+if [ ! -L /usr/bin/helper ]; then
+  ln -sf "$HELPER_SCRIPT_FOLDER"/helper.sh /usr/bin/helper > /dev/null 2>&1
+fi
 rm -rf /root/.cache
 set_paths
 set_permissions
