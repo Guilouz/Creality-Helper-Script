@@ -42,11 +42,11 @@ function update_menu() {
     title "A new script version is available!" "${green}"
     inner_line
     hr
-    echo -e " │ ${cyan}It's recommended to keep script up to date. Updates usually  ${white}│"
-    echo -e " │ ${cyan}contain bug fixes, important changes or new features.        ${white}│"
-    echo -e " │ ${cyan}Please consider updating!                                    ${white}│"
+    echo -e " │ ${cyan}It's recommended to keep script up to date. Updates usually    ${white}│"
+    echo -e " │ ${cyan}contain bug fixes, important changes or new features.          ${white}│"
+    echo -e " │ ${cyan}Please consider updating!                                      ${white}│"
     hr 
-    echo -e " │ See changelog here: ${yellow}https://tinyurl.com/3sf3bzck             ${white}│"
+    echo -e " │ See changelog here: ${yellow}https://tinyurl.com/3sf3bzck               ${white}│"
     hr
     bottom_line
     local yn
