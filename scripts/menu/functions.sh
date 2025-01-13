@@ -4,19 +4,19 @@ set -e
 
 function top_line() {
   echo -e "${white}"
-  echo -e " ┌──────────────────────────────────────────────────────────────┐"
+  echo -e " ┌────────────────────────────────────────────────────────────────┐"
 }
 
 function hr() {
-  echo -e " │                                                              │"
+  echo -e " │                                                                │"
 }
 
 function inner_line() {
-  echo -e " ├──────────────────────────────────────────────────────────────┤"
+  echo -e " ├────────────────────────────────────────────────────────────────┤"
 }
 
 function bottom_line() {
-  echo -e " └──────────────────────────────────────────────────────────────┘"
+  echo -e " └────────────────────────────────────────────────────────────────┘"
   echo -e "${white}"
 }
 
@@ -27,7 +27,7 @@ function blank_line() {
 function title() {
   local text=$1
   local color=$2
-  local max_length=62
+  local max_length=64
   local text_length=${#text}
   local padding_left=$(((max_length - text_length) / 2))
   local padding_right=$((max_length - text_length - padding_left))
@@ -36,7 +36,7 @@ function title() {
 
 function subtitle() {
   local menu_text1=$1
-  local max_length=61
+  local max_length=63
   local padding=$((max_length - ${#menu_text1}))
   printf " │ ${blue}${menu_text1}%-${padding}s${white}│\n" ''
 }
@@ -45,7 +45,7 @@ function main_menu_option() {
   local menu_number=$1
   local menu_text1=$2
   local menu_text2=$3
-  local max_length=56
+  local max_length=58
   local total_text_length=$(( ${#menu_text1} + ${#menu_text2} ))
   local padding=$((max_length - total_text_length))
   printf " │  ${yellow}${menu_number}${white}) ${green}${menu_text1} ${white}${menu_text2}%-${padding}s${white}│\n" ''
@@ -55,7 +55,7 @@ function menu_option() {
   local menu_number=$1
   local menu_text1=$2
   local menu_text2=$3
-  local max_length=60
+  local max_length=62
   local total_text_length=$(( ${#menu_text1} + ${#menu_text2} + ${#menu_number} + 4 ))
   local padding=$((max_length - total_text_length))
   printf " │   ${yellow}${menu_number}${white}) ${white}${menu_text1} ${green}${menu_text2}%-${padding}s${white}│\n" ''
@@ -65,7 +65,7 @@ function bottom_menu_option() {
   local menu_number=$1
   local menu_text=$2
   local color=$3
-  local max_length=57
+  local max_length=59
   local padding=$((max_length - ${#menu_text}))
   printf " │  $color${menu_number}${white}) ${white}${menu_text}%-${padding}s${white}│\n" ''
 }
@@ -74,7 +74,7 @@ function info_line() {
   local status=$1
   local text=$2
   local color=$3
-  local max_length=66
+  local max_length=68
   local total_text_length=$(( ${#status} + ${#text} ))
   local padding=$((max_length - total_text_length))
   printf " │   $color${status} ${white}${text}%-${padding}s${white}│\n" ''
@@ -83,7 +83,7 @@ function info_line() {
 function system_line() {
   local title="$1"
   local value="$2"
-  local max_length=61
+  local max_length=63
   local title_length=${#title}
   local separator=": "
   local value_length=${#value}

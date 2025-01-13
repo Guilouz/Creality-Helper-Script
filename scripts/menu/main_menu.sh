@@ -30,7 +30,7 @@ function get_script_version() {
 function version_line() {
   local content="$1"
   local content_length="${#content}"
-  local width=$((73))
+  local width=$((75))
   local padding_length=$((width - content_length - 3))
   printf " │ %*s%s%s\n" $padding_length '' "$content" " │"
 }
