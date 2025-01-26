@@ -170,7 +170,7 @@ function install_menu_3ke() {
         elif [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is needed, please install it first!"
         else
-          run "disabled_feature" "install_menu_ui_3ke"
+          run "install_moonraker_obico" "install_menu_ui_3ke"
         fi;;
       16)
         if [ ! -d "$MOONRAKER_FOLDER" ] && [ ! -d "$NGINX_FOLDER" ]; then
