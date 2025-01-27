@@ -1,0 +1,40 @@
+#!/bin/sh
+# USB Camera Service
+# Credit: destinal & Guilouz
+
+case "$1" in
+  start)
+    echo "Starting USB Camera..."
+    V4L_DEVS=$(v4l2-ctl --list-devices | grep -vE 'CCX2F3298|CCX2F3299' | grep -A1 usb | sed 's/^[[:space:]]*//g' | grep '^/dev')
+    #CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -A1 'CREALITY|CCX2F3298|CCX2F3299' | grep -v 'CREALITY|CCX2F3298|CCX2F3299' | wc -l)
+    CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -EA1 --no-group-separator 'CREALITY|CCX2F3298|CCX2F3299' | grep -vE 'CREALITY|CCX2F3298|CCX2F3299' | cut -d '
+' -f 2)
+    PORT=8080
+    if [ "x$CREALITY_CAMS" != x ]; then
+      echo /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d $CREALITY_CAMS -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p $PORT"
+      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d $CREALITY_CAMS -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p $PORT"
+      PORT=`expr $PORT + 1` 
+      #echo "Error: No third party camera found or you use a Creality camera!"
+      #exit 1
+    fi
+    for V4L_DEV in $V4L_DEVS; do
+      echo /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d $V4L_DEV -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p $PORT"
+      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d $V4L_DEV -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p $PORT"
+      PORT=`expr $PORT + 1` 
+    done
+    ;;
+  stop)
+    echo "Stopping USB Camera..."
+    killall -q mjpg_streamer && killall -q cam_app && killall -q cx_ai_middleware
+    ;;
+  restart|reload)
+    "$0" stop
+    sleep 1
+    "$0" start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/S50usb_camera {start|stop|restart}"
+    exit 1
+esac
+
+exit $?
