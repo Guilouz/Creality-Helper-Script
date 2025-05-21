@@ -18,6 +18,8 @@ elif echo "$get_model" | grep -iq "F005"; then
   model="3KE"
 elif echo "$get_model" | grep -iq "F003"; then 
   model="10SE"
+elif echo "$get_model" | grep -iq "F004"; then
+  model="E5M"
 fi
 
 function get_script_version() {
@@ -45,6 +47,8 @@ function script_title() {
     title="ENDER-3 V3 KE"
   elif [ "$model" = "10SE" ]; then
     title="CR-10 SE"
+  elif [ "$model" = "E5M" ]; then
+    title="Ender-5 MAX"
   else
     title="PRINTERS"
   fi
@@ -89,6 +93,8 @@ function main_menu() {
            install_menu_3v3
          elif [ "$model" = "3KE" ]; then
            install_menu_3ke
+         elif [ "$model" = "E5M" ]; then
+           install_menu_e5m
          else
            install_menu_10se
          fi
@@ -100,6 +106,8 @@ function main_menu() {
            remove_menu_3v3
          elif [ "$model" = "3KE" ]; then
            remove_menu_3ke
+         elif [ "$model" = "E5M" ]; then
+           remove_menu_e5m
          else
            remove_menu_10se
          fi
@@ -111,6 +119,8 @@ function main_menu() {
            customize_menu_3v3
          elif [ "$model" = "3KE" ]; then
            customize_menu_3ke
+         elif [ "$model" = "E5M" ]; then
+           customize_menu_e5m
          else
            customize_menu_10se
          fi
@@ -125,6 +135,8 @@ function main_menu() {
            tools_menu_3v3
          elif [ "$model" = "3KE" ]; then
            tools_menu_3ke
+         elif [ "$model" = "E5M" ]; then
+           tools_menu_e5m
          else
            tools_menu_10se
          fi
@@ -136,6 +148,8 @@ function main_menu() {
            info_menu_3v3
          elif [ "$model" = "3KE" ]; then
            info_menu_3ke
+         elif [ "$model" = "E5M" ]; then
+           info_menu_e5m
          else
            info_menu_10se
          fi
