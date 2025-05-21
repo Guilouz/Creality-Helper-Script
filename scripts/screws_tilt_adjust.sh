@@ -55,6 +55,9 @@ function install_screws_tilt_adjust(){
                 error_msg "Please select a correct choice!";;
             esac
           done
+        elif [ "$model" = "E5M" ]; then
+          echo -e "Info: Linking files..."
+          ln -sf "$SCREWS_ADJUST_E5M_URL" "$HS_CONFIG_FOLDER"/screws-tilt-adjust.cfg
         else
           echo -e "Info: Linking files..."
           ln -sf "$SCREWS_ADJUST_3KE_URL" "$HS_CONFIG_FOLDER"/screws-tilt-adjust.cfg

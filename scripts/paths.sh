@@ -116,6 +116,7 @@ function set_paths() {
   SCREWS_ADJUST_K1_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1.cfg"
   SCREWS_ADJUST_K1M_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1max.cfg"
   SCREWS_ADJUST_3KE_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-3ke.cfg"
+  SCREWS_ADJUST_E5M_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-e5m.cfg"
   
   # M600 Support #
   M600_SUPPORT_FILE="${HS_CONFIG_FOLDER}/M600-support.cfg"
