@@ -142,7 +142,7 @@ function set_paths() {
   # USB Camera Support
   USB_CAMERA_FILE="${INITD_FOLDER}/S50usb_camera"
   USB_CAMERA_SINGLE_URL="${HS_FILES}/services/S50usb_camera-single"
-  USB_CAMERA_DUAL_URL="${HS_FILES}/services/S50usb_camera-dual"
+  USB_CAMERA_MULTI_URL="${HS_FILES}/services/S50usb_camera-multi"
   
   # OctoEverywhere #
   OCTOEVERYWHERE_FOLDER="${USR_DATA}/octoeverywhere"

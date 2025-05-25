@@ -23,9 +23,9 @@ function install_usb_camera(){
         echo -e "${white}"
         echo -e "Info: Copying file..."
         if [ "$model" = "K1" ]; then
-          cp "$USB_CAMERA_DUAL_URL" "$INITD_FOLDER"/S50usb_camera
+          cp "$USB_CAMERA_MULTI_URL" "$INITD_FOLDER"/S50usb_camera
         else
-          cp "$USB_CAMERA_SINGLE_URL" "$INITD_FOLDER"/S50usb_camera
+          cp "$USB_CAMERA_MULTI_URL" "$INITD_FOLDER"/S50usb_camera
           echo
           echo -e " ${darkred}Be careful with the 1080p resolution!"
           echo -e " It takes more resources and timelapses are larger and take longer to convert.${white}"
@@ -102,3 +102,4 @@ function remove_usb_camera(){
     esac
   done
 }
+

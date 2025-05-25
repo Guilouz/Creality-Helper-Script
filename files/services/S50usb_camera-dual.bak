@@ -5,13 +5,13 @@
 case "$1" in
   start)
     echo "Starting USB Camera..."
-    V4L_DEVS=$(v4l2-ctl --list-devices | grep -A1 usb | sed 's/^[[:space:]]*//g' | grep '^/dev')
-    CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -E 'CREALITY' | wc -l)
+    V4L_DEVS=$(v4l2-ctl --list-devices | grep -vE 'CCX2F3298|CCX2F3299' | grep -A1 usb | sed 's/^[[:space:]]*//g' | grep '^/dev')
+    CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -E 'CREALITY|CCX2F3298|CCX2F3298' | wc -l)
     if [ "x$V4L_DEVS" = "x" -o $CREALITY_CAMS -gt 0 ]; then
-      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d /dev/video4 -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p 8080"
+      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d /dev/video5 -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p 8080"
       /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d /dev/video6 -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p 8081"
     else
-      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d /dev/video4 -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p 8080"
+      /opt/bin/mjpg_streamer -b -i "/opt/lib/mjpg-streamer/input_uvc.so -d /dev/video5 -r 1280x720 -f 15" -o "/opt/lib/mjpg-streamer/output_http.so -p 8080"
     fi
     ;;
   stop)
