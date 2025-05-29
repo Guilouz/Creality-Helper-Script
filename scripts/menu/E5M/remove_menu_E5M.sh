@@ -26,17 +26,16 @@ function remove_menu_ui_e5m() {
   hr
   subtitle '•CAMERA:'
   menu_option '12' 'Remove' 'Moonraker Timelapse'
-  menu_option '13' 'Remove' 'Camera Settings Control'
-  menu_option '14' 'Remove' 'Nebula Camera Support'
-  menu_option '15' 'Remove' 'USB Camera Support'
+  menu_option '13' 'Remove' 'Nebula Camera Support'
+  menu_option '14' 'Remove' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '16' 'Remove' 'OctoEverywhere'
-  menu_option '17' 'Remove' 'Moonraker Obico'
-  menu_option '18' 'Remove' 'GuppyFLO'
-  menu_option '19' 'Remove' 'Mobileraker Companion'
-  menu_option '20' 'Remove' 'OctoApp Companion'
-  menu_option '21' 'Remove' 'SimplyPrint'
+  menu_option '15' 'Remove' 'OctoEverywhere'
+  menu_option '16' 'Remove' 'Moonraker Obico'
+  menu_option '17' 'Remove' 'GuppyFLO'
+  menu_option '18' 'Remove' 'Mobileraker Companion'
+  menu_option '19' 'Remove' 'OctoApp Companion'
+  menu_option '20' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -155,55 +154,49 @@ function remove_menu_e5m() {
           run "remove_moonraker_timelapse" "remove_menu_ui_e5m"
         fi;;
       13)
-        if [ ! -f "$CAMERA_SETTINGS_FILE" ]; then
-          error_msg "Camera Settings Control is not installed!"
-        else
-          run "remove_camera_settings_control" "remove_menu_ui_e5m"
-        fi;;
-      14)
         if [ ! -f "$CAMERA_SETTINGS_FILE" ] && [ ! -f "$NEBULA_CAMERA_FILE" ]; then
           error_msg "Nebula Camera Support (or generic Camera Settings) does not appear to be installed!"
         else
           run "remove_camera_settings_control" "remove_menu_ui_e5m"
         fi;;
-      15)
+      14)
         if [ ! -f "$USB_CAMERA_FILE" ]; then
           error_msg "USB Camera Support is not installed!"
         else
           run "remove_usb_camera" "remove_menu_ui_e5m"
         fi;;
-      16)
+      15)
         if [ ! -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is not installed!"
         else
           run "remove_octoeverywhere" "remove_menu_ui_e5m"
         fi;;
-      17)
+      16)
         if [ ! -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is not installed!"
         else
           run "remove_moonraker_obico" "remove_menu_ui_e5m"
         fi;;
-      18)
+      17)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_e5m"
         fi;;
-      19)
+      18)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_e5m"
         fi;;
-      20)
+      19)
         if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui_e5m"
         fi;;
-      21)
-        if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+      20)
+        if ! grep -q "\\\\[simplyprint\\\\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is not installed!"
         else
           run "remove_simplyprint" "remove_menu_ui_e5m"
