@@ -17,29 +17,25 @@ function remove_menu_ui_e5m() {
   menu_option ' 5' 'Remove' 'Klipper Gcode Shell Command'
   hr
   subtitle '•IMPROVEMENTS:'
-  menu_option ' 6' 'Remove' 'Klipper Adaptive Meshing & Purging'
-  menu_option ' 7' 'Remove' 'Buzzer Support'
-  menu_option ' 8' 'Remove' 'Nozzle Cleaning Fan Control'
-  menu_option ' 9' 'Remove' 'Fans Control Macros'
-  menu_option '10' 'Remove' 'Improved Shapers Calibrations'
-  menu_option '11' 'Remove' 'Useful Macros'
-  menu_option '12' 'Remove' 'Save Z-Offset Macros'
-  menu_option '13' 'Remove' 'Screws Tilt Adjust Support'
-  menu_option '14' 'Remove' 'M600 Support'
-  menu_option '15' 'Remove' 'Git Backup'
+  menu_option ' 6' 'Remove' 'Buzzer Support'
+  menu_option ' 7' 'Remove' 'Fans Control Macros'
+  menu_option ' 8' 'Remove' 'Improved Shapers Calibrations'
+  menu_option ' 9' 'Remove' 'Useful Macros'
+  menu_option '10' 'Remove' 'Save Z-Offset Macros'
+  menu_option '11' 'Remove' 'Screws Tilt Adjust Support'
   hr
   subtitle '•CAMERA:'
-  menu_option '16' 'Remove' 'Moonraker Timelapse'
-  menu_option '17' 'Remove' 'Camera Settings Control'
-  menu_option '18' 'Remove' 'USB Camera Support'
+  menu_option '12' 'Remove' 'Moonraker Timelapse'
+  menu_option '13' 'Remove' 'Nebula Camera Support'
+  menu_option '14' 'Remove' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '19' 'Remove' 'OctoEverywhere'
-  menu_option '20' 'Remove' 'Moonraker Obico'
-  menu_option '21' 'Remove' 'GuppyFLO'
-  menu_option '22' 'Remove' 'Mobileraker Companion'
-  menu_option '23' 'Remove' 'OctoApp Companion'
-  menu_option '24' 'Remove' 'SimplyPrint'
+  menu_option '15' 'Remove' 'OctoEverywhere'
+  menu_option '16' 'Remove' 'Moonraker Obico'
+  menu_option '17' 'Remove' 'GuppyFLO'
+  menu_option '18' 'Remove' 'Mobileraker Companion'
+  menu_option '19' 'Remove' 'OctoApp Companion'
+  menu_option '20' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -90,8 +86,6 @@ function remove_menu_e5m() {
           error_msg "Entware is not installed!"
         elif [ -f "$TIMELAPSE_FILE" ]; then
           error_msg "Entware is needed to use Moonraker Timelapse, please uninstall it first!"
-        elif [ -f "$GIT_BACKUP_FILE" ]; then
-          error_msg "Entware is needed to use Git Backup, please uninstall it first!"
         elif [ -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "Entware is needed to use OctoEverywhere, please uninstall it first!"
         elif [ -d "$MOONRAKER_OBICO_FOLDER" ]; then
@@ -112,123 +106,97 @@ function remove_menu_e5m() {
           error_msg "Klipper Gcode Shell Command is needed to use Guppy Screen, please uninstall it first!"
         elif [ -d "$IMP_SHAPERS_FOLDER" ]; then
           error_msg "Klipper Gcode Shell Command is needed to use Improved Shapers Calibrations, please uninstall it first!"
-        elif [ -f "$GIT_BACKUP_FILE" ]; then
-          error_msg "Klipper Gcode Shell Command is needed to use Git Backup, please uninstall it first!"
         elif [ -f "$USEFUL_MACROS_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed to use Useful Macros, please uninstall it first!"
         else
           run "remove_gcode_shell_command" "remove_menu_ui_e5m"
         fi;;
       6)
-        if [ ! -d "$KAMP_FOLDER" ]; then
-          error_msg "Klipper Adaptive Meshing & Purging is not installed!"
-        else
-          run "remove_kamp" "remove_menu_ui_e5m"
-        fi;;
-      7)
         if [ ! -f "$BUZZER_FILE" ]; then
           error_msg "Buzzer Support is not installed!"
         else
           run "remove_buzzer_support" "remove_menu_ui_e5m"
         fi;;
-      8)
-        if [ ! -d "$NOZZLE_CLEANING_FOLDER" ]; then
-          error_msg "Nozzle Cleaning Fan Control is not installed!"
-        else
-          run "remove_nozzle_cleaning_fan_control" "remove_menu_ui_e5m"
-        fi;;
-      9)
-        if [ ! -f "$FAN_CONTROLS_FILE" ]; then
-          error_msg "Fans Control Macros are not installed!"
+      7)
+        if [ ! -f "$HS_CONFIG_FOLDER/e5m_custom_fan_definitions_applied.flag" ]; then
+          error_msg "E5M Custom Fan Macros are not applied!"
         else
           run "remove_fans_control_macros" "remove_menu_ui_e5m"
         fi;;
-      10)
+      8)
         if [ ! -d "$IMP_SHAPERS_FOLDER" ]; then
           error_msg "Improved Shapers Calibrations are not installed!"
         else
           run "remove_improved_shapers" "remove_menu_ui_e5m"
         fi;;
-      11)
+      9)
         if [ ! -f "$USEFUL_MACROS_FILE" ]; then
           error_msg "Useful Macros are not installed!"
         else
           run "remove_useful_macros" "remove_menu_ui_e5m"
         fi;;
-      12)
+      10)
         if [ ! -f "$SAVE_ZOFFSET_FILE" ]; then
           error_msg "Save Z-Offset Macros are not installed!"
         else
           run "remove_save_zoffset_macros" "remove_menu_ui_e5m"
         fi;;
-      13)
+      11)
         if [ ! -f "$SCREWS_ADJUST_FILE" ]; then
           error_msg "Screws Tilt Adjust Support is not installed!"
         else
           run "remove_screws_tilt_adjust" "remove_menu_ui_e5m"
         fi;;
-      14)
-        if [ ! -f "$M600_SUPPORT_FILE" ]; then
-          error_msg "M600 Support is not installed!"
-        else
-          run "remove_m600_support" "remove_menu_ui_e5m"
-        fi;;
-      15)
-        if [ ! -f "$GIT_BACKUP_FILE" ]; then
-          error_msg "Git Backup is not installed!"
-        else
-          run "remove_git_backup" "remove_menu_ui_e5m"
-        fi;;
-      16)
+      12)
         if [ ! -f "$TIMELAPSE_FILE" ]; then
           error_msg "Moonraker Timelapse is not installed!"
         else
           run "remove_moonraker_timelapse" "remove_menu_ui_e5m"
         fi;;
-      17)
-        if [ ! -f "$CAMERA_SETTINGS_FILE" ]; then
-          error_msg "Camera Settings Control is not installed!"
+      13)
+        if [ ! -f "$CAMERA_SETTINGS_FILE" ] && [ ! -f "$NEBULA_CAMERA_FILE" ]; then
+          error_msg "Nebula Camera Support (or generic Camera Settings) does not appear to be installed!"
         else
           run "remove_camera_settings_control" "remove_menu_ui_e5m"
         fi;;
-      18)
+      14)
         if [ ! -f "$USB_CAMERA_FILE" ]; then
           error_msg "USB Camera Support is not installed!"
         else
           run "remove_usb_camera" "remove_menu_ui_e5m"
         fi;;
-      19)
+      15)
         if [ ! -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is not installed!"
         else
           run "remove_octoeverywhere" "remove_menu_ui_e5m"
         fi;;
-      20)
+      16)
         if [ ! -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is not installed!"
         else
           run "remove_moonraker_obico" "remove_menu_ui_e5m"
         fi;;
-      21)
+      17)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_e5m"
         fi;;
-      22)
+      18)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_e5m"
         fi;;
-      23)
+      19)
         if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui_e5m"
         fi;;
-      24)
-        if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
+      20)
+        if ! grep -q "\\\\[simplyprint\\\\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is not installed!"
         else
           run "remove_simplyprint" "remove_menu_ui_e5m"
