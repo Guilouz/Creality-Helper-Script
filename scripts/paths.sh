@@ -86,6 +86,7 @@ function set_paths() {
   # Buzzer Support #
   BUZZER_FILE="${HS_CONFIG_FOLDER}/buzzer-support.cfg"
   BUZZER_URL="${HS_FILES}/buzzer-support/buzzer-support.cfg"
+  BUZZER_E5M_URL="${HS_FILES}/buzzer-support/buzzer-support-e5m.cfg"
   
   # Nozzle Cleaning Fan Control #
   NOZZLE_CLEANING_FOLDER="${KLIPPER_EXTRAS_FOLDER}/prtouch_v2_fan"
