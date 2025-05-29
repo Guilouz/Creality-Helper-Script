@@ -112,8 +112,8 @@ function install_menu_e5m() {
           run "install_nozzle_cleaning_fan_control" "install_menu_ui_e5m"
         fi;;
       9)
-        if [ -f "$FAN_CONTROLS_FILE" ]; then
-          error_msg "Fans Control Macros are already installed!"
+        if [ -f "$HS_CONFIG_FOLDER/e5m_custom_fan_definitions_applied.flag" ]; then
+          error_msg "E5M Custom Fan Macros are already applied!"
         else
           run "install_fans_control_macros" "install_menu_ui_e5m"
         fi;;

@@ -138,8 +138,8 @@ function remove_menu_e5m() {
           run "remove_nozzle_cleaning_fan_control" "remove_menu_ui_e5m"
         fi;;
       9)
-        if [ ! -f "$FAN_CONTROLS_FILE" ]; then
-          error_msg "Fans Control Macros are not installed!"
+        if [ ! -f "$HS_CONFIG_FOLDER/e5m_custom_fan_definitions_applied.flag" ]; then
+          error_msg "E5M Custom Fan Macros are not applied!"
         else
           run "remove_fans_control_macros" "remove_menu_ui_e5m"
         fi;;
