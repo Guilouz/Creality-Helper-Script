@@ -141,7 +141,6 @@ function install_guppy_screen(){
           fi
           cp "$GUPPY_SCREEN_CONFIG_3V3_URL" "$GUPPY_SCREEN_FOLDER"/guppyconfig.json
         fi
-        chmod 775 "$GUPPY_SCREEN_URL2"
         if grep -q "include GuppyScreen" "$PRINTER_CFG" ; then
           echo -e "Info: Guppy Screen configurations are already enabled in printer.cfg file."
         else
