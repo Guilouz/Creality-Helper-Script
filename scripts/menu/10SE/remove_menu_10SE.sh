@@ -33,6 +33,7 @@ function remove_menu_ui_10se() {
   menu_option '15' 'Remove' 'Mobileraker Companion'
   menu_option '16' 'Remove' 'OctoApp Companion'
   menu_option '17' 'Remove' 'SimplyPrint'
+  menu_option '18' 'Remove' 'Polar Cloud'
   hr
   inner_line
   hr
@@ -177,6 +178,12 @@ function remove_menu_10se() {
           error_msg "SimplyPrint is not installed!"
         else
           run "remove_simplyprint" "remove_menu_ui_10se"
+        fi;;
+      18)
+        if [ ! -d "$POLARCLOUD_FOLDER" ]; then
+          error_msg "Polar Cloud is not installed!"
+        else
+          run "remove_polarcloud" "remove_menu_ui_10se"
         fi;;
       B|b)
         clear; main_menu; break;;
