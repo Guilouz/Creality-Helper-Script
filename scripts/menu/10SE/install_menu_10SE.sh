@@ -33,6 +33,7 @@ function install_menu_ui_10se() {
   menu_option '15' 'Install' 'Mobileraker Companion'
   menu_option '16' 'Install' 'OctoApp Companion'
   menu_option '17' 'Install' 'SimplyPrint'
+  menu_option '18' 'Install' 'Polar Cloud'
   hr
   inner_line
   hr
@@ -197,6 +198,18 @@ function install_menu_10se() {
           error_msg "Fluidd or Mainsail is needed, please install one of them first!"
         else
           run "install_simplyprint" "install_menu_ui_10se"
+        fi;;
+      18)
+        if [ -d "$POLARCLOUD_FOLDER" ]; then
+          error_msg "Polar Cloud is already installed!"
+        elif [ ! -d "$MOONRAKER_FOLDER" ]; then
+          error_msg "Moonraker and Nginx are needed, please install them first!"
+        elif [ ! -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
+          error_msg "Fluidd or Mainsail is needed, please install one of them first!"
+        elif [ ! -f "$ENTWARE_FILE" ]; then
+          error_msg "Entware is needed, please install it first!"
+        else
+          run "install_polarcloud" "install_menu_ui_10se"
         fi;;
       B|b)
         clear; main_menu; break;;

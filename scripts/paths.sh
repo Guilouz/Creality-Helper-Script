@@ -164,6 +164,10 @@ function set_paths() {
   OCTOAPP_COMPANION_FOLDER="${USR_DATA}/octoapp"
   OCTOAPP_COMPANION_URL="https://github.com/crysxd/OctoApp-Plugin.git"
 
+  # Polar Cloud #
+  POLARCLOUD_FOLDER="${USR_DATA}/polar-cloud-klipper"
+  POLARCLOUD_URL="https://github.com/Polar3D/polar-cloud-klipper.git"
+
   # Custom Boot Display #
   BOOT_DISPLAY_FOLDER="/etc/boot-display"
   BOOT_DISPLAY_FILE="${BOOT_DISPLAY_FOLDER}/part0/pic_100.jpg"
