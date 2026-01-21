@@ -27,7 +27,11 @@ function install_buzzer_support(){
           mkdir -p "$HS_CONFIG_FOLDER"
         fi
         echo -e "Info: Linking file..."
-        ln -sf "$BUZZER_URL" "$HS_CONFIG_FOLDER"/buzzer-support.cfg
+        if [ "$model" = "E5M" ]; then
+          ln -sf "$BUZZER_E5M_URL" "$HS_CONFIG_FOLDER"/buzzer-support.cfg
+        else
+          ln -sf "$BUZZER_URL" "$HS_CONFIG_FOLDER"/buzzer-support.cfg
+        fi
         if grep -q "include Helper-Script/buzzer-support" "$PRINTER_CFG" ; then
           echo -e "Info: Buzzer Support configurations are already enabled in printer.cfg file..."
         else
