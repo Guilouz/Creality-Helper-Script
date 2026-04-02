@@ -17,24 +17,25 @@ function remove_menu_ui_3ke() {
   menu_option ' 5' 'Remove' 'Klipper Gcode Shell Command'
   hr
   subtitle '•IMPROVEMENTS:'
-  menu_option ' 6' 'Remove' 'Improved Shapers Calibrations'
-  menu_option ' 7' 'Remove' 'Save Z-Offset Macros'
-  menu_option ' 8' 'Remove' 'M600 Support'
-  menu_option ' 9' 'Remove' 'Screws Tilt Adjust Support'
-  menu_option '10' 'Remove' 'Git Backup'
+  menu_option ' 6' 'Remove' 'Klipper Adaptive Meshing & Purging'
+  menu_option ' 7' 'Remove' 'Improved Shapers Calibrations'
+  menu_option ' 8' 'Remove' 'Save Z-Offset Macros'
+  menu_option ' 9' 'Remove' 'M600 Support'
+  menu_option '10' 'Remove' 'Screws Tilt Adjust Support'
+  menu_option '11' 'Remove' 'Git Backup'
   hr
   subtitle '•CAMERA:'
-  menu_option '11' 'Remove' 'Moonraker Timelapse'
-  menu_option '12' 'Remove' 'Nebula Camera Settings Control'
-  menu_option '13' 'Remove' 'USB Camera Support'
+  menu_option '12' 'Remove' 'Moonraker Timelapse'
+  menu_option '13' 'Remove' 'Nebula Camera Settings Control'
+  menu_option '14' 'Remove' 'USB Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '14' 'Remove' 'OctoEverywhere'
-  menu_option '15' 'Remove' 'Moonraker Obico'
-  menu_option '16' 'Remove' 'GuppyFLO'
-  menu_option '17' 'Remove' 'Mobileraker Companion'
-  menu_option '18' 'Remove' 'OctoApp Companion'
-  menu_option '19' 'Remove' 'SimplyPrint'
+  menu_option '15' 'Remove' 'OctoEverywhere'
+  menu_option '16' 'Remove' 'Moonraker Obico'
+  menu_option '17' 'Remove' 'GuppyFLO'
+  menu_option '18' 'Remove' 'Mobileraker Companion'
+  menu_option '19' 'Remove' 'OctoApp Companion'
+  menu_option '20' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -109,84 +110,90 @@ function remove_menu_3ke() {
           run "remove_gcode_shell_command" "remove_menu_ui_3ke"
         fi;;
       6)
+        if [ ! -d "$KAMP_FOLDER" ]; then
+          error_msg "Klipper Adaptive Meshing & Purging is not installed!"
+        else
+          run "remove_kamp" "remove_menu_ui_3v3"
+        fi;;
+      7)
         if [ ! -d "$IMP_SHAPERS_FOLDER" ]; then
           error_msg "Improved Shapers Calibrations are not installed!"
         else
           run "remove_improved_shapers" "remove_menu_ui_3ke"
         fi;;
-      7)
+      8)
         if [ ! -f "$SAVE_ZOFFSET_FILE" ]; then
           error_msg "Save Z-Offset Macros are not installed!"
         else
           run "remove_save_zoffset_macros" "remove_menu_ui_3ke"
         fi;;
-      8)
+      9)
         if [ ! -f "$M600_SUPPORT_FILE" ]; then
           error_msg "M600 Support is not installed!"
         else
           run "remove_m600_support" "remove_menu_ui_3ke"
         fi;;
-      9)
+      10)
         if [ ! -f "$SCREWS_ADJUST_FILE" ]; then
           error_msg "Screws Tilt Adjust Support is not installed!"
         else
           run "remove_screws_tilt_adjust" "remove_menu_ui_3ke"
         fi;;
-      10)
+      11)
         if [ ! -f "$GIT_BACKUP_FILE" ]; then
           error_msg "Git Backup is not installed!"
         else
           run "remove_git_backup" "remove_menu_ui_3ke"
         fi;;
-      11)
+      12)
         if [ ! -f "$TIMELAPSE_FILE" ]; then
           error_msg "Moonraker Timelapse is not installed!"
         else
           run "remove_moonraker_timelapse" "remove_menu_ui_3ke"
         fi;;
-      12)
+      13)
         if [ ! -f "$CAMERA_SETTINGS_FILE" ]; then
           error_msg "Nebula Camera Settings Control is not installed!"
         else
           run "remove_camera_settings_control" "remove_menu_ui_3ke"
         fi;;
-      13)
+      14)
         if [ ! -f "$USB_CAMERA_FILE" ]; then
           error_msg "USB Camera Support is not installed!"
         else
           run "remove_usb_camera" "remove_menu_ui_3ke"
         fi;;
-      14)
+      15)
         if [ ! -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is not installed!"
         else
           run "remove_octoeverywhere" "remove_menu_ui_3ke"
         fi;;
-      15)
+      16)
         if [ ! -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is not installed!"
         else
           run "remove_moonraker_obico" "remove_menu_ui_3ke"
         fi;;
-      16)
+      17)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_3ke"
         fi;;
-      17)
+      18)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_3ke"
         fi;;
-      18)
+      19)
         if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui_3ke"
         fi;;
-      19)
+      20)
         if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is not installed!"
         else

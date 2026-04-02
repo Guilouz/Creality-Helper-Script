@@ -7,11 +7,11 @@ function kamp_message(){
   title 'Klipper Adaptive Meshing & Purging' "${yellow}"
   inner_line
   hr
-  echo -e " │ ${cyan}KAMP is an extension that allows to generate a mesh and      ${white}│"
-  echo -e " │ ${cyan}purge line only in the area of the bed used by the objects   ${white}│"
-  echo -e " │ ${cyan}being printed. When used, the method will automatically      ${white}│"
-  echo -e " │ ${cyan}adjust the mesh parameters based on the area occupied by the ${white}│"
-  echo -e " │ ${cyan}defined print objects.                                       ${white}│"
+  echo -e " │ ${cyan}KAMP is an extension that allows to generate a mesh and        ${white}│"
+  echo -e " │ ${cyan}purge line only in the area of the bed used by the objects     ${white}│"
+  echo -e " │ ${cyan}being printed. When used, the method will automatically        ${white}│"
+  echo -e " │ ${cyan}adjust the mesh parameters based on the area occupied by the   ${white}│"
+  echo -e " │ ${cyan}defined print objects.                                         ${white}│"
   hr
   bottom_line
 }
@@ -42,6 +42,8 @@ function install_kamp(){
         ln -sf "$KAMP_URL"/Smart_Park.cfg "$KAMP_FOLDER"/Smart_Park.cfg
         if [ "$model" = "K1" ]; then
           ln -sf "$KAMP_URL"/Start_Print.cfg "$KAMP_FOLDER"/Start_Print.cfg
+        elif [ "$model" = "3KE" ]; then
+          ln -sf "$KAMP_URL"/Start_Print-3ke.cfg "$KAMP_FOLDER"/Start_Print.cfg
         else
           ln -sf "$KAMP_URL"/Start_Print-3v3.cfg "$KAMP_FOLDER"/Start_Print.cfg
         fi
