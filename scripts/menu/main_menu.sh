@@ -7,8 +7,29 @@ if [ ! -f /etc/init.d/S58factoryreset ]; then
   chmod 755 /etc/init.d/S58factoryreset
 fi
 
-get_model=$( /usr/bin/get_sn_mac.sh model 2>&1 )
-if echo "$get_model" | grep -iq "K1"; then 
+if command -v get_sn_mac.sh >/dev/null 2>&1; then
+    CMD_GET_MODEL="get_sn_mac.sh"
+elif [ -f "/usr/apps/usr/bin/get_sn_mac.sh" ]; then
+    CMD_GET_MODEL="/usr/apps/usr/bin/get_sn_mac.sh"
+elif [ -f "/usr/bin/get_sn_mac.sh" ]; then
+    CMD_GET_MODEL="/usr/bin/get_sn_mac.sh"
+else
+    CMD_GET_MODEL=""
+fi
+
+get_model=""
+
+if [ -n "$CMD_GET_MODEL" ]; then
+    get_model=$( "$CMD_GET_MODEL" model_str 2>/dev/null )
+
+    if [ -z "$get_model" ]; then
+        get_model=$( "$CMD_GET_MODEL" model 2>/dev/null )
+    fi
+fi
+
+if echo "$get_model" | grep -iq "K1C"; then 
+  model="K1"
+elif echo "$get_model" | grep -iq "K1"; then 
   model="K1"
 elif echo "$get_model" | grep -iq "F001"; then 
   model="3V3"
