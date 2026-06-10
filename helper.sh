@@ -69,9 +69,18 @@ function update_menu() {
   fi
 }
 
-if [ ! -L /usr/bin/helper ]; then
-  ln -sf "$HELPER_SCRIPT_FOLDER"/helper.sh /usr/bin/helper > /dev/null 2>&1
+HELPER_BIN_DIR="/usr/bin"
+
+if touch /usr/bin/.ro_test >/dev/null 2>&1; then
+  rm -f /usr/bin/.ro_test
+elif [ -d "/usr/apps/usr/bin" ]; then
+  HELPER_BIN_DIR="/usr/apps/usr/bin"
 fi
+
+if [ ! -L "${HELPER_BIN_DIR}/helper" ]; then
+  ln -sf "$HELPER_SCRIPT_FOLDER"/helper.sh "${HELPER_BIN_DIR}/helper" > /dev/null 2>&1
+fi
+
 rm -rf /root/.cache
 set_paths
 set_permissions
