@@ -29,6 +29,16 @@ function install_moonraker_timelapse(){
         fi
         echo -e "Info: Linking file..."
         ln -sf "$TIMELAPSE_URL1" "$TIMELAPSE_FILE"
+        # The linked component is an untracked source file inside Moonraker's git
+        # repo, so update_manager permanently reports the repo as dirty
+        # ("Repo has untracked source files: ['moonraker/components/timelapse.py']").
+        # Add it to the repo's local exclude list so update_manager stays happy.
+        MOONRAKER_REPO_DIR="${TIMELAPSE_FILE%/moonraker/components/timelapse.py}"
+        if [ -d "$MOONRAKER_REPO_DIR"/.git/info ]; then
+          echo -e "Info: Excluding linked component from Moonraker repo..."
+          grep -qxF "moonraker/components/timelapse.py" "$MOONRAKER_REPO_DIR"/.git/info/exclude 2>/dev/null \
+            || echo "moonraker/components/timelapse.py" >> "$MOONRAKER_REPO_DIR"/.git/info/exclude
+        fi
         ln -sf "$TIMELAPSE_URL2" "$HS_CONFIG_FOLDER"/timelapse.cfg
         if grep -q "include Helper-Script/timelapse" "$PRINTER_CFG" ; then
           echo -e "Info: Moonraker Timelapse configurations are already enabled in printer.cfg file..."
@@ -69,6 +79,11 @@ function remove_moonraker_timelapse(){
         rm -f "$HS_CONFIG_FOLDER"/timelapse.cfg
         rm -f /usr/data/moonraker/moonraker/moonraker/components/timelapse.py
         rm -f /usr/data/moonraker/moonraker/moonraker/components/timelapse.pyc
+        # Drop the local exclude entry added at install time (symmetry).
+        MOONRAKER_REPO_DIR="${TIMELAPSE_FILE%/moonraker/components/timelapse.py}"
+        if [ -f "$MOONRAKER_REPO_DIR"/.git/info/exclude ]; then
+          sed -i '/^moonraker\/components\/timelapse\.py$/d' "$MOONRAKER_REPO_DIR"/.git/info/exclude
+        fi
         if [ -f /opt/bin/ffmpeg ]; then
           set +e
           "$ENTWARE_FILE" --autoremove remove ffmpeg
