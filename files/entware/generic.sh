@@ -22,15 +22,24 @@ do
   mkdir -p /usr/data/opt/$folder
 done
 
-echo -e "Info: Downloading opkg package manager from Entware repo..."
-chmod 755 /usr/data/helper-script/files/fixes/curl
+echo -e "Info: Downloading opkg package manager..."
 primary_URL="https://bin.entware.net/mipselsf-k3.4/installer"
 secondary_URL="http://www.openk1.org/static/entware/mipselsf-k3.4/installer"
 
+# Improved download helper using system wget/curl dynamically
 download_files() {
   local url="$1"
   local output_file="$2"
-  /usr/data/helper-script/files/fixes/curl -L "$url" -o "$output_file"
+  if command -v wget >/dev/null 2>&1; then
+    wget -q "$url" -O "$output_file"
+  elif command -v curl >/dev/null 2>&1; then
+    curl -sL "$url" -o "$output_file"
+  elif [ -f /usr/data/helper-script/files/fixes/curl ]; then
+    chmod 755 /usr/data/helper-script/files/fixes/curl
+    /usr/data/helper-script/files/fixes/curl -sL "$url" -o "$output_file"
+  else
+    return 1
+  fi
   return $?
 }
 
@@ -57,7 +66,9 @@ echo -e "Info: Installing basic packages..."
 /opt/bin/opkg install entware-opt
 
 echo -e "Info: Installing SFTP server support..."
-/opt/bin/opkg install openssh-sftp-server; ln -s /opt/libexec/sftp-server /usr/libexec/sftp-server
+/opt/bin/opkg install openssh-sftp-server
+[ -d /usr/libexec ] || mkdir -p /usr/libexec
+ln -sf /opt/libexec/sftp-server /usr/libexec/sftp-server
 
 echo -e "Info: Configuring files..."
 for file in passwd group shells shadow gshadow; do
@@ -71,8 +82,47 @@ done
 [ -f /etc/localtime ] && ln -sf /etc/localtime /opt/etc/localtime
 
 echo -e "Info: Applying changes in system profile..."
+mkdir -p /etc/profile.d
 echo 'export PATH="/opt/bin:/opt/sbin:$PATH"' > /etc/profile.d/entware.sh
+export PATH="/opt/bin:/opt/sbin:$PATH"
 
-echo -e "Info: Adding startup script..."
-echo '#!/bin/sh\n/opt/etc/init.d/rc.unslung "$1"' > /etc/init.d/S50unslung
-chmod 755 /etc/init.d/S50unslung
+# ============================================================
+# FIXED: Safe Git integration & Permission Patching
+# ============================================================
+echo -e "Info: Installing and configuring Git..."
+/opt/bin/opkg install git-http git
+
+# Replace system git with Entware's updated git
+if [ -L /usr/bin/git ] || [ -f /usr/bin/git ]; then
+     [ ! -f /usr/bin/git.bak ] && mv /usr/bin/git /usr/bin/git.bak 2>/dev/null || rm -f /usr/bin/git
+fi
+ln -sf /opt/bin/git /usr/bin/git
+
+# Configure safe.directory for root and system users
+/opt/bin/git config --global --add safe.directory "*"
+for user in meson printer klipper; do
+    id "$user" >/dev/null 2>&1 && su - "$user" -c \
+'/opt/bin/git config --global --add safe.directory "*"' 2>/dev/null
+done
+
+# ============================================================
+# FIXED: Startup Service (Using rc.local instead of init.d)
+# ============================================================
+echo -e "Info: Adding startup execution to rc.local..."
+RC=/etc/rc.local
+[ ! -f "$RC" ] && echo "#!/bin/sh" > "$RC"
+
+# Clean up any duplicate commands & re-write rc.local cleanly
+sed -i '/rc.unslung start/d' "$RC"
+sed -i '/exit 0/d' "$RC"
+echo "/opt/etc/init.d/rc.unslung start" >> "$RC"
+echo "exit 0" >> "$RC"
+chmod +x "$RC"
+
+# Execute startup command immediately to activate services now
+/opt/etc/init.d/rc.unslung start 2>/dev/null
+
+# Clean up installer script remnants
+rm -rf /usr/data/helper-script
+
+echo -e "Info: Installation finished successfully!"
