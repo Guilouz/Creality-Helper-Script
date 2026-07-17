@@ -55,6 +55,7 @@ function info_menu_ui_k1() {
   info_line "$(check_file_k1 "$SCREWS_ADJUST_FILE")" 'Screws Tilt Adjust Support'
   info_line "$(check_file_k1 "$M600_SUPPORT_FILE")" 'M600 Support'
   info_line "$(check_file_k1 "$GIT_BACKUP_FILE")" 'Git Backup'
+  info_line "$(check_file_k1 "$HIGH_RES_BED_MESH_FILE")" 'High Resolution Bed Mesh'
   hr
   subtitle '•CAMERA:'
   info_line "$(check_file_k1 "$TIMELAPSE_FILE")" 'Moonraker Timelapse'

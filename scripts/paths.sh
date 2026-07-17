@@ -105,6 +105,12 @@ function set_paths() {
   USEFUL_MACROS_FILE="${HS_CONFIG_FOLDER}/useful-macros.cfg"
   USEFUL_MACROS_URL="${HS_FILES}/macros/useful-macros.cfg"
   USEFUL_MACROS_3V3_URL="${HS_FILES}/macros/useful-macros-3v3.cfg"
+
+  # High Resolution Bed Mesh #
+  HIGH_RES_BED_MESH_FILE="${HS_CONFIG_FOLDER}/high-resolution-bed-mesh.cfg"
+  HIGH_RES_BED_MESH_URL="${HS_FILES}/high-resolution-bed-mesh/high-resolution-bed-mesh.cfg"
+  PRTOUCH_EXTENDED_POINTS_FILE="${KLIPPER_EXTRAS_FOLDER}/prtouch_extended_points.py"
+  PRTOUCH_EXTENDED_POINTS_URL="${HS_FILES}/high-resolution-bed-mesh/prtouch_extended_points.py"
   
   # Save Z-Offset Macros #
   SAVE_ZOFFSET_FILE="${HS_CONFIG_FOLDER}/save-zoffset.cfg"

@@ -10,4 +10,8 @@ If you don't know what you're doing, I don't recommend following this guide.
 
 Guide to use it is available here: [Wiki](https://guilouz.github.io/Creality-Helper-Script-Wiki/)
 
+Additional feature notes:
+
+- [High Resolution Bed Mesh](docs/high-resolution-bed-mesh.md)
+
 <br />
