@@ -13,6 +13,13 @@ function high_resolution_bed_mesh_message(){
   bottom_line
 }
 
+function find_existing_prtouch_extension_config(){
+  find "$KLIPPER_CONFIG_FOLDER" -name '*.cfg' \
+    -exec grep -l '^\[prtouch_extended_points\]' {} \; 2>/dev/null \
+    | grep -Fvx "$HIGH_RES_BED_MESH_FILE" \
+    | head -n 1 || true
+}
+
 function install_high_resolution_bed_mesh(){
   high_resolution_bed_mesh_message
   local yn
@@ -21,6 +28,19 @@ function install_high_resolution_bed_mesh(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
+        local existing_cfg
+        existing_cfg="$(find_existing_prtouch_extension_config)"
+        if [ -n "$existing_cfg" ]; then
+          error_msg "Existing manual PRTouch extension config found: $existing_cfg"
+          echo -e " ${darkred}Back it up and remove its include before installing this feature.${white}"
+          return
+        fi
+        if [ -e "$PRTOUCH_EXTENDED_POINTS_FILE" ] && \
+           [ "$(readlink "$PRTOUCH_EXTENDED_POINTS_FILE")" != "$PRTOUCH_EXTENDED_POINTS_URL" ]; then
+          error_msg "Existing manual PRTouch extension module found!"
+          echo -e " ${darkred}Back it up and remove it before installing this feature.${white}"
+          return
+        fi
         if [ ! -d "$HS_CONFIG_FOLDER" ]; then
           mkdir -p "$HS_CONFIG_FOLDER"
         fi

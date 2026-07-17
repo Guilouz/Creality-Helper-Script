@@ -25,6 +25,12 @@ On a K1 Max with `pr_version: 2`:
 
    The reported minimum and maximum table sizes should both be at least 100.
 
+The installer refuses to overwrite a manually installed
+`prtouch_extended_points.py` module or a configuration that already contains
+`[prtouch_extended_points]`. Back up and remove the manual version first, then
+run the installer again. This prevents duplicate configuration sections from
+leaving Klipper unable to start.
+
 ## Usage
 
 Run a full bed calibration with a square grid by passing `POINTS`:

@@ -7,6 +7,7 @@ TEST_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TEST_ROOT"' EXIT
 
 HS_CONFIG_FOLDER="$TEST_ROOT/config/Helper-Script"
+KLIPPER_CONFIG_FOLDER="$TEST_ROOT/config"
 KLIPPER_EXTRAS_FOLDER="$TEST_ROOT/klipper/extras"
 PRINTER_CFG="$TEST_ROOT/config/printer.cfg"
 HIGH_RES_BED_MESH_FILE="$HS_CONFIG_FOLDER/high-resolution-bed-mesh.cfg"
@@ -16,6 +17,7 @@ PRTOUCH_EXTENDED_POINTS_URL="$ROOT/files/high-resolution-bed-mesh/prtouch_extend
 white=""
 yellow=""
 cyan=""
+darkred=""
 restart_count=0
 
 mkdir -p "$HS_CONFIG_FOLDER" "$KLIPPER_EXTRAS_FOLDER"
@@ -27,7 +29,7 @@ inner_line() { :; }
 hr() { :; }
 bottom_line() { :; }
 ok_msg() { :; }
-error_msg() { echo "$*" >&2; return 1; }
+error_msg() { echo "$*" >&2; }
 install_msg() { printf -v "$2" 'y'; }
 remove_msg() { printf -v "$2" 'y'; }
 restart_klipper() { restart_count=$((restart_count + 1)); }
@@ -49,6 +51,29 @@ sed() {
 }
 
 source "$ROOT/scripts/high_resolution_bed_mesh.sh"
+
+manual_cfg="$KLIPPER_CONFIG_FOLDER/manual-extension.cfg"
+printf '%s\n' '[prtouch_extended_points]' 'max_points: 81' > "$manual_cfg"
+cp "$PRTOUCH_EXTENDED_POINTS_URL" "$PRTOUCH_EXTENDED_POINTS_FILE"
+
+install_high_resolution_bed_mesh
+
+[[ -f "$PRTOUCH_EXTENDED_POINTS_FILE" ]]
+[[ ! -L "$PRTOUCH_EXTENDED_POINTS_FILE" ]]
+[[ ! -e "$HIGH_RES_BED_MESH_FILE" ]]
+! grep -q 'include Helper-Script/high-resolution-bed-mesh.cfg' "$PRINTER_CFG"
+[[ "$restart_count" == "0" ]]
+
+rm -f "$manual_cfg"
+
+install_high_resolution_bed_mesh
+
+[[ -f "$PRTOUCH_EXTENDED_POINTS_FILE" ]]
+[[ ! -L "$PRTOUCH_EXTENDED_POINTS_FILE" ]]
+[[ ! -e "$HIGH_RES_BED_MESH_FILE" ]]
+[[ "$restart_count" == "0" ]]
+
+rm -f "$PRTOUCH_EXTENDED_POINTS_FILE"
 
 install_high_resolution_bed_mesh
 install_high_resolution_bed_mesh
