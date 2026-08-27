@@ -144,6 +144,10 @@ function set_paths() {
   USB_CAMERA_SINGLE_URL="${HS_FILES}/services/S50usb_camera-single"
   USB_CAMERA_DUAL_URL="${HS_FILES}/services/S50usb_camera-dual"
   
+  # Internal Camera Support
+  INTERNAL_CAMERA_FILE="${INITD_FOLDER}/S59mjpg_streamer"
+  INTERNAL_CAMERA_URL="${HS_FILES}/services/S59mjpg_streamer"
+  
   # OctoEverywhere #
   OCTOEVERYWHERE_FOLDER="${USR_DATA}/octoeverywhere"
   OCTOEVERYWHERE_URL="https://github.com/QuinnDamerell/OctoPrint-OctoEverywhere.git"

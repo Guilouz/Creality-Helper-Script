@@ -32,14 +32,15 @@ function remove_menu_ui_k1() {
   menu_option '16' 'Remove' 'Moonraker Timelapse'
   menu_option '17' 'Remove' 'Camera Settings Control'
   menu_option '18' 'Remove' 'USB Camera Support'
+  menu_option '19' 'Remove' 'Internal Camera Support'
   hr
   subtitle '•REMOTE ACCESS:'
-  menu_option '19' 'Remove' 'OctoEverywhere'
-  menu_option '20' 'Remove' 'Moonraker Obico'
-  menu_option '21' 'Remove' 'GuppyFLO'
-  menu_option '22' 'Remove' 'Mobileraker Companion'
-  menu_option '23' 'Remove' 'OctoApp Companion'
-  menu_option '24' 'Remove' 'SimplyPrint'
+  menu_option '20' 'Remove' 'OctoEverywhere'
+  menu_option '21' 'Remove' 'Moonraker Obico'
+  menu_option '22' 'Remove' 'GuppyFLO'
+  menu_option '23' 'Remove' 'Mobileraker Companion'
+  menu_option '24' 'Remove' 'OctoApp Companion'
+  menu_option '25' 'Remove' 'SimplyPrint'
   hr
   inner_line
   hr
@@ -198,36 +199,42 @@ function remove_menu_k1() {
           run "remove_usb_camera" "remove_menu_ui_k1"
         fi;;
       19)
+        if [ ! -f "$INTERNAL_CAMERA_FILE" ]; then
+          error_msg "Internal Camera Support is not installed!"
+        else
+          run "remove_internal_camera" "remove_menu_ui_k1"
+        fi;;
+      20)
         if [ ! -d "$OCTOEVERYWHERE_FOLDER" ]; then
           error_msg "OctoEverywhere is not installed!"
         else
           run "remove_octoeverywhere" "remove_menu_ui_k1"
         fi;;
-      20)
+      21)
         if [ ! -d "$MOONRAKER_OBICO_FOLDER" ]; then
           error_msg "Moonraker Obico is not installed!"
         else
           run "remove_moonraker_obico" "remove_menu_ui_k1"
         fi;;
-      21)
+      22)
         if [ ! -d "$GUPPYFLO_FOLDER" ]; then
           error_msg "GuppyFLO is not installed!"
         else
           run "remove_guppyflo" "remove_menu_ui_k1"
         fi;;
-      22)
+      23)
         if [ ! -d "$MOBILERAKER_COMPANION_FOLDER" ]; then
           error_msg "Mobileraker Companion is not installed!"
         else
           run "remove_mobileraker_companion" "remove_menu_ui_k1"
         fi;;
-      23)
+      24)
         if [ ! -d "$OCTOAPP_COMPANION_FOLDER" ]; then
           error_msg "OctoApp Companion is not installed!"
         else
           run "remove_octoapp_companion" "remove_menu_ui_k1"
         fi;;
-      24)
+      25)
         if ! grep -q "\[simplyprint\]" "$MOONRAKER_CFG"; then
           error_msg "SimplyPrint is not installed!"
         else
