@@ -1,0 +1,42 @@
+#!/bin/sh
+# Internal Camera Service
+# Credit: laffsj & Guilouz
+
+BIN=/usr/bin/mjpg_streamer
+PLUGINS=/usr/lib/mjpg-streamer
+
+case "$1" in
+  start)
+    echo "Starting Internal Camera..."
+    if [ ! -f "$PLUGINS/input_memfd.so" ]; then
+      echo "Error: input_memfd.so not found, your firmware is too old for this service!"
+      exit 1
+    fi
+    # cam_app owns the camera and publishes frames over memfd. Wait for it in a
+    # backgrounded subshell so a slow camera init does not stall the boot.
+    (
+      COUNT=0
+      while ! pidof cam_app >/dev/null && [ "$COUNT" -lt 60 ]; do
+        sleep 1
+        COUNT=$((COUNT + 1))
+      done
+      sleep 5
+      pidof mjpg_streamer >/dev/null && exit 0
+      $BIN -b -i "$PLUGINS/input_memfd.so -t 0" -o "$PLUGINS/output_http.so -p 8080"
+    ) &
+    ;;
+  stop)
+    echo "Stopping Internal Camera..."
+    killall -q mjpg_streamer
+    ;;
+  restart|reload)
+    "$0" stop
+    sleep 1
+    "$0" start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/S59mjpg_streamer {start|stop|restart}"
+    exit 1
+esac
+
+exit $?
