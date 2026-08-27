@@ -6,7 +6,7 @@ case "$1" in
   start)
     echo "Starting USB Camera..."
     V4L_DEVS=$(v4l2-ctl --list-devices | grep -A1 usb | sed 's/^[[:space:]]*//g' | grep '^/dev')
-    CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -E 'CREALITY|CCX2F3298' | wc -l)
+    CREALITY_CAMS=$(v4l2-ctl --list-devices | grep -E 'CREALITY|CCX2F329[89]' | wc -l)
     if [ "x$V4L_DEVS" = "x" -o $CREALITY_CAMS -gt 0 ]; then
       echo "Error: No third party camera found or you use a Creality camera!"
       exit 1
