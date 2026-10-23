@@ -60,6 +60,7 @@ function info_menu_ui_k1() {
   info_line "$(check_file_k1 "$TIMELAPSE_FILE")" 'Moonraker Timelapse'
   info_line "$(check_file_k1 "$CAMERA_SETTINGS_FILE")" 'Camera Settings Control'
   info_line "$(check_file_k1 "$USB_CAMERA_FILE")" 'USB Camera Support'
+  info_line "$(check_file_k1 "$CAMERA_FIX_FILE")" 'Internal Camera Fix'
   hr
   subtitle '•REMOTE ACCESS:'
   info_line "$(check_folder_k1 "$OCTOEVERYWHERE_FOLDER")" 'OctoEverywhere'

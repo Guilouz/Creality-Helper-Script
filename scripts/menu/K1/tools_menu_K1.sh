@@ -14,18 +14,21 @@ function tools_menu_ui_k1() {
   menu_option ' 4' 'Enable' 'camera settings in Moonraker'
   menu_option ' 5' 'Disable' 'camera settings in Moonraker'
   hr
-  menu_option ' 6' 'Restart' 'Nginx service'
-  menu_option ' 7' 'Restart' 'Moonraker service'
-  menu_option ' 8' 'Restart' 'Klipper service'
+  menu_option ' 6' 'Fix' 'internal camera (Firmware 1.3.5.22+)'
+  menu_option ' 7' 'Remove fix' 'internal camera'
   hr
-  menu_option ' 9' 'Update' 'Entware packages'
+  menu_option ' 8' 'Restart' 'Nginx service'
+  menu_option ' 9' 'Restart' 'Moonraker service'
+  menu_option '10' 'Restart' 'Klipper service'
   hr
-  menu_option '10' 'Clear' 'cache'
-  menu_option '11' 'Clear' 'logs files'
+  menu_option '11' 'Update' 'Entware packages'
   hr
-  menu_option '12' 'Restore' 'a previous firmware'
+  menu_option '12' 'Clear' 'cache'
+  menu_option '13' 'Clear' 'logs files'
   hr
-  menu_option '13' 'Reset' 'factory settings'
+  menu_option '14' 'Restore' 'a previous firmware'
+  hr
+  menu_option '15' 'Reset' 'factory settings'
   hr
   inner_line
   hr
@@ -72,36 +75,48 @@ function tools_menu_k1() {
           run "disable_camera_settings" "tools_menu_ui_k1"
         fi;;
       6)
+        if [ -f "$CAMERA_FIX_FILE" ]; then
+          error_msg "Internal Camera Fix is already installed!"
+        else
+          run "install_camera_fix" "tools_menu_ui_k1"
+        fi;;
+      7)
+        if [ ! -f "$CAMERA_FIX_FILE" ]; then
+          error_msg "Internal Camera Fix is not installed!"
+        else
+          run "remove_camera_fix" "tools_menu_ui_k1"
+        fi;;
+      8)
         if [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Nginx is not installed!"
         else
           run "restart_nginx_action" "tools_menu_ui_k1"
         fi;;
-      7)
+      9)
         if [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker is not installed!"
         else
           run "restart_moonraker_action" "tools_menu_ui_k1"
         fi;;
-      8)
+      10)
         if [ ! -f "$INITD_FOLDER"/S55klipper_service ]; then
           error_msg "Klipper service is not present!"
         else
           run "restart_klipper_action" "tools_menu_ui_k1"
         fi;;
-      9)
+      11)
         if [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is not installed!"
         else
           run "update_entware_packages" "tools_menu_ui_k1"
         fi;;
-      10)
-        run "clear_cache" "tools_menu_ui_k1";;
-      11)
-        run "clear_logs" "tools_menu_ui_k1";;
       12)
-        run "restore_previous_firmware" "tools_menu_ui_k1";;
+        run "clear_cache" "tools_menu_ui_k1";;
       13)
+        run "clear_logs" "tools_menu_ui_k1";;
+      14)
+        run "restore_previous_firmware" "tools_menu_ui_k1";;
+      15)
         run "reset_factory_settings" "tools_menu_ui_k1";;
       B|b)
         clear; main_menu; break;;

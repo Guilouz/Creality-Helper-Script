@@ -21,6 +21,10 @@ function install_usb_camera(){
     case "${yn}" in
       Y|y)
         echo -e "${white}"
+        if [ -f "$CAMERA_FIX_FILE" ]; then
+          error_msg "Please remove Internal Camera Fix first!"
+          return
+        fi
         echo -e "Info: Copying file..."
         if [ "$model" = "K1" ]; then
           cp "$USB_CAMERA_DUAL_URL" "$INITD_FOLDER"/S50usb_camera

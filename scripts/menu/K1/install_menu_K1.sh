@@ -174,7 +174,7 @@ function install_menu_k1() {
       17)
         if [ -f "$CAMERA_SETTINGS_FILE" ]; then
           error_msg "Camera Settings Control is already installed!"
-        elif v4l2-ctl --list-devices | grep -q 'CCX2F3299' && [ ! -f "$INITD_FOLDER"/S50usb_camera ]; then
+        elif v4l2-ctl --list-devices | grep -q 'CCX2F3299' && [ ! -f "$INITD_FOLDER"/S50usb_camera ] && [ ! -f "$CAMERA_FIX_FILE" ]; then
           error_msg "This is not compatible with the new hardware version of the camera!"
         elif [ ! -f "$KLIPPER_SHELL_FILE" ]; then
           error_msg "Klipper Gcode Shell Command is needed, please install it first!"

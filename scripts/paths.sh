@@ -138,11 +138,16 @@ function set_paths() {
   CAMERA_SETTINGS_FILE="${HS_CONFIG_FOLDER}/camera-settings.cfg"
   CAMERA_SETTINGS_URL="${HS_FILES}/camera-settings/camera-settings.cfg"
   CAMERA_SETTINGS_NEBULA_URL="${HS_FILES}/camera-settings/camera-settings-nebula.cfg"
+  CAMERA_SETTINGS_MEMFD_URL="${HS_FILES}/camera-settings/camera-settings-memfd.cfg"
   
   # USB Camera Support
   USB_CAMERA_FILE="${INITD_FOLDER}/S50usb_camera"
   USB_CAMERA_SINGLE_URL="${HS_FILES}/services/S50usb_camera-single"
   USB_CAMERA_DUAL_URL="${HS_FILES}/services/S50usb_camera-dual"
+  
+  # Internal Camera Fix #
+  CAMERA_FIX_FILE="${INITD_FOLDER}/S59mjpg_streamer"
+  CAMERA_FIX_URL="${HS_FILES}/services/S59mjpg_streamer"
   
   # OctoEverywhere #
   OCTOEVERYWHERE_FOLDER="${USR_DATA}/octoeverywhere"
