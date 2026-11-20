@@ -1,3 +1,9 @@
+> **K1C-only fork** maintained by [xtronets](https://github.com/xtronets), continuing the original
+> [Creality Helper Script](https://github.com/Guilouz/Creality-Helper-Script) by Cyril Guislain (Guilouz),
+> which is no longer actively developed. Support for other printers (K1 Max, Ender-3 V3, KE, CR-10 SE,
+> Ender-5 Max) has been removed. Install with:
+> `git clone https://github.com/xtronets/Creality-Helper-Script.git /usr/data/helper-script`
+
 # Creality Helper Script
 
 ## About

@@ -24,7 +24,7 @@ function install_guppy_screen(){
         if [ -f "$USR_DATA"/guppyscreen.tar.gz ]; then
           rm -f "$USR_DATA"/guppyscreen.tar.gz
         fi
-        if [ "$model" = "K1" ] || [ "$model" = "3V3" ]; then
+        if [ "$model" = "K1" ]; then
           local theme_choice
           while true; do
             read -p " Do you want to install ${green}Nightly Build ${white}or ${green}Release Build ${white}? (${yellow}nightly${white}/${yellow}release${white}): ${yellow}" theme_choice
@@ -130,17 +130,7 @@ function install_guppy_screen(){
         mkdir -p "$KLIPPER_CONFIG_FOLDER"/GuppyScreen/scripts
         cp "$GUPPY_SCREEN_FOLDER"/scripts/*.cfg "$KLIPPER_CONFIG_FOLDER"/GuppyScreen
         cp "$GUPPY_SCREEN_FOLDER"/scripts/*.py "$KLIPPER_CONFIG_FOLDER"/GuppyScreen/scripts
-        if [ "$model" = "K1" ]; then
-          ln -sf "$GUPPY_SCREEN_URL1" "$KLIPPER_CONFIG_FOLDER"/GuppyScreen/guppy_update.cfg
-        else
-          ln -sf "$GUPPY_SCREEN_3V3_URL" "$KLIPPER_CONFIG_FOLDER"/GuppyScreen/guppy_update.cfg
-        fi
-        if [ "$model" = "3V3" ]; then
-          if [ -f "$GUPPY_SCREEN_FOLDER"/guppyconfig.json ];then
-            rm -f "$GUPPY_SCREEN_FOLDER"/guppyconfig.json
-          fi
-          cp "$GUPPY_SCREEN_CONFIG_3V3_URL" "$GUPPY_SCREEN_FOLDER"/guppyconfig.json
-        fi
+        ln -sf "$GUPPY_SCREEN_URL1" "$KLIPPER_CONFIG_FOLDER"/GuppyScreen/guppy_update.cfg
         chmod 775 "$GUPPY_SCREEN_URL2"
         if grep -q "include GuppyScreen" "$PRINTER_CFG" ; then
           echo -e "Info: Guppy Screen configurations are already enabled in printer.cfg file."

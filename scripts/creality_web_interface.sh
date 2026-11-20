@@ -33,11 +33,7 @@ function remove_creality_web_interface(){
         echo -e "${white}"
         if [ -d "$FLUIDD_FOLDER" ] && [ ! -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
-          if [ "$model" = "3V3" ]; then
-            sed -i '/listen 4408 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
-          else
-            sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
-          fi
+          sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
           echo -e "Info: Disabling files..."
           if [ -f /usr/bin/web-server ]; then
             mv /usr/bin/web-server /usr/bin/web-server.disabled
@@ -56,11 +52,7 @@ function remove_creality_web_interface(){
           echo -e " ${white}You can now connect to Fluidd Web Interface with ${yellow}http://$(check_ipaddress)${white}"
         elif [ ! -d "$FLUIDD_FOLDER" ] && [ -d "$MAINSAIL_FOLDER" ]; then
           echo -e "Info: Applying changes..."
-          if [ "$model" = "3V3" ]; then
-            sed -i '/listen 4409 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
-          else
-            sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
-          fi
+          sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
           echo -e "Info: Disabling files..."
           if [ -f /usr/bin/web-server ]; then
             mv /usr/bin/web-server /usr/bin/web-server.disabled
@@ -85,11 +77,7 @@ function remove_creality_web_interface(){
               FLUIDD|fluidd)
                 echo -e "${white}"
                 echo -e "Info: Applying changes..."
-                if [ "$model" = "3V3" ]; then
-                  sed -i '/listen 4408 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
-                else
-                  sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
-                fi
+                sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
                 echo -e "Info: Disabling files..."
                 if [ -f /usr/bin/web-server ]; then
                   mv /usr/bin/web-server /usr/bin/web-server.disabled
@@ -110,11 +98,7 @@ function remove_creality_web_interface(){
               MAINSAIL|mainsail)
                 echo -e "${white}"
                 echo -e "Info: Applying changes..."
-                if [ "$model" = "3V3" ]; then
-                  sed -i '/listen 4409 default_server;/a \        listen 80;' /etc/nginx/nginx.conf
-                else
-                  sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
-                fi
+                sed -i '/listen 4409 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
                 echo -e "Info: Disabling files..."
                 if [ -f /usr/bin/web-server ]; then
                   mv /usr/bin/web-server /usr/bin/web-server.disabled
@@ -156,11 +140,7 @@ function restore_creality_web_interface(){
       Y|y)
         echo -e "${white}"
         echo -e "Info: Restoring changes..."
-        if [ "$model" = "3V3" ]; then
-          sed -i '/listen 80;/d' /etc/nginx/nginx.conf
-        else
-          sed -i '/listen 80;/d' /usr/data/nginx/nginx/nginx.conf
-        fi
+        sed -i '/listen 80;/d' /usr/data/nginx/nginx/nginx.conf
         echo -e "Info: Restoring files..."
         if [ -f /usr/bin/web-server.disabled ] && [ -f "$INITD_FOLDER"/S99start_app ]; then
           mv /usr/bin/web-server.disabled /usr/bin/web-server

@@ -40,11 +40,7 @@ function install_kamp(){
         ln -sf "$KAMP_URL"/Line_Purge.cfg "$KAMP_FOLDER"/Line_Purge.cfg
         ln -sf "$KAMP_URL"/Prusa_Slicer.cfg "$KAMP_FOLDER"/Prusa_Slicer.cfg
         ln -sf "$KAMP_URL"/Smart_Park.cfg "$KAMP_FOLDER"/Smart_Park.cfg
-        if [ "$model" = "K1" ]; then
-          ln -sf "$KAMP_URL"/Start_Print.cfg "$KAMP_FOLDER"/Start_Print.cfg
-        else
-          ln -sf "$KAMP_URL"/Start_Print-3v3.cfg "$KAMP_FOLDER"/Start_Print.cfg
-        fi
+        ln -sf "$KAMP_URL"/Start_Print.cfg "$KAMP_FOLDER"/Start_Print.cfg
         cp "$KAMP_URL"/KAMP_Settings.cfg "$KAMP_FOLDER"/KAMP_Settings.cfg
         ln -sf "$VIRTUAL_PINS_URL" "$VIRTUAL_PINS_FILE"
         if grep -q "[virtual_pins]" "$PRINTER_CFG" ; then
