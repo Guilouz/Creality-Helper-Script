@@ -59,7 +59,6 @@ function set_paths() {
   KLIPPER_KLIPPY_FOLDER="/usr/share/klipper/klippy"
   KLIPPER_SERVICE_URL="${HS_FILES}/services/S55klipper_service"
   KLIPPER_GCODE_URL="${HS_FILES}/fixes/gcode.py"
-  KLIPPER_GCODE_3V3_URL="${HS_FILES}/fixes/gcode_3v3.py"
   
   # Fluidd #
   FLUIDD_FOLDER="${USR_DATA}/fluidd"
@@ -104,7 +103,6 @@ function set_paths() {
   # Useful Macros #
   USEFUL_MACROS_FILE="${HS_CONFIG_FOLDER}/useful-macros.cfg"
   USEFUL_MACROS_URL="${HS_FILES}/macros/useful-macros.cfg"
-  USEFUL_MACROS_3V3_URL="${HS_FILES}/macros/useful-macros-3v3.cfg"
   
   # Save Z-Offset Macros #
   SAVE_ZOFFSET_FILE="${HS_CONFIG_FOLDER}/save-zoffset.cfg"
@@ -114,15 +112,10 @@ function set_paths() {
   SCREWS_ADJUST_FILE="${HS_CONFIG_FOLDER}/screws-tilt-adjust.cfg"
   SCREWS_ADJUST_URL="${HS_FILES}/screws-tilt-adjust/screws_tilt_adjust.py"
   SCREWS_ADJUST_K1_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1.cfg"
-  SCREWS_ADJUST_K1M_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-k1max.cfg"
-  SCREWS_ADJUST_3KE_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-3ke.cfg"
-  SCREWS_ADJUST_E5M_URL="${HS_FILES}/screws-tilt-adjust/screws-tilt-adjust-e5m.cfg"
   
   # M600 Support #
   M600_SUPPORT_FILE="${HS_CONFIG_FOLDER}/M600-support.cfg"
   M600_SUPPORT_URL="${HS_FILES}/macros/M600-support.cfg"
-  M600_SUPPORT_3V3_URL="${HS_FILES}/macros/M600-support-3v3.cfg"
-  M600_SUPPORT_3KE_URL="${HS_FILES}/macros/M600-support-ke.cfg"
   
   # Git Backup #
   GIT_BACKUP_INSTALLER="${HS_FILES}/git-backup/git-backup.sh"
@@ -168,7 +161,6 @@ function set_paths() {
   BOOT_DISPLAY_FOLDER="/etc/boot-display"
   BOOT_DISPLAY_FILE="${BOOT_DISPLAY_FOLDER}/part0/pic_100.jpg"
   BOOT_DISPLAY_K1_URL="${HS_FILES}/boot-display/k1_boot_display.tar.gz"
-  BOOT_DISPLAY_K1M_URL="${HS_FILES}/boot-display/k1max_boot_display.tar.gz"
   BOOT_DISPLAY_STOCK_URL="${HS_FILES}/boot-display/stock_boot_display.tar.gz"
   
   # Creality Web Interface #
@@ -178,8 +170,6 @@ function set_paths() {
   GUPPY_SCREEN_FOLDER="${USR_DATA}/guppyscreen"
   GUPPY_SCREEN_URL1="${HS_FILES}/guppy-screen/guppy_update.cfg"
   GUPPY_SCREEN_URL2="${HS_FILES}/guppy-screen/guppy-update.sh"
-  GUPPY_SCREEN_3V3_URL="${HS_FILES}/guppy-screen/guppy_update-3v3.cfg"
-  GUPPY_SCREEN_CONFIG_3V3_URL="${HS_FILES}/guppy-screen/guppyconfig-3v3.json"
   
   # Creality Dynamic Logos for Fluidd #
   FLUIDD_LOGO_FILE="${USR_DATA}/fluidd/logo_creality_v2.svg"
