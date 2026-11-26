@@ -2,7 +2,7 @@
 # Publish the OctoPrint-compatible Moonraker API alongside Creality's mDNS service.
 daemon=/usr/bin/mdns
 service=_octoprint._tcp.local
-pidfile=/var/run/orca-discovery.pid
+pidfile=/var/run/slicer-discovery.pid
 
 running() {
   [ -r "$pidfile" ] && read -r pid < "$pidfile" || return 1
