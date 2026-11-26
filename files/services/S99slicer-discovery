@@ -34,25 +34,6 @@ stop() {
   rm -f "$pidfile"
 }
 
-configure_moonraker() {
-  files=$(dirname "$(dirname "$(readlink -f "$0")")")
-  config=${3:-/usr/data/printer_data/config/moonraker.conf}
-  moonraker=${4:-/usr/data/moonraker}
-  result=$(PYTHONPATH="$moonraker/moonraker" "$moonraker/moonraker-env/bin/python" \
-    "$files/moonraker/slicer-discovery.py" "$1" "$config") || return 1
-  [ "$result" = restart ] && [ "${5:-}" != --uninstall ] || return 0
-
-  # A busy printer or an unavailable API can pick up the config at the next restart.
-  url='http://127.0.0.1:4408/printer/objects/query?webhooks=state&print_stats=state&virtual_sdcard=is_active&pause_resume=is_paused'
-  if "$files/fixes/curl" -fsS --noproxy '*' --max-time 5 "$url" | jq -e '
-      .result.status | .webhooks.state == "ready" and
-      (.print_stats.state == "standby" or .print_stats.state == "complete" or .print_stats.state == "cancelled") and
-      .virtual_sdcard.is_active == false and .pause_resume.is_paused == false' >/dev/null; then
-    /etc/init.d/S56moonraker_service restart 9>&- && return 0
-  fi
-  echo "Moonraker configuration saved. Restart Moonraker with Tools option 7 when the printer is idle."
-}
-
 exec 9>"$pidfile.lock" || exit 1
 flock -x 9 || exit 1
 
@@ -60,33 +41,8 @@ case "$1" in
   start) start ;;
   stop) stop ;;
   status) running ;;
-  enable)
-    link=${2:?Missing startup link}
-    if [ "$(readlink "$link")" = "$0" ]; then
-      start && configure_moonraker "$@"
-    else
-      if [ -e "$link" ] || [ -L "$link" ]; then
-        echo "Another startup entry exists at $link." >&2
-        exit 1
-      fi
-      ln -s "$0" "$link" || exit 1
-      if ! start || ! configure_moonraker "$@"; then
-        stop || exit 1
-        rm "$link"
-        exit 1
-      fi
-    fi
-    ;;
-  disable)
-    link=${2:?Missing startup link}
-    if [ "$(readlink "$link")" != "$0" ]; then
-      echo "Slicer discovery is not enabled by this helper." >&2
-      exit 1
-    fi
-    configure_moonraker "$@" && stop && rm "$link"
-    ;;
   *)
-    echo "Usage: $0 {start|stop|status} or $0 {enable|disable} <startup-link>" >&2
+    echo "Usage: $0 {start|stop|status}" >&2
     exit 1
     ;;
 esac
