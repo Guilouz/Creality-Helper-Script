@@ -11,27 +11,62 @@ running() {
   tr '\000' '\n' < "/proc/$pid/cmdline" | grep -Fxq "$service"
 }
 
+start() {
+  running && return 0
+  [ -x "$daemon" ] || return 1
+  rm -f "$pidfile" || return 1
+  # Only this shell should hold the lock. The responder lives past its exit.
+  start-stop-daemon -S -b -m -p "$pidfile" -x "$daemon" -- \
+    --service "$service" --port 4408 --hostname "$(hostname)" 9>&- || return 1
+  sleep 1
+  running
+}
+
+stop() {
+  if running; then
+    start-stop-daemon -K -p "$pidfile" -x "$daemon" || return 1
+    for attempt in 1 2 3 4 5; do
+      running || break
+      sleep 1
+    done
+    running && return 1
+  fi
+  rm -f "$pidfile"
+}
+
+exec 9>"$pidfile.lock" || exit 1
+flock -x 9 || exit 1
+
 case "$1" in
-  start)
-    running && exit 0
-    [ -x "$daemon" ] || exit 1
-    rm -f "$pidfile" || exit 1
-    start-stop-daemon -S -b -m -p "$pidfile" -x "$daemon" -- \
-      --service "$service" --port 4408 --hostname "$(hostname)" || exit 1
-    sleep 1
-    running
-    ;;
-  stop)
-    if running; then
-      start-stop-daemon -K -p "$pidfile" -x "$daemon" || exit 1
+  start) start ;;
+  stop) stop ;;
+  status) running ;;
+  enable)
+    link=${2:?Missing startup link}
+    if [ "$(readlink "$link")" = "$0" ]; then
+      start
+    else
+      if [ -e "$link" ] || [ -L "$link" ]; then
+        echo "Another startup entry exists at $link." >&2
+        exit 1
+      fi
+      ln -s "$0" "$link" || exit 1
+      if ! start; then
+        rm "$link"
+        exit 1
+      fi
     fi
-    rm -f "$pidfile"
     ;;
-  status)
-    running
+  disable)
+    link=${2:?Missing startup link}
+    if [ "$(readlink "$link")" != "$0" ]; then
+      echo "Slicer discovery is not enabled by this helper." >&2
+      exit 1
+    fi
+    stop && rm "$link"
     ;;
   *)
-    echo "Usage: $0 {start|stop|status}" >&2
+    echo "Usage: $0 {start|stop|status} or $0 {enable|disable} <startup-link>" >&2
     exit 1
     ;;
 esac
