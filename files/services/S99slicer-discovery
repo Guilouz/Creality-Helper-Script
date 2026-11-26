@@ -1,0 +1,48 @@
+#!/bin/sh
+# Publish the OctoPrint-compatible Moonraker API alongside Creality's mDNS service.
+daemon=/usr/bin/mdns
+service=_octoprint._tcp.local
+pidfile=/var/run/slicer-discovery.pid
+
+running() {
+  [ -r "$pidfile" ] && read -r pid < "$pidfile" || return 1
+  case "$pid" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$(readlink "/proc/$pid/exe")" = "$daemon" ] || return 1
+  tr '\000' '\n' < "/proc/$pid/cmdline" | grep -Fxq "$service"
+}
+
+start() {
+  running && return 0
+  [ -x "$daemon" ] || return 1
+  rm -f "$pidfile" || return 1
+  # Only this shell should hold the lock. The responder lives past its exit.
+  start-stop-daemon -S -b -m -p "$pidfile" -x "$daemon" -- \
+    --service "$service" --port 4408 --hostname "$(hostname)" 9>&- || return 1
+  sleep 1
+  running
+}
+
+stop() {
+  if running; then
+    start-stop-daemon -K -p "$pidfile" -x "$daemon" || return 1
+    for attempt in 1 2 3 4 5; do
+      running || break
+      sleep 1
+    done
+    running && return 1
+  fi
+  rm -f "$pidfile"
+}
+
+exec 9>"$pidfile.lock" || exit 1
+flock -x 9 || exit 1
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  status) running ;;
+  *)
+    echo "Usage: $0 {start|stop|status}" >&2
+    exit 1
+    ;;
+esac
