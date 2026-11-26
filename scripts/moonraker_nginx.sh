@@ -85,7 +85,7 @@ function install_moonraker_nginx(){
   done
 }
 
-function remove_moonraker_nginx(){
+remove_moonraker_nginx() (
   moonraker_nginx_message
   local yn
   while true; do
@@ -94,6 +94,10 @@ function remove_moonraker_nginx(){
       Y|y)
         echo -e "${white}"
         echo -e "Info: Stopping Moonraker and Nginx services..."
+        if [ "$model" = K1 ]; then
+          exec 8>"$SLICER_DISCOVERY_LOCK" || return 1
+          flock -x 8 && stop_slicer_discovery || return 1
+        fi
         stop_moonraker
         stop_nginx
         echo -e "Info: Removing files..."
@@ -118,7 +122,7 @@ function remove_moonraker_nginx(){
         error_msg "Please select a correct choice!";;
     esac
   done
-}
+)
 
 function install_moonraker_3v3(){
   moonraker_3v3_message

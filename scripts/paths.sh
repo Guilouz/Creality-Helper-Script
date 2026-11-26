@@ -42,6 +42,9 @@ function set_paths() {
   NGINX_URL="${HS_FILES}/moonraker/nginx.tar.gz"
   NGINX_SERVICE_URL="${HS_FILES}/services/S50nginx"
   NGINX_CONF_URL="${HS_FILES}/moonraker/nginx.conf"
+  SLICER_DISCOVERY_SERVICE="${HS_FILES}/services/S99slicer-discovery"
+  SLICER_DISCOVERY_INIT="${INITD_FOLDER}/S99slicer-discovery"
+  SLICER_DISCOVERY_LOCK="/var/run/slicer-discovery-menu.lock"
   
   # Supervisor Lite #
   SUPERVISOR_FILE="/usr/bin/supervisorctl"
