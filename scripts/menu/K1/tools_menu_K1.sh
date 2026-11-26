@@ -27,8 +27,8 @@ function tools_menu_ui_k1() {
   hr
   menu_option '13' 'Reset' 'factory settings'
   hr
-  menu_option '14' 'Enable' 'slicer discovery on port 4408'
-  menu_option '15' 'Disable' 'slicer discovery on port 4408'
+  menu_option '14' 'Enable' 'slicer discovery (Octo/Klipper and Moonraker)'
+  menu_option '15' 'Disable' 'slicer discovery (Octo/Klipper and Moonraker)'
   hr
   inner_line
   hr

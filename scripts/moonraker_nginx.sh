@@ -95,7 +95,7 @@ function remove_moonraker_nginx(){
         echo -e "${white}"
         echo -e "Info: Stopping Moonraker and Nginx services..."
         if [ "$(readlink "$SLICER_DISCOVERY_INIT")" = "$SLICER_DISCOVERY_SERVICE" ]; then
-          disable_slicer_discovery
+          disable_slicer_discovery --uninstall
           [ ! -L "$SLICER_DISCOVERY_INIT" ] || return 0
         fi
         stop_moonraker
